@@ -7,7 +7,6 @@
     >
 <!--
 *   util-super-global    : global, index
-*   util-byte-size       : bytes
 -   util-hash-data       : method, data, raw_output
 
     current-node-path       : .
@@ -19,7 +18,8 @@
 -->
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" />
 
-<!-- util-super-global
+<!-- MARK util-super-global -->
+<!--
 	PHP SuperGlobals:  _REQUEST ; _SERVER ; _FILES ; _COOKIE ; _SESSION
 
 sample:
@@ -44,23 +44,8 @@ sample:
 	</xsl:template>
 
 
-<!-- util-byte-size
-    <xsl:call-template name="util-byte-size">
-        <xsl:with-param name="bytes" select="1024" />
-    </xsl:call-template>
--->
-    <xsl:template name="util-byte-size">
-        <xsl:param name="bytes" select="'0'" />
-
-        <xsl:variable name="SUBPARAMS">
-            <xsl:text>$params = array(</xsl:text>
-                <xsl:text>"bytes" =&gt; "</xsl:text><xsl:value-of select="$bytes" /><xsl:text>"</xsl:text>
-            <xsl:text>);</xsl:text>
-        </xsl:variable>
-        <xsl:copy-of select="php:function('XSLT_Callback','getByteSize',string($SUBPARAMS))/RESULT" />
-    </xsl:template>
-
-<!-- util-hash-data
+<!-- MARK util-hash-data -->
+<!--
     <xsl:call-template name="util-hash-data">
         <xsl:with-param name="data">string to encode</xsl:with-param>
     </xsl:call-template>
@@ -73,7 +58,8 @@ sample:
     </xsl:template>
 
 
-<!-- current-node-path
+<!-- MARK current-node-path -->
+<!--
     <xsl:call-template name="current-node-path" />
 -->
     <xsl:template name="current-node-path">
@@ -88,7 +74,8 @@ sample:
 
     </xsl:template>
 
-<!-- current-node-input-path
+<!-- MARK current-node-input-path -->
+<!--
     <xsl:call-template name="getNodeFormName" />
 -->
     <xsl:template name="current-node-input-path">
@@ -102,9 +89,10 @@ sample:
     </xsl:template>
 
 
-<!-- util-nodeset-to-php
+<!-- MARK util-nodeset-to-php -->
+<!--
     transform nodes to string for php : eval("\$result = array(".$subresult.");");
-    see XML::transcode_xml()
+    see XSLT_Processor_XML::transcode_xml()
 -->
     <xsl:template name="util-nodeset-to-php">
         <xsl:param name="nodes" select="." />
@@ -169,7 +157,8 @@ sample:
     </xsl:template>
 
 
-<!-- util-print-node-names
+<!-- MARK util-print-node-names -->
+<!--
     <xsl:call-template name="util-print-node-names" />
     or
     <xsl:call-template name="util-print-node-names"><xsl:with-param name="nodes" select="$VARIABLE" /></xsl:call-template>
@@ -206,7 +195,8 @@ sample:
         </xsl:for-each>
     </xsl:template>
 
-<!-- util-print-nodes
+<!-- MARK util-print-nodes -->
+<!--
     <xsl:call-template name="util-print-nodes" />
     or
     <xsl:call-template name="util-print-nodes"><xsl:with-param name="nodes" select="$VARIABLE" /></xsl:call-template>
@@ -220,7 +210,7 @@ sample:
 </xsl:text><xsl:value-of select="$lead" />
         </xsl:variable>
 
-        <xsl:for-each select="exslt:node-set($nodes)/*">
+        <xsl:for-each select="exslt:node-set($nodes)/*|text()[string-length(normalize-space(.)) &gt; 0]">
 
             <xsl:if test="$lead = '' and position() = 1 and string-length(name(..))">
                 <xsl:text>&lt;</xsl:text>
@@ -264,24 +254,28 @@ sample:
 
                 </xsl:when>
                 <xsl:when test="string-length(normalize-space(.)) &gt; 0">
-                    <xsl:text>&lt;</xsl:text>
-                    <xsl:value-of select="name()" />
-
-                    <xsl:for-each select="@*">
-                        <xsl:text> </xsl:text>
+                    <xsl:if test="string-length(name()) &gt; 0">
+                        <xsl:text>&lt;</xsl:text>
                         <xsl:value-of select="name()" />
-                        <xsl:text>=&quot;</xsl:text>
-                        <xsl:value-of select="." />
-                        <xsl:text>&quot;</xsl:text>
-                    </xsl:for-each>
 
-                    <xsl:text>&gt;</xsl:text>
+                        <xsl:for-each select="@*">
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="name()" />
+                            <xsl:text>=&quot;</xsl:text>
+                            <xsl:value-of select="." />
+                            <xsl:text>&quot;</xsl:text>
+                        </xsl:for-each>
+
+                        <xsl:text>&gt;</xsl:text>
+                    </xsl:if>
 
                     <xsl:value-of select="normalize-space(.)" />
 
-                    <xsl:text>&lt;/</xsl:text>
-                    <xsl:value-of select="name()" />
-                    <xsl:text>&gt;</xsl:text>
+                    <xsl:if test="string-length(name()) &gt; 0">
+                        <xsl:text>&lt;/</xsl:text>
+                        <xsl:value-of select="name()" />
+                        <xsl:text>&gt;</xsl:text>
+                    </xsl:if>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>&lt;</xsl:text>

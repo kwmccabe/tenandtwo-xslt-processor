@@ -56,7 +56,7 @@
 </xsl:stylesheet>
 <!-- end wp-sanitize-title.xsl -->
 <!--
-[xsl_transform xsl_file="qa/wp-sanitize-title.xsl"]
+[xsl_transform xsl="qa/wp-sanitize-title.xsl"]
 <TESTS>
   <TEST>
     <title>Turning Titles! into Slugs?</title>

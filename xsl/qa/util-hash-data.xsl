@@ -39,9 +39,9 @@
             <p>
                 <b>TEST <xsl:value-of select="position()" /> : <xsl:value-of select="$pass" /></b>
                 <br />util-hash-data :
-                <br /> - method = <xsl:copy-of select="$method" />
-                <br /> - data = <xsl:copy-of select="$data" />
-                <br /> - raw_output = <xsl:copy-of select="$raw_output" />
+                <xsl:if test="string-length($method)"><br /> - method = <xsl:copy-of select="$method" /></xsl:if>
+                <xsl:if test="string-length($data)"><br /> - data = <xsl:copy-of select="$data" /></xsl:if>
+                <xsl:if test="string-length($raw_output)"><br /> - raw_output = <xsl:copy-of select="$raw_output" /></xsl:if>
             </p>
 
             <p>result : <br />
@@ -63,13 +63,13 @@
 </xsl:stylesheet>
 <!-- end util-hash-data.xsl -->
 <!--
-[xsl_transform xsl_file="qa/util-hash-data.xsl"]
+[xsl_transform xsl="qa/util-hash-data.xsl"]
 <TESTS>
   <TEST>
     <method>md5</method>
-    <data>http://www.tenandtwo.io/</data>
+    <data>http://xsltproc.tenandtwo.com/</data>
     <raw_output>0</raw_output>
-    <expected>d411b27f501f556049ef1d78a15755c4</expected>
+    <expected>7b547cdaba126f1e182d1375c6ac4e70</expected>
   </TEST>
   <TEST>
     <method>sha512</method>

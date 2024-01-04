@@ -5,19 +5,18 @@
 
     <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes" />
     <xsl:include href="../string.xsl" />
-    <xsl:include href="../util.xsl" />
 
     <xsl:template match="/">
 
         <xsl:for-each select="//TEST">
             <!-- values from xml -->
-            <xsl:variable name="bytes"><xsl:value-of select="bytes" /></xsl:variable>
-            <xsl:variable name="expected"><xsl:value-of select="expected" /></xsl:variable>
+            <xsl:variable name="value"><xsl:copy-of select="value" /></xsl:variable>
+            <xsl:variable name="expected"><xsl:copy-of select="expected" /></xsl:variable>
 
             <!-- run test -->
             <xsl:variable name="result">
-                <xsl:call-template name="util-byte-size">
-                    <xsl:with-param name="bytes" select="$bytes" />
+                <xsl:call-template name="string-title-case">
+                    <xsl:with-param name="value" select="$value" />
                 </xsl:call-template>
             </xsl:variable>
 
@@ -34,19 +33,17 @@
             <hr size="1" />
             <p>
                 <b>TEST <xsl:value-of select="position()" /> : <xsl:value-of select="$pass" /></b>
-                <br />util-byte-size :
-                <br /> - bytes = <xsl:copy-of select="$bytes" />
+                <br />string-title-case :
+                <br /> - value = <xsl:copy-of select="$value" />
             </p>
 
             <p>result : <br />
                 <xsl:copy-of select="$result" />
-                <!-- xsl:call-template name="util-print-nodes"><xsl:with-param name="nodes" select="$result" /></xsl:call-template -->
             </p>
 
             <xsl:if test="$pass = 'FAIL'">
                 <p>expected : <br />
                     <xsl:copy-of select="$expected" />
-                    <!-- xsl:call-template name="util-print-nodes"><xsl:with-param name="nodes" select="$expected" /></xsl:call-template -->
                 </p>
             </xsl:if>
         </xsl:for-each>
@@ -56,21 +53,13 @@
     </xsl:template>
 
 </xsl:stylesheet>
-<!-- end util-byte-size.xsl -->
+<!-- end string-title-case.xsl -->
 <!--
-[xsl_transform xsl_file="qa/util-byte-size.xsl"]
+[xsl_transform xsl="qa/string-title-case.xsl"]
 <TESTS>
   <TEST>
-    <bytes>1024</bytes>
-    <expected>1 KB</expected>
-  </TEST>
-  <TEST>
-    <bytes>1234567890</bytes>
-    <expected>1.15 GB</expected>
-  </TEST>
-  <TEST>
-    <bytes>12345678901234567890</bytes>
-    <expected>8 Exabytes</expected>
+    <value>every good boy does fine</value>
+    <expected>Every Good Boy Does Fine</expected>
   </TEST>
 </TESTS>
 [/xsl_transform]

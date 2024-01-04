@@ -49,7 +49,6 @@ class XSLT_Processor_XSL
      * @uses XSLT_Processor_XSL::getXMLError()
      * @uses XSLT_Processor_XSL::releaseProcessor()
      * @uses XSLT_Processor_Util::getMicrotime()
-     * @uses XSLT_Processor_Util::getByteSize()
      * @uses XSLT_Processor_Util::removeXmlDeclaration
      *
      * @param array $params
@@ -98,7 +97,7 @@ class XSLT_Processor_XSL
         if (!empty($errors))
         {
             $err = "ERROR : DomDocument->load(xml): ";
-            foreach ($errors as $error)
+            foreach( $errors as $error )
                 { $err .= $this->getXMLError($error, $xml_type, $xml_value); }
             libxml_clear_errors();
             trigger_error(__METHOD__." : ".print_r(compact('err','xml_value'),true), E_USER_NOTICE);
@@ -113,7 +112,7 @@ class XSLT_Processor_XSL
         if (!empty($errors))
         {
             $err = "ERROR : DomDocument->load(xsl): ";
-            foreach ($errors as $error)
+            foreach( $errors as $error )
                 { $err .= $this->getXMLError($error, $xsl_type, $xsl_value); }
             libxml_clear_errors();
             trigger_error(__METHOD__." : ".print_r(compact('err','xsl_value'),true), E_USER_NOTICE);
@@ -131,7 +130,7 @@ class XSLT_Processor_XSL
         if (!$imported || !empty($errors))
         {
             $err = "ERROR : XSLTProcessor->importStyleSheet(xsl): ";
-            foreach ($errors as $error)
+            foreach( $errors as $error )
                 { $err .= $this->getXMLError($error); }
             libxml_clear_errors();
             $this->releaseProcessor( $idx );
@@ -143,11 +142,13 @@ class XSLT_Processor_XSL
         $exclude_params = array(
             "xsl_type", "xsl_value", "xml_type", "xml_value", "out_file"
             );
-        foreach ($params as $key => $val)
+        $release_params = array();
+        foreach( $params as $key => $val )
         {
             if (in_array($key,$exclude_params)) { continue; }
             if (is_array($val)) { continue; }
             $xsltproc->setParameter("", $key, $val);
+            $release_params[$key] = $val;
 //if (WP_DEBUG) { trigger_error(__METHOD__." : stylesheet param '$key' = '$val'", E_USER_NOTICE); }
         }
 
@@ -171,28 +172,28 @@ class XSLT_Processor_XSL
         if (!empty($errors))
         {
             $err = "ERROR : XSLTProcessor->transform(xml): ";
-            foreach ($errors as $error)
+            foreach( $errors as $error )
                 { $err .= $this->getXMLError($error); }
             libxml_clear_errors();
-            $this->releaseProcessor( $idx );
+            $this->releaseProcessor( $idx, $release_params );
 
             $err .= "<br/>xml_value:<pre>\n".htmlentities($xml_value)."</pre>";
             $err .= "<br/>xsl_value:<pre>\n".htmlentities($xsl_value)."</pre>";
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);
             return $err;
         }
-        $this->releaseProcessor( $idx );
+        $this->releaseProcessor( $idx, $release_params );
 
         if (WP_DEBUG)
         {
             $msg = __METHOD__." : ";
             $msg .= "\n- XML ("
                 . $xml_type
-                . ', ' . XSLT_Processor_Util::getByteSize( ($xml_type == "file") ? filesize($xml_value) : strlen($xml_value) )
+                . ', ' . size_format( ($xml_type == "file") ? filesize($xml_value) : strlen($xml_value) )
                 . ") " . ( ($xml_type == "file") ? "'$xml_value'" : '' );
             $msg .= "\n- XSL ("
                 . $xsl_type
-                . ', ' . XSLT_Processor_Util::getByteSize( ($xsl_type == "file") ? filesize($xsl_value) : strlen($xsl_value) )
+                . ', ' . size_format( ($xsl_type == "file") ? filesize($xsl_value) : strlen($xsl_value) )
                 . ") " . ( ($xsl_type == "file") ? "'$xsl_value'" : '' );
             if (!empty($out_file))
             {
@@ -212,16 +213,20 @@ class XSLT_Processor_XSL
      * @uses XSLT_Processor_XSL::getProcessor()
      * @uses XSLT_Processor_XSL::getXMLError()
      * @uses XSLT_Processor_XSL::releaseProcessor()
-     * @uses XSLT_Processor_Util::getByteSize()
      *
      * @param array $params
      * - params['xsl_type']  : (string) "file" | "string"
      * - params['xsl_value'] : (string) filepath | xsl
      *
-     * @return string          validation result
+     * @return array          validation warnings (int) errors (int) and message (str)
      */
     public function validateXSL( $params )
     {
+        $result = array(
+            'warnings' => 0,    // always 0
+            'errors'   => 0,
+            'message'  => '',
+            );
         $types = array('string','file');
         $xsl_type  = (in_array($params['xsl_type'], $types)) ? $params['xsl_type']  : "string";
         $xsl_value = (!empty($params['xsl_value'])) ? $params['xsl_value'] : null;
@@ -231,14 +236,11 @@ class XSLT_Processor_XSL
         {
             $err = 'ERROR : XSL file ('.$xsl_value.') not found';
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);
-            return $err;
+            return array('errors' => 1, 'message' => $err);
         }
 
-        $rv  = 'XSL Syntax OK';
-        $rv .= '<br/>';
-        $rv .= ($xsl_type == "file")
-            ? XSLT_Processor_Util::getByteSize( filesize($xsl_value) )
-            : XSLT_Processor_Util::getByteSize( strlen($xsl_value) );
+        $rv  = "XSL Syntax OK <br/>\n";
+        $rv .= size_format( ($xsl_type == "file") ? filesize($xsl_value) : strlen($xsl_value) );
 
         // handle errors via getXMLError()
         libxml_use_internal_errors(true);
@@ -250,11 +252,12 @@ class XSLT_Processor_XSL
         if (!empty($errors))
         {
             $err = "ERROR : DomDocument->load(xsl): ";
-            foreach ($errors as $error)
+            foreach( $errors as $error )
                 { $err .= $this->getXMLError($error, $xsl_type, $xsl_value); }
+            $result = array_merge($result, array('errors' => count($errors), 'message' => $err));
             libxml_clear_errors();
             trigger_error(__METHOD__." : ".print_r(compact('err','xsl_value'),true), E_USER_NOTICE);
-            return $err;
+            return $result;
         }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : xsl loaded =\n".print_r($xsl->saveXML(),true), E_USER_NOTICE); }
 
@@ -268,16 +271,18 @@ class XSLT_Processor_XSL
         if (!$imported || !empty($errors))
         {
             $err = "ERROR : XSLTProcessor->importStyleSheet(xsl): ";
-            foreach ($errors as $error)
+            foreach( $errors as $error )
                 { $err .= $this->getXMLError($error); }
+            $result = array_merge($result, array('errors' => count($errors), 'message' => $err));
             libxml_clear_errors();
             $this->releaseProcessor( $idx );
             trigger_error(__METHOD__." : ".print_r(compact('err','xsl_value'),true), E_USER_NOTICE);
-            return $err;
+            return $result;
         }
 
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('rv'),true), E_USER_NOTICE); }
-        return $rv;
+        $result['message'] = "<p>".$rv."</p>\n";
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('result','xsl_value'),true), E_USER_NOTICE); }
+        return $result;
     }
 
     /**
@@ -290,7 +295,6 @@ class XSLT_Processor_XSL
      * @uses XSLT_Processor_XSL::getProcessor()
      * @uses XSLT_Processor_XSL::getXMLError()
      * @uses XSLT_Processor_XSL::releaseProcessor()
-     * @uses XSLT_Processor_Util::getByteSize()
      *
      * @param array $params
      * - params['xml_type']  : (string) "file" | "string"
@@ -298,10 +302,15 @@ class XSLT_Processor_XSL
      * - params['schema_type']  : (string) "none" | "dtd" | "xsd" | "rng"
      * - params['schema_value'] : (string) filepath
      *
-     * @return string          validation result
+     * @return array          validation warnings (int) errors (int) and message (str)
      */
     public function validateXML( $params )
     {
+        $result = array(
+            'warnings' => 0,    // always 0
+            'errors'   => 0,
+            'message'  => '',
+            );
         $xml_types = array('string','file');
         $xml_type  = (in_array($params['xml_type'], $xml_types)) ? $params['xml_type']  : "string";
         $xml_value = (!empty($params['xml_value'])) ? $params['xml_value'] : null;
@@ -316,21 +325,18 @@ class XSLT_Processor_XSL
         {
             $err = 'ERROR : XML file ('.$xml_value.') not found';
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);
-            return $err;
+            return array('errors' => 1, 'message' => $err);
         }
 
         if (in_array($schema_type, array('xsd','rng')) && !empty($schema_value) && !file_exists($schema_value))
         {
             $err = 'ERROR : '.strtoupper($schema_type).' schema file ('.$schema_value.') not found';
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);
-            return $err;
+            return array('errors' => 1, 'message' => $err);
         }
 
-        $rv  = 'XML Syntax OK <br/>';
-        $rv .= ($xml_type == "file")
-            ? XSLT_Processor_Util::getByteSize( filesize($xml_value) )
-            : XSLT_Processor_Util::getByteSize( strlen($xml_value) );
-        $rv  = '<p>'.$rv.'</p>';
+        $rv  = "XML Syntax OK <br/>\n";
+        $rv .= size_format( ($xml_type == "file") ? filesize($xml_value) : strlen($xml_value) );
         $err = "";
 
         // handle errors via getXMLError()
@@ -347,11 +353,12 @@ class XSLT_Processor_XSL
         if (!empty($errors))
         {
             $err = "ERROR : DomDocument->load(xml): ";
-            foreach ($errors as $error)
+            foreach( $errors as $error )
                 { $err .= $this->getXMLError($error, $xml_type, $xml_value); }
+            $result = array_merge($result, array('errors' => count($errors), 'message' => $err));
             libxml_clear_errors();
             trigger_error(__METHOD__." : ".print_r(compact('err','xml_value'),true), E_USER_NOTICE);
-            return $err;
+            return $result;
         }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : xml loaded =\n".print_r($xml->saveXML(),true), E_USER_NOTICE); }
 
@@ -373,15 +380,17 @@ class XSLT_Processor_XSL
 
             $errors = libxml_get_errors();
             if (!empty($errors)) {
-                foreach ($errors as $error)
+                foreach( $errors as $error )
                     { $err .= $this->getXMLError($error, $xml_type, $xml_value); }
+                $result['errors'] = count($errors);
                 libxml_clear_errors();
             }
-            $err = '<p>'.$err.'</p>';
         }
 
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('rv','err','xml_value'),true), E_USER_NOTICE); }
-        return $rv . $err;
+        $result['message'] = "<p>".$rv."</p>\n";
+        if ($err) { $result['message'] .= "<p>".$err."</p>\n"; }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('result','xml_value'),true), E_USER_NOTICE); }
+        return $result;
     }
 
     /**
@@ -472,7 +481,7 @@ class XSLT_Processor_XSL
         if (empty($this->pool)) { $this->pool = array(); }
 
         reset($this->pool);
-        foreach ($this->pool as $idx => $val)
+        foreach( $this->pool as $idx => $val )
         {
             if (!$this->pool[$idx]['locked'])
             {
@@ -514,9 +523,9 @@ class XSLT_Processor_XSL
      * @param integer $idx key for processor pool
      * @return bool            true for success ; false for error
      */
-    private function releaseProcessor( $idx )
+    private function releaseProcessor( $idx, $release_params = array() )
     {
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('idx'),true), E_USER_NOTICE); }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('idx','release_params'),true), E_USER_NOTICE); }
 
         if (!$this->pool[$idx]['locked'])
         {
@@ -524,6 +533,9 @@ class XSLT_Processor_XSL
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);
             return $err;
         }
+
+        foreach( $release_params as $key => $val )
+            { $this->pool[$idx]['xslt']->removeParameter("", $key); }
         $this->pool[$idx]['locked'] = false;
         return;
     }
@@ -536,7 +548,7 @@ class XSLT_Processor_XSL
 //if (WP_DEBUG) { trigger_error(__METHOD__." : count(pool) = ".count($this->pool)." )", E_USER_NOTICE); }
 
         reset($this->pool);
-        foreach ($this->pool as $idx => $val)
+        foreach( $this->pool as $idx => $val )
             { unset($this->pool[$idx]['xslt']); }
         $this->pool = array();
     }

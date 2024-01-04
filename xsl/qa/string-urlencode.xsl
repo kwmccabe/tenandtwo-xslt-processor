@@ -55,19 +55,19 @@
 </xsl:stylesheet>
 <!-- end string-urlencode.xsl -->
 <!--
-[xsl_transform xsl_file="qa/string-urlencode.xsl"]
+[xsl_transform xsl="qa/string-urlencode.xsl"]
 <TESTS>
   <TEST>
     <value>http://example.com/test#car</value>
     <expected>http%3A%2F%2Fexample.com%2Ftest%23car</expected>
   </TEST>
   <TEST>
-    <value>http://example.com/test?a=b&c=d</value>
+    <value>http://example.com/test?a=b&amp;c=d</value>
     <expected>http%3A%2F%2Fexample.com%2Ftest%3Fa%3Db%26c%3Dd</expected>
   </TEST>
   <TEST>
-    <value>%$&+,/:;=?@ #</value>
-    <expected>%25%24%26%2B%2C%2F%3A%3B%3D%3F%40+%23</expected>
+    <value>&amp; $%+,/:;=?@#</value>
+    <expected>%26+%24%25%2B%2C%2F%3A%3B%3D%3F%40%23</expected>
   </TEST>
 </TESTS>
 [/xsl_transform]

@@ -58,7 +58,7 @@
 </xsl:stylesheet>
 <!-- end string-entity-decode.xsl -->
 <!--
-[xsl_transform xsl_file="qa/string-entity-decode.xsl"]
+[xsl_transform xsl="qa/string-entity-decode.xsl"]
 <TESTS>
   <TEST>
     <value>&lt;b&gt;bold&lt;/b&gt; &lt;br /&gt; and &lt;i&gt;italic&lt;/i&gt;</value>

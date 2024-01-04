@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) or die( 'Not for browsing' );
 class XSLT_Processor_Notice
 {
 
-    const ALLOWED_TAGS = '<b><i><a><br>';
+    const ALLOWED_TAGS = '<strong><b><i><a><br>';
 
     /**
      *
@@ -96,7 +96,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('level','message'
         if (empty($notices)) { return; }
 if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r($notices,true), E_USER_NOTICE); }
 
-        foreach($notices as $notice) {
+        foreach( $notices as $notice ) {
             //$msg = esc_html( $notice['message'] );
             $msg = strip_tags( $notice['message'], self::ALLOWED_TAGS );
             printf(

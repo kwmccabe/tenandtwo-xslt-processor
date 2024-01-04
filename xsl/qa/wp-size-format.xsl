@@ -4,21 +4,23 @@
     >
 
     <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes" />
-    <xsl:include href="../string.xsl" />
+    <xsl:include href="../wp.xsl" />
+    <xsl:include href="../util.xsl" />
+    <!-- <xsl:include href="../string.xsl" /> -->
 
     <xsl:template match="/">
 
         <xsl:for-each select="//TEST">
             <!-- values from xml -->
-            <xsl:variable name="value"><xsl:copy-of select="value" /></xsl:variable>
-            <xsl:variable name="max"><xsl:value-of select="max" /></xsl:variable>
-            <xsl:variable name="expected"><xsl:copy-of select="expected" /></xsl:variable>
+            <xsl:variable name="bytes"><xsl:value-of select="bytes" /></xsl:variable>
+            <xsl:variable name="decimals"><xsl:value-of select="decimals" /></xsl:variable>
+            <xsl:variable name="expected"><xsl:value-of select="expected" /></xsl:variable>
 
             <!-- run test -->
             <xsl:variable name="result">
-                <xsl:call-template name="string-maxwords">
-                    <xsl:with-param name="value"><xsl:copy-of select="$value" /></xsl:with-param>
-                    <xsl:with-param name="max"><xsl:copy-of select="$max" /></xsl:with-param>
+                <xsl:call-template name="wp-size-format">
+                    <xsl:with-param name="bytes" select="$bytes" />
+                    <xsl:with-param name="decimals" select="$decimals" />
                 </xsl:call-template>
             </xsl:variable>
 
@@ -35,18 +37,20 @@
             <hr size="1" />
             <p>
                 <b>TEST <xsl:value-of select="position()" /> : <xsl:value-of select="$pass" /></b>
-                <br />string-maxwords :
-                <br /> - value = <xsl:copy-of select="$value" />
-                <br /> - max = <xsl:copy-of select="$max" />
+                <br />wp-size-format :
+                <xsl:if test="string-length($bytes)"><br /> - bytes = <xsl:copy-of select="$bytes" /></xsl:if>
+                <xsl:if test="string-length($decimals)"><br /> - decimals = <xsl:copy-of select="$decimals" /></xsl:if>
             </p>
 
             <p>result : <br />
                 <xsl:copy-of select="$result" />
+                <!-- xsl:call-template name="util-print-nodes"><xsl:with-param name="nodes" select="$result" /></xsl:call-template -->
             </p>
 
             <xsl:if test="$pass = 'FAIL'">
                 <p>expected : <br />
                     <xsl:copy-of select="$expected" />
+                    <!-- xsl:call-template name="util-print-nodes"><xsl:with-param name="nodes" select="$expected" /></xsl:call-template -->
                 </p>
             </xsl:if>
         </xsl:for-each>
@@ -56,19 +60,21 @@
     </xsl:template>
 
 </xsl:stylesheet>
-<!-- end string-maxwords.xsl -->
+<!-- end wp-size-format.xsl -->
 <!--
-[xsl_transform xsl="qa/string-maxwords.xsl"]
+[xsl_transform xsl="qa/wp-size-format.xsl"]
 <TESTS>
   <TEST>
-    <value>what's the fuss</value>
-    <max>2</max>
-    <expected>what's the…</expected>
+    <bytes>1024</bytes>
+    <expected>1 KB</expected>
   </TEST>
   <TEST>
-    <value><b>what's</b> the big idea?</value>
-    <max>3</max>
-    <expected>what's the big…</expected>
+    <bytes>1234567890</bytes>
+    <expected>1.15 GB</expected>
+  </TEST>
+  <TEST>
+    <bytes>12345678901234567890</bytes>
+    <expected>8 Exabytes</expected>
   </TEST>
 </TESTS>
 [/xsl_transform]

@@ -32,7 +32,7 @@ $XSLT_PLUGIN_PHP_FUNCTIONS = array(
     //'date',
 // string.xsl
     'html_entity_decode',
-    'mb_strtoupper','mb_strtolower',
+    'mb_convert_case',
     'nl2br',
     'str_replace',
     'trim','ltrim','rtrim',

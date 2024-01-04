@@ -10,10 +10,10 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Ten&Two XSLT Processor
- * Plugin URI:        https://www.tenandtwo.io/xslt-processor/
+ * Plugin URI:        https://xsltproc.tenandtwo.com/
  * Update URI:        https://wordpress.org/plugins/tenandtwo-xslt-processor/
  * Description:       Transform and display XML from local and remote sources using PHP's XSL extension.
- * Version:           0.9.2
+ * Version:           0.9.3
  * Requires PHP:      7.0
  * Requires at least: 5.0
  * Author:            Ten & Two Systems
@@ -27,7 +27,8 @@ defined( 'ABSPATH' ) or die( 'Not for browsing' );
 
 define( 'XSLT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'XSLT_PLUGIN_NAME', basename(XSLT_PLUGIN_DIR) );
-define( 'XSLT_PLUGIN_VERSION', '0.9.2' );
+define( 'XSLT_PLUGIN_VERSION', '0.9.3' );
+define( 'XSLT_PLUGIN_URI', 'https://xsltproc.tenandtwo.com/' );
 
 define( 'XSLT_OPTS', 'xslt_processor_options' );  // option name
 define( 'XSLT_TEXT', XSLT_PLUGIN_NAME );  // text domain name
@@ -66,6 +67,7 @@ class XSLT_Processor_Plugin
         }
 
         require_once(XSLT_PLUGIN_DIR.'includes/callback.php');
+        require_once(XSLT_PLUGIN_DIR.'includes/csv.php');
         require_once(XSLT_PLUGIN_DIR.'includes/util.php');
         require_once(XSLT_PLUGIN_DIR.'includes/wp.php');
         require_once(XSLT_PLUGIN_DIR.'includes/xml.php');
@@ -75,7 +77,7 @@ class XSLT_Processor_Plugin
         $options = get_option( XSLT_OPTS, array() );
 
         // register shortcodes
-        if (!empty($options['sc_transform']) || !empty($options['sc_select'])) {
+        if (!empty($options['sc_xsl_transform']) || !empty($options['sc_xml_select']) || !empty($options['sc_csv_select'])) {
             require_once(XSLT_PLUGIN_DIR.'includes/shortcode.php');
             XSLT_Processor_Shortcode::init();
         }

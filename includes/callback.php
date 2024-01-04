@@ -114,6 +114,35 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
         return $rv;
     }
 
+    /**
+     * @see file.xsl, template name="file-listing-local"
+     * @param array $params
+     * - path  : local directory path
+     * @return string  XML
+     */
+    public static function getFileListingLocal( $params )
+    {
+        if (empty($params['path']))   { return '<RESULT template="file-listing-local" />'; }
+        if (empty($params['match']))  { $params['match'] = '.xml'; }
+        if (empty($params['levels'])) { $params['levels'] = 1; }
+
+        $options = get_option( XSLT_OPTS, array() );
+        $search_paths = explode("\n", $options['search_path'] ?? '');
+
+        $listing = XSLT_Processor_Util::getFileListingLocal(
+            $params['path'],
+            $params['match'],
+            $params['levels'],
+            $search_paths,
+            'xml'
+            );
+        $rv = '<RESULT template="file-listing-local">' . $listing . '</RESULT>';
+        if (extension_loaded('tidy'))
+            { $rv = XSLT_Processor_XML::tidy_string( $rv, 'xml' ); }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
+        return $rv;
+    }
+
 
     /**
      * apply html_entity_decode() to $params['value']
@@ -175,16 +204,13 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
      */
     public static function getSuperGlobal( $params )
     {
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params'),true), E_USER_NOTICE); }
 		if (empty($params['global']))  { $params['global'] = '_REQUEST'; }
 		if (empty($params['index']))   { $params['index'] = ''; }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params'),true), E_USER_NOTICE); }
 
 		global ${$params['global']};
 		if (!isset(${$params['global']}))
 		    { return '<RESULT template="util-super-global" global="'.$params['global'].'" />'; }
-
-		global $XSLT_Processor_XML;
-        if (empty($XSLT_Processor_XML)) { $XSLT_Processor_XML = new XSLT_Processor_XML(); }
 
 //		eval("\$subparams = \$" . $params['global'] . $params['index'] . ";");
 		$subparams = array();
@@ -202,31 +228,91 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
         $xml->addAttribute( 'template', 'util-super-global' );
         $xml->addAttribute( 'global', $params['global'] );
         $xml->addAttribute( 'index', $params['index'] );
-        $rv = $XSLT_Processor_XML->encode_array( $subparams, $xml, false );
+        $rv = XSLT_Processor_XML::encode_array( $subparams, $xml, false );
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
+        return $rv;
+    }
 
+
+    /**
+     * @see wp.xsl, template name="wp-post-item"
+     *
+     * @param array $params
+     * - post : int (id) or str (slug)
+     * - type : string, eg 'xml'
+     * @return string  XML
+     */
+    public static function getPostItem( $params )
+    {
+        if (empty($params['post'])) { return '<RESULT template="wp-post-item"/>'; }
+        if (empty($params['type'])) { $params['type'] = ''; }
+
+        $post = XSLT_Processor_WP::getPostItem( $params['post'], $params['type'], OBJECT );
+        if (empty($post))
+            {  return '<RESULT template="wp-post-item" post="'.$params['post'].'" type="'.$params['type'].'"/>';  }
+
+        $result = $post->to_array();
+        $result['post_content'] = XSLT_Processor_WP::getPostContent( $post );
+        if (empty($result['post_excerpt']))
+            { $result['post_excerpt'] = get_the_excerpt( $post ); }
+
+        $xml = new SimpleXMLElement( '<RESULT/>' );
+        $xml->addAttribute( 'template', 'wp-post-item' );
+        $xml->addAttribute( $post->post_type, $post->post_name );
+        $xml->addAttribute( 'id', $post->ID );
+        $rv = XSLT_Processor_XML::encode_array( $result, $xml, false );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
 
     /**
-     * @see util.xsl, template name="util-byte-size"
-     * @see XSLT_Processor_Util::getByteSize()
+     * @see wp.xsl, template name="wp-post-meta"
+     *
      * @param array $params
-     * - bytes : int
+     * - post : int (id) or str (slug)
+     * - type : string, eg 'xml'
      * @return string  XML
      */
-    public static function getByteSize( $params )
+    public static function getPostMeta( $params )
     {
-        if (empty($params['bytes'])) { return '<RESULT template="util-byte-size"/>'; }
-        $rv = '<RESULT template="util-byte-size">' . XSLT_Processor_Util::getByteSize( $params['bytes'] ) . '</RESULT>';
+        if (empty($params['post'])) { return '<RESULT template="wp-post-meta"/>'; }
+        if (empty($params['type'])) { $params['type'] = ''; }
+
+        $post = XSLT_Processor_WP::getPostItem( $params['post'], $params['type'], OBJECT );
+        if (empty($post))
+            {  return '<RESULT template="wp-post-meta" post="'.$params['post'].'" type="'.$params['type'].'"/>';  }
+
+        $result = XSLT_Processor_WP::getPostMeta( $post );
+
+        $xml = new SimpleXMLElement( '<RESULT/>' );
+        $xml->addAttribute( 'template', 'wp-post-meta' );
+        $xml->addAttribute( $post->post_type, $post->post_name );
+        $xml->addAttribute( 'id', $post->ID );
+        $rv = XSLT_Processor_XML::encode_array( $result, $xml, false );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
 
+    /**
+     * @see wp.xsl, template name="wp-size-format"
+     * @see https://developer.wordpress.org/reference/functions/size_format/
+     * @param array $params
+     * - bytes : int
+     * - decimals : int
+     * @return string  XML
+     */
+    public static function getSizeFormat( $params )
+    {
+        if (empty($params['bytes']))    { $params['bytes'] = 0; }
+		if (empty($params['decimals'])) { $params['decimals'] = 2; }
+        $rv = '<RESULT template="wp-size-format">' . size_format( $params['bytes'], $params['decimals'] ) . '</RESULT>';
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
+        return $rv;
+    }
 
     /**
      * @see wp.xsl, template name="wp-sanitize-title"
-     * @see XSLT_Processor_WP::getSanitizeTitle()
+     * @see https://developer.wordpress.org/reference/functions/sanitize_title/
      * @param array $params
      * - title : string
      * @return string  XML
@@ -234,7 +320,9 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
     public static function getSanitizeTitle( $params )
     {
         if (empty($params['title'])) { return '<RESULT template="wp-sanitize-title"/>'; }
-        $rv = '<RESULT template="wp-sanitize-title">' . XSLT_Processor_WP::getSanitizeTitle( $params['title'] ) . '</RESULT>';
+		if (empty($params['fallback_title']))   { $params['fallback_title'] = ''; }
+		if (empty($params['context']))          { $params['context'] = 'save'; }
+        $rv = '<RESULT template="wp-sanitize-title">' . sanitize_title( $params['title'], $params['fallback_title'], $params['context'] ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
@@ -264,9 +352,47 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
             'strip-namespaces'  => $params['strip-namespaces']  ?? 'no',
         );
         $rv = '<RESULT template="wp-xml-select">' . XSLT_Processor_Shortcode::xml_select( $attrs, '' ) . '</RESULT>';
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','attrs','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
 
+    /**
+     * @see wp.xsl, template name="wp-csv-select"
+     * @see XSLT_Processor_Shortcode::csv_select()
+     * @param array $params
+     * - csv        : string file|url
+     * read params:
+     * - separator  : string, ","
+     * - enclosure  : string, "\""
+     * - escape     : string, "\\"
+     * write params:
+     * - key_row    : int, row number for column labels
+     * - col        : string, column number(s), letter(s), or label(s)
+     * - key_col    : string, column number, letter, or label for key matching
+     * - key        : string, value(s) for key_col matching
+     * - row        : string, row number(s)
+     * - class      : string, "table"
+
+     * @return string  XML
+     */
+    public static function getCsvSelect( $params )
+    {
+        $attrs = array(
+            'csv'       => $params['csv']       ?? '',
+            'separator' => $params['separator'] ?? ",",
+            'enclosure' => $params['enclosure'] ?? "\"",
+            'escape'    => $params['escape']    ?? "\\",
+            'key_row'   => $params['key_row']   ?? 0,
+            'col'       => $params['col']       ?? 0,
+            'key_col'   => $params['key_col']   ?? 0,
+            'key'       => $params['key']       ?? '',
+            'row'       => $params['row']       ?? 0,
+            'class'     => $params['class']     ?? 'table',
+            //'htmlentities' => $params['htmlentities'] ?? 'no',
+        );
+        $rv = '<RESULT template="wp-csv-select">' . XSLT_Processor_Shortcode::csv_select( $attrs, '' ) . '</RESULT>';
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','attrs','rv'),true), E_USER_NOTICE); }
+        return $rv;
+    }
 
 } // end class XSLT_Processor_Callback

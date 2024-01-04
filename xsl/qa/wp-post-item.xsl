@@ -4,22 +4,22 @@
     >
 
     <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes" />
-    <xsl:include href="../string.xsl" />
+    <xsl:include href="../wp.xsl" />
     <xsl:include href="../util.xsl" />
 
     <xsl:template match="/">
 
         <xsl:for-each select="//TEST">
             <!-- values from xml -->
-            <xsl:variable name="global"><xsl:value-of select="global" /></xsl:variable>
-            <xsl:variable name="index"><xsl:value-of select="index" /></xsl:variable>
-            <xsl:variable name="expected"><xsl:copy-of select="expected/*" /></xsl:variable>
+            <xsl:variable name="post"><xsl:copy-of select="post" /></xsl:variable>
+            <xsl:variable name="type"><xsl:copy-of select="type" /></xsl:variable>
+            <xsl:variable name="expected"><xsl:value-of select="expected/*" /></xsl:variable>
 
             <!-- run test -->
             <xsl:variable name="result">
-                <xsl:call-template name="util-super-global">
-                    <xsl:with-param name="global" select="$global" />
-                    <xsl:with-param name="index" select="$index" />
+                <xsl:call-template name="wp-post-item">
+                    <xsl:with-param name="post" select="$post" />
+                    <xsl:with-param name="type" select="$type" />
                 </xsl:call-template>
             </xsl:variable>
 
@@ -35,7 +35,7 @@
                 <xsl:choose>
                     <xsl:when test="$result = $expected">PASS</xsl:when>
                     <xsl:when test="$p_result = $p_expected">PPASS</xsl:when>
-                    <xsl:when test="not(string-length($p_expected))"><!-- UNKNOWN --></xsl:when>
+                    <xsl:when test="not(string-length($expected))"><!-- UNKNOWN --></xsl:when>
                     <xsl:otherwise>FAIL</xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
@@ -44,9 +44,9 @@
             <hr size="1" />
             <p>
                 <b>TEST <xsl:value-of select="position()" /> : <xsl:value-of select="$pass" /></b>
-                <br />util-super-global :
-                <br /> - global = <xsl:copy-of select="$global" />
-                <br /> - index = <xsl:copy-of select="$index" />
+                <br />wp-post-item :
+                <xsl:if test="string-length($post)"><br /> - post = <xsl:copy-of select="$post" /></xsl:if>
+                <xsl:if test="string-length($type)"><br /> - type = <xsl:copy-of select="$type" /></xsl:if>
             </p>
 
             <p>result : <br />
@@ -67,21 +67,16 @@
     </xsl:template>
 
 </xsl:stylesheet>
-<!-- end util-super-global.xsl -->
+<!-- end wp-post-item.xsl -->
 <!--
-[xsl_transform xsl="qa/util-super-global.xsl"]
+[xsl_transform xsl="qa/wp-post-item.xsl"]
 <TESTS>
   <TEST>
-    <global>_SERVER</global>
-    <index>DOCUMENT_ROOT</index>
-    <expected><RESULT template="util-super-global" global="_SERVER" index="DOCUMENT_ROOT">/srv/xsltproc.tenandtwo.com/htdocs</RESULT></expected>
+    <post>2</post>
   </TEST>
   <TEST>
-    <global>_REQUEST</global>
-    <expected><RESULT template="util-super-global" global="_REQUEST" index="" count="0"/></expected>
-  </TEST>
-  <TEST>
-    <global>_COOKIE</global>
+    <post>sample-xml</post>
+    <type>xml</type>
   </TEST>
 </TESTS>
 [/xsl_transform]

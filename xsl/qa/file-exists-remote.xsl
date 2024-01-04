@@ -62,12 +62,12 @@
   <expected>https://tenandtwo.com/</expected>
 </TEST>
 <TEST>
-  <url>https://www.tenandtwo.io/wp-content/uploads/upload_sample.xml</url>
-  <expected>https://www.tenandtwo.io/wp-content/uploads/upload_sample.xml</expected>
+  <url>https://xsltproc.tenandtwo.com/wp-content/uploads/upload_sample.xml</url>
+  <expected>https://xsltproc.tenandtwo.com/wp-content/uploads/upload_sample.xml</expected>
 </TEST>
 <TEST>
-  <url>https://nope.tenandtwo.io/</url>
-  <expected>cURL error 6: Could not resolve host: nope.tenandtwo.io</expected>
+  <url>https://nope.tenandtwo.com/</url>
+  <expected>cURL error 6: Could not resolve host: nope.tenandtwo.com</expected>
 </TEST>
 <TEST>
   <url>goop</url>

@@ -74,18 +74,18 @@
   <TEST>
     <value>today</value>
     <format>Y</format>
-    <expected>2023</expected>
+    <expected>2024</expected>
   </TEST>
   <TEST>
     <time>1672531200</time>
     <format>Y-m-d</format>
-    <expected>2023-01-01</expected>
+    <expected>2024-01-01</expected>
   </TEST>
   <TEST>
-    <value>2023-01-01</value>
+    <value>2024-01-01</value>
     <shift>+1 weeks</shift>
     <format>Y-m-d</format>
-    <expected>2023-01-08</expected>
+    <expected>2024-01-08</expected>
   </TEST>
 </TESTS>
 [/xsl_transform]

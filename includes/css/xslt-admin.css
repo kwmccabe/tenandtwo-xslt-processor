@@ -1,0 +1,8 @@
+body.post-type-xml textarea.block-editor-plain-text {
+    max-height: 680px;
+    resize: vertical;
+}
+body.post-type-xsl textarea.block-editor-plain-text {
+    max-height: 680px;
+    resize: vertical;
+}

@@ -6,14 +6,117 @@
     exclude-result-prefixes="exslt php"
     >
 <!--
+-   wp-xml-select       : xml, select, cache, format, root, strip-namespaces
+-   wp-csv-select       : csv, separator, enclosure, escape, key_row, col, key_col, key, row, class
+-   wp-size-format      : bytes, decimala
 -   wp-sanitize-title   : title
--   wp-xml-select       : post, thpe
 -->
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" />
 
+<!-- MARK wp-csv-select -->
+<!--
+    uses XSLT_Callback::getCsvSelect()
 
-<!-- wp-sanitize-title
+    <xsl:call-template name="wp-csv-select">
+        <xsl:with-param name="csv">/path/to/local/spreadsheet.csv</xsl:with-param>
+        <xsl:with-param name="separator">,</xsl:with-param>
+        <xsl:with-param name="enclosure">"</xsl:with-param>
+        <xsl:with-param name="escape">\</xsl:with-param>
+        <xsl:with-param name="key_row" select="0" />
+        <xsl:with-param name="col" select="0" />
+        <xsl:with-param name="key_col" select="0" />
+        <xsl:with-param name="key" select="''" />
+        <xsl:with-param name="row" select="0" />
+        <xsl:with-param name="class" select="'table'" />
+    </xsl:call-template>
+-->
+    <xsl:template name="wp-csv-select">
+        <xsl:param name="csv"       select="''" />
+        <!-- read params -->
+        <xsl:param name="separator" select="','" />
+        <xsl:param name="enclosure" select="'\&quot;'" />
+        <xsl:param name="escape"    select="'\\'" />
+        <!-- write params -->
+        <xsl:param name="key_row"   select="0" />
+        <xsl:param name="col"       select="0" />
+        <xsl:param name="key_col"   select="0" />
+        <xsl:param name="key"       select="''" />
+        <xsl:param name="row"       select="0" />
+        <xsl:param name="class"     select="'table'" />
+        <!-- <xsl:param name="htmlentities" select="'yes'" /> -->
+
+        <xsl:variable name="SUBPARAMS">
+            <xsl:text>$params = array(</xsl:text>
+                <xsl:text>"csv" =&gt; "</xsl:text><xsl:value-of select="$csv" /><xsl:text>"</xsl:text>
+                <xsl:text>, "separator" =&gt; "</xsl:text><xsl:value-of select="$separator" /><xsl:text>"</xsl:text>
+                <xsl:text>, "enclosure" =&gt; "</xsl:text><xsl:value-of select="$enclosure" /><xsl:text>"</xsl:text>
+                <xsl:text>, "escape" =&gt; "</xsl:text><xsl:value-of select="$escape" /><xsl:text>"</xsl:text>
+                <xsl:text>, "key_row" =&gt; "</xsl:text><xsl:value-of select="$key_row" /><xsl:text>"</xsl:text>
+                <xsl:text>, "col" =&gt; "</xsl:text><xsl:value-of select="$col" /><xsl:text>"</xsl:text>
+                <xsl:text>, "key_col" =&gt; "</xsl:text><xsl:value-of select="$key_col" /><xsl:text>"</xsl:text>
+                <xsl:text>, "key" =&gt; "</xsl:text><xsl:value-of select="$key" /><xsl:text>"</xsl:text>
+                <xsl:text>, "row" =&gt; "</xsl:text><xsl:value-of select="$row" /><xsl:text>"</xsl:text>
+                <xsl:text>, "class" =&gt; "</xsl:text><xsl:value-of select="$class" /><xsl:text>"</xsl:text>
+                <!-- <xsl:text>, "htmlentities" =&gt; "</xsl:text><xsl:value-of select="$htmlentities" /><xsl:text>"</xsl:text> -->
+            <xsl:text>);</xsl:text>
+        </xsl:variable>
+        <xsl:copy-of select="php:function('XSLT_Callback','getCsvSelect',string($SUBPARAMS))/RESULT" />
+    </xsl:template>
+
+
+<!-- MARK wp-post-item -->
+<!--
+    uses XSLT_Callback : getPostItem()
+
+    <xsl:call-template name="wp-post-item">
+        <xsl:with-param name="post">sample-xml</xsl:with-param>
+        <xsl:with-param name="type">xml</xsl:with-param>
+    </xsl:call-template>
+-->
+    <xsl:template name="wp-post-item">
+        <xsl:param name="post" select="text()" />
+        <xsl:param name="type" select="''" />
+
+        <xsl:variable name="SUBPARAMS">
+            <xsl:text>$params = array(</xsl:text>
+                <xsl:text>"post" =&gt; "</xsl:text><xsl:value-of select="$post" /><xsl:text>"</xsl:text>
+                <xsl:text>, "type" =&gt; "</xsl:text><xsl:value-of select="$type" /><xsl:text>"</xsl:text>
+            <xsl:text>);</xsl:text>
+        </xsl:variable>
+        <xsl:copy-of select="php:function('XSLT_Callback','getPostItem',string($SUBPARAMS))/RESULT" />
+    </xsl:template>
+
+
+<!-- MARK wp-post-meta -->
+<!--
+    uses XSLT_Callback : getPostMeta()
+
+    <xsl:call-template name="wp-post-meta">
+        <xsl:with-param name="post">sample-xml</xsl:with-param>
+        <xsl:with-param name="type">xml</xsl:with-param>
+    </xsl:call-template>
+-->
+    <xsl:template name="wp-post-meta">
+        <xsl:param name="post" select="text()" />
+        <xsl:param name="type" select="''" />
+
+        <xsl:variable name="SUBPARAMS">
+            <xsl:text>$params = array(</xsl:text>
+                <xsl:text>"post" =&gt; "</xsl:text><xsl:value-of select="$post" /><xsl:text>"</xsl:text>
+                <xsl:text>, "type" =&gt; "</xsl:text><xsl:value-of select="$type" /><xsl:text>"</xsl:text>
+            <xsl:text>);</xsl:text>
+        </xsl:variable>
+        <xsl:copy-of select="php:function('XSLT_Callback','getPostMeta',string($SUBPARAMS))/RESULT" />
+    </xsl:template>
+
+
+<!-- MARK wp-sanitize-title -->
+<!--
     uses XSLT_Callback : getSanitizeTitle()
+
+    <xsl:call-template name="wp-sanitize-title">
+        <xsl:with-param name="title">my title</xsl:with-param>
+    </xsl:call-template>
 -->
     <xsl:template name="wp-sanitize-title">
         <xsl:param name="title" select="text()" />
@@ -27,14 +130,39 @@
     </xsl:template>
 
 
-<!-- wp-xml-select
+<!-- MARK wp-size-format -->
+<!--
+    <xsl:call-template name="wp-size-format">
+        <xsl:with-param name="bytes" select="1024" />
+        <xsl:with-param name="decimals" select="2" />
+    </xsl:call-template>
+-->
+    <xsl:template name="wp-size-format">
+        <xsl:param name="bytes" select="'0'" />
+        <xsl:param name="decimals" select="'2'" />
+
+        <xsl:variable name="SUBPARAMS">
+            <xsl:text>$params = array(</xsl:text>
+                <xsl:text>"bytes" =&gt; "</xsl:text><xsl:value-of select="$bytes" /><xsl:text>"</xsl:text>
+                <xsl:text>, "decimals" =&gt; "</xsl:text><xsl:value-of select="$decimals" /><xsl:text>"</xsl:text>
+            <xsl:text>);</xsl:text>
+        </xsl:variable>
+        <xsl:copy-of select="php:function('XSLT_Callback','getSizeFormat',string($SUBPARAMS))/RESULT" />
+    </xsl:template>
+
+
+<!-- MARK wp-xml-select -->
+<!--
     uses XSLT_Callback : getXmlSelect()
 
     <xsl:call-template name="wp-xml-select">
-        <xsl:with-param name="post" select="12345" />
+        <xsl:with-param name="xml" select="wp-data-xml" />
+        <xsl:with-param name="select" select="'/'" />
+        <xsl:with-param name="cache" select="5" />
+        <xsl:with-param name="format" select="'xml'" />
+        <xsl:with-param name="root" select="'ROOT'" />
+        <xsl:with-param name="strip-namespaces" select="'no'" />
     </xsl:call-template>
-    or
-
 -->
     <xsl:template name="wp-xml-select">
         <xsl:param name="xml"    select="''" />
@@ -61,4 +189,4 @@
 
 
 </xsl:stylesheet>
-<!-- end xsl/util.xsl -->
+<!-- end xsl/wp.xsl -->

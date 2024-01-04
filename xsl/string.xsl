@@ -35,24 +35,35 @@
     <xsl:variable name="uppercase_utf8">ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞŸŽ</xsl:variable>
     <xsl:variable name="lowercase_utf8">abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿž</xsl:variable>
 
-
-<!-- string-upper
+<!-- MARK string-upper -->
+<!--
+@uses mb_convert_case(string $string, int $mode, ?string $encoding = null): string
+    (0)MB_CASE_UPPER, (1)MB_CASE_LOWER, (2)MB_CASE_TITLE, (3)MB_CASE_FOLD,
+    (4)MB_CASE_UPPER_SIMPLE, (5)MB_CASE_LOWER_SIMPLE, (6)MB_CASE_TITLE_SIMPLE, (7)MB_CASE_FOLD_SIMPLE
+@see https://www.php.net/manual/en/function.mb-convert-case.php
 -->
 	<xsl:template name="string-upper">
 		<xsl:param name="value" select="text()" />
-        <xsl:value-of select="php:function('mb_strtoupper',string($value))" />
+		<xsl:param name="encoding" select="'UTF-8'" />
+        <xsl:value-of select="php:function('mb_convert_case',string($value),0,string($encoding))" />
 	</xsl:template>
 
-<!-- string-lower
--->
+<!-- MARK string-lower -->
 	<xsl:template name="string-lower">
 		<xsl:param name="value" select="text()" />
-        <xsl:value-of select="php:function('mb_strtolower',string($value))" />
+		<xsl:param name="encoding" select="'UTF-8'" />
+        <xsl:value-of select="php:function('mb_convert_case',string($value),1,string($encoding))" />
+	</xsl:template>
+
+<!-- MARK string-title-case -->
+	<xsl:template name="string-title-case">
+		<xsl:param name="value" select="text()" />
+		<xsl:param name="encoding" select="'UTF-8'" />
+        <xsl:value-of select="php:function('mb_convert_case',string($value),2,string($encoding))" />
 	</xsl:template>
 
 
-<!-- string-maxlength
--->
+<!-- MARK string-maxlength -->
 	<xsl:template name="string-maxlength">
 		<xsl:param name="value" select="text()" />
 		<xsl:param name="max" select="31" />
@@ -73,8 +84,7 @@
 
 	</xsl:template>
 
-<!-- string-maxwords
--->
+<!-- MARK string-maxwords -->
 	<xsl:template name="string-maxwords">
 		<xsl:param name="value" select="text()" />
 		<xsl:param name="max" select="10" />
@@ -124,29 +134,25 @@
 	</xsl:template>
 
 
-<!-- string-trim : remove leading and trailing white-space from $value
--->
+<!-- MARK string-trim -->
 	<xsl:template name="string-trim">
 		<xsl:param name="value" select="text()" />
         <xsl:value-of select="php:function('trim',string($value))" />
 	</xsl:template>
 
-<!-- string-ltrim : remove leading white-space from $value
--->
+<!-- MARK string-ltrim -->
 	<xsl:template name="string-ltrim">
 		<xsl:param name="value" select="text()" />
         <xsl:value-of select="php:function('ltrim',string($value))" />
 	</xsl:template>
 
-<!-- string-rtrim : remove trailing white-space from $value
--->
+<!-- MARK string-rtrim -->
 	<xsl:template name="string-rtrim">
 		<xsl:param name="value" select="text()" />
         <xsl:value-of select="php:function('rtrim',string($value))" />
 	</xsl:template>
 
-<!-- string-replace
--->
+<!-- MARK string-replace -->
 	<xsl:template name="string-replace">
 		<xsl:param name="value" select="text()" />
 		<xsl:param name="find" select="''" />
@@ -154,14 +160,17 @@
         <xsl:value-of select="php:function('str_replace',string($find),string($replace),string($value))" />
 	</xsl:template>
 
-<!-- string-nl2br : replace newline with <br />
+<!-- MARK string-nl2br -->
+<!--
+    replace newline with <br />
 -->
 	<xsl:template name="string-nl2br">
 		<xsl:param name="value" select="text()" />
         <xsl:value-of select="php:function('nl2br',string($value))" />
 	</xsl:template>
 
-<!-- string-addslashes
+<!-- MARK string-addslashes -->
+<!--
     in:  \  "  $
     out: \\ \" \$
 -->
@@ -179,7 +188,8 @@
         <xsl:value-of disable-output-escaping="yes" select="$result_02" />
 	</xsl:template>
 
-<!-- string-urlencode
+<!-- MARK string-urlencode -->
+<!--
     in:  %   $   &   +   ,   /   :   ;   =   ?   @   #   [space]
     out: %25 %24 %26 %2B %2C %2F %3A %3B %3D %3F %40 %23 +
 -->
@@ -188,8 +198,7 @@
         <xsl:value-of select="php:function('urlencode',string($value))" />
 	</xsl:template>
 
-<!-- string-entity-decode
--->
+<!-- MARK string-entity-decode -->
 	<xsl:template name="string-entity-decode">
 		<xsl:param name="value" select="text()" />
         <!-- <xsl:copy-of select="php:function('html_entity_decode',string($value))" /> -->
@@ -205,8 +214,7 @@
         <xsl:copy-of select="php:function('XSLT_Callback','getHtmlEntityDecode',string($SUBPARAMS))/RESULT" />
 	</xsl:template>
 
-<!-- string-strip-tags
--->
+<!-- MARK string-strip-tags -->
 	<xsl:template name="string-strip-tags">
 		<xsl:param name="value" select="text()" />
 		<xsl:param name="allowed_tags" select="''" />
@@ -225,7 +233,8 @@
 	</xsl:template>
 
 
-<!-- string-to-nodeset
+<!-- MARK string-to-nodeset -->
+<!--
     transform "one|two|three" to "<RESULT><NODE>one</NODE><NODE>two</NODE><NODE>three</NODE></RESULT>"
 -->
 	<xsl:template name="string-to-nodeset">

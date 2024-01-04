@@ -58,7 +58,7 @@
 </xsl:stylesheet>
 <!-- end string-strip-tags.xsl -->
 <!--
-[xsl_transform xsl_file="qa/string-strip-tags.xsl"]
+[xsl_transform xsl="qa/string-strip-tags.xsl"]
 <TESTS>
   <TEST>
     <value>&lt;b&gt;HEY&lt;/b&gt;&lt;br/&gt;&lt;i&gt;there&lt;/i&gt;</value>

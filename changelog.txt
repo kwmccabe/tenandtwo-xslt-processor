@@ -14,20 +14,47 @@ Notable changes are documented here.
 ## [1.0.0] - 2024-01-01
 
 ### Added
-
-- one
-
 ### Fixed
+### Changed
+### Removed
 
-- a bunch of one
+
+
+## [0.9.3] - 2023-12-20
+
+Dev during review
+
+### Added
+
+- includes/admin.php : add_settings_field       : sc_csv_select
+- includes/admin.php : rename sc_transform      : sc_xsl_transform
+- includes/admin.php : rename sc_select         : sc_xml_select
+- includes/css/xslt-admin.css : set max-height for edit xml/xsl textarea
+- includes/csv.php  : class XSLT_Processor_CSV
+- includes/csv.php  : eg, decode_string(), decode_file()
+- includes/post_type.php : add_filter           : 'get_the_excerpt'
+- includes/post_type.php : register_taxonomy    : 'xsl-category', 'xsl-tag'
+- includes/post_type.php : register_taxonomy    : 'xml-category', 'xml-tag'
+- includes/post_type.php : add_action( 'pre_get_posts', array('XSLT_Processor_Post_Type', 'update_taxonomy_query') );
+- includes/shortcode.php : add 'tidy' option for html|xml values in xsl_transform and xml_select
+- includes/shortcode.php : add_shortcode : csv_select
+- includes/util.php : getFileListingLocal()
+- includes/wp.php : getPostItem() and getPostMeta()
+- includes/xml.php : return ['warnings','errors','message'] for tidy_validate()
+- includes/xsl.php : return ['warnings','errors','message'] for validateXSL() and validateXML()
 
 ### Changed
 
-- a lot of one
+- includes/post_type.php : register_post_meta   : '_xslt_validation_warnings'
+- includes/post_type.php : register_post_meta   : '_xslt_validation_errors'
+- includes/post_type.php : register_post_meta   : '_xslt_validation_message'
+- includes/xsl.php : call removeParameter() in releaseProcessor()
 
 ### Removed
 
-- many
+- includes/post_type.php : register_post_meta : '_xslt_validation'
+- includes/wp.php : remove getPostByName()
+
 
 ## [0.9.2] - 2023-11-15
 
@@ -38,7 +65,8 @@ WP Plugin name "XSLT Processor" not allowed
 - Plugin Name: "XSLT Processor" => "Ten&Two XSLT Processor"
 - Plugin Slug: "xslt-processor" => "tenandtwo-xslt-processor"
 
-## [0.9.1] - 2023-11-14
+
+## [0.9.1] - 2023-11-13
 
 Initial release
 
@@ -71,9 +99,9 @@ Initial release
 - includes/post_type.php : register_post_type    : 'xsl', 'XSL Stylesheets'
 - includes/post_type.php : register_post_type    : 'xml', 'XML Documents'
 - includes/post_type.php : add_action( 'add_meta_boxes', array('XSLT_Processor_Post_Type', 'add_xslt_validation') );
-- includes/post_type.php : register_post_meta    : _xslt_validation   (post_type=xsl|xml)
-- includes/post_type.php : register_post_meta    : _xslt_schema_type  (post_type=xml)
-- includes/post_type.php : register_post_meta    : _xslt_schema_value (post_type=xml)
+- includes/post_type.php : register_post_meta    : '_xslt_validation'   (post_type=xsl|xml)
+- includes/post_type.php : register_post_meta    : '_xslt_schema_type'  (post_type=xml)
+- includes/post_type.php : register_post_meta    : '_xslt_schema_value' (post_type=xml)
 - includes/post_type.php : add_action( 'save_post',      array('XSLT_Processor_Post_Type', 'update_xslt_validation'), 10, 3 );
 - includes/post_type.php : add_action( 'save_post',      array('XSLT_Processor_Post_Type', 'xslt_validate'), 11, 3 );
 - includes/post_type.php : add_filter("the_content",     array('XSLT_Processor_Post_Type', 'the_content_filter'), 20);
@@ -82,11 +110,11 @@ Initial release
 - includes/shortcode.php : add_shortcode : xml_select
 - includes/shortcode.php : add_shortcode : xslt_test  (WP_DEBUG)
 - includes/shortcode.php : add_filter    : no_texturize_shortcodes
-- includes/xml.php : class XSLT_Processor_XML
-- includes/xml.php : eg, decode_file(), transcode_xml(), encode_array()
-- includes/xsl.php : class XSLT_Processor_XSL
-- includes/xsl.php : eg, transform(), validateXSL(), validateXML()
 - includes/util.php : class XSLT_Processor_Util
 - includes/util.php : eg, getDateTime(), getRemoteFile(), utf8_clean()
 - includes/wp.php : class XSLT_Processor_WP
 - includes/wp.php : eg, getShortcodeBooleans(), getPostByName(), getPostContent()
+- includes/xml.php : class XSLT_Processor_XML
+- includes/xml.php : eg, decode_file(), transcode_xml(), encode_array()
+- includes/xsl.php : class XSLT_Processor_XSL
+- includes/xsl.php : eg, transform(), validateXSL(), validateXML()

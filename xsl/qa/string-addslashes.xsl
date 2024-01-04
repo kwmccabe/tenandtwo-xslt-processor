@@ -55,7 +55,7 @@
 </xsl:stylesheet>
 <!-- end string-addslashes.xsl -->
 <!--
-[xsl_transform xsl_file="qa/string-addslashes.xsl"]
+[xsl_transform xsl="qa/string-addslashes.xsl"]
 <TESTS>
   <TEST>
     <value>The &quot;Book&quot;</value>

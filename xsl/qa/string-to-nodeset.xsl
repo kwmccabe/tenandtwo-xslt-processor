@@ -35,7 +35,8 @@
             <!-- compare result against expected -->
             <xsl:variable name="pass">
                 <xsl:choose>
-                    <xsl:when test="$p_result = $p_expected">PASS</xsl:when>
+                    <xsl:when test="$result = $expected">PASS</xsl:when>
+                    <xsl:when test="$p_result = $p_expected">PPASS</xsl:when>
                     <xsl:when test="not(string-length($p_expected))">UNKNOWN</xsl:when>
                     <xsl:otherwise>FAIL</xsl:otherwise>
                 </xsl:choose>
@@ -52,12 +53,14 @@
             </p>
 
             <p>result : <br />
-                <xsl:copy-of select="$p_result" />
+                <!-- <xsl:copy-of select="$result" /> -->
+                <pre><xsl:value-of select="$p_result" /></pre>
             </p>
 
             <xsl:if test="$pass = 'FAIL'">
                 <p>expected : <br />
-                    <xsl:copy-of select="$p_expected" />
+                    <!-- <xsl:copy-of select="$expected" /> -->
+                    <pre><xsl:value-of select="$p_expected" /></pre>
                 </p>
             </xsl:if>
 
@@ -70,7 +73,7 @@
 </xsl:stylesheet>
 <!-- end string-to-nodeset.xsl -->
 <!--
-[xsl_transform xsl_file="qa/string-to-nodeset.xsl"]
+[xsl_transform xsl="qa/string-to-nodeset.xsl"]
 <TESTS>
   <TEST>
     <value>one|two|three</value>

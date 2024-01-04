@@ -13,28 +13,6 @@ defined( 'ABSPATH' ) or die( 'Not for browsing' );
 
 class XSLT_Processor_WP
 {
-    /**
-     * sanitize html ???
-     * @uses wp_kses( string $content, array[]|string $allowed_html, string[] $allowed_protocols = array() ): string
-     */
-
-    /**
-     * convert titles/name to lowercase with dashes
-     * eg, "The Title" => "the-title"
-     * eg, "COOKING / Methods / Barbecue &amp; Grilling" => "cooking-methods-barbecue-grilling"
-     *
-     * ??? wp_kses( string $content, array[]|string $allowed_html, string[] $allowed_protocols = array() ): string
-     *
-     * @see wp.xsl, template name="wp-sanitize-title"
-     * @uses sanitize_title( string $title, string $fallback_title = '', string $context = 'save' ): string
-     */
-    public static function getSanitizeTitle( $title )
-    {
-        $result = sanitize_title( $title );
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('title','result'),true), E_USER_NOTICE); }
-        return $result;
-    }
-
 
     /**
      * call WP function shortcode_atts()
@@ -49,7 +27,7 @@ class XSLT_Processor_WP
         $result = shortcode_atts( $pairs, $attrs, $shortcode );
 
         $no_vals = array( '0', 'n', 'f' );
-        foreach ($result as $key => $val) {
+        foreach( $result as $key => $val ) {
             $char1 = substr(strtolower(strval($val)), 0, 1);
             if (!empty($val) && in_array($char1, $no_vals))
                 { $val = false; }
@@ -64,15 +42,23 @@ class XSLT_Processor_WP
 
     /**
      * get WP Post OBJECT, ARRAY_A, or ARRAY_N
-     * @param string $post_name     the post's slug
+     *
+     * @param mixed $post_id        the post's id or slug
      * @param array $post_type      select filter, eg array('page','xml')
      * @param constant $output      OBJECT, ARRAY_A, or ARRAY_N
      * @return object WP_Post, array, or false
      */
-    public static function getPostByName( $post_name, $post_type = array(), $output = OBJECT )
+    public static function getPostItem( $post_id, $post_type = array(), $output = OBJECT )
     {
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('post_name','post_type','output'),true), E_USER_NOTICE); }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('post_id','post_type','output'),true), E_USER_NOTICE); }
 
+        // by post_id (ignore post_type)
+        if (is_numeric($post_id))
+        {
+            return get_post( $post_id, $output );
+        }
+
+        // by post_name
         global $wpdb;
         if (empty($post_type))
         {
@@ -80,7 +66,7 @@ class XSLT_Processor_WP
                 "SELECT ID
                 FROM $wpdb->posts
                 WHERE post_name = %s",
-                $post_name
+                $post_id
             );
         }
         else
@@ -92,7 +78,7 @@ class XSLT_Processor_WP
                 FROM $wpdb->posts
                 WHERE post_name = %s
                 AND post_type IN (".$post_types.")",
-                array_merge( array($post_name), $post_type)
+                array_merge( array($post_id), $post_type)
             );
         }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('sql'),true), E_USER_NOTICE); }
@@ -104,21 +90,51 @@ class XSLT_Processor_WP
     }
 
     /**
+     * get all meta fields for post
+     * if meta value is a single-element array, convert to scalar
+     *
+     * @param mixed $post_id        WP_Post object, post id, or post slug
+     * @param array $post_type      select filter, eg array('page','xml')
+     * @return array
+     */
+    public static function getPostMeta( $post_id, $post_type = array() )
+    {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('post_id','post_type'),true), E_USER_NOTICE); }
+
+        $meta = null;
+        if (is_object($post_id) && get_class($post_id) == 'WP_Post') {
+            $meta = get_post_meta( $post_id->ID );
+        } elseif (is_numeric($post_id)) {
+            $meta = get_post_meta( $post_id );
+        } else {
+            $post = self::getPostItem( $post_id, $post_type );
+            if ($post) { $meta = get_post_meta( $post->ID ); }
+        }
+        if (!$meta) { return false; }
+
+        $result = array();
+        foreach($meta as $key => $val) {
+            $result[$key] = (is_array($val) && count($val) == 1) ? $val[0] : $val;
+        }
+        return $result;
+    }
+
+    /**
      * get filtered content from post
      * if post_type=page, add <div> for XML
      * if post_type=page, extract stylesheet for XSL
      *
-     * @param mixed $id             the post's id or slug
+     * @param mixed $post_id        WP_Post object, post id, or post slug
      * @param array $post_type      select filter, eg array('page','xml')
      * @return string
      */
-    public static function getPostContent( $id, $post_type = array() )
+    public static function getPostContent( $post_id, $post_type = array() )
     {
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('id','post_type'),true), E_USER_NOTICE); }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('post_id','post_type'),true), E_USER_NOTICE); }
 
-        $post = (is_numeric($id))
-            ? get_post($id)
-            : self::getPostByName( $id, $post_type );
+        $post = (is_object($post_id) && get_class($post_id) == 'WP_Post')
+            ? $post_id
+            : self::getPostItem( $post_id, $post_type );
         if (!$post) { return false; }
 
         $post_content = self::filterPostContent( $post->post_content );
@@ -127,12 +143,9 @@ class XSLT_Processor_WP
             $post_content = '<div class="page-content">'.$post_content.'</div>';
 
             if (!is_array($post_type)) { $post_type = array($post_type); }
-            if (in_array('xsl', $post_type))
+            if (in_array(POST_TYPE_XSL, $post_type))
             {
-                global $XSLT_Processor_XML;
-                if (empty($XSLT_Processor_XML)) { $XSLT_Processor_XML = new XSLT_Processor_XML(); }
-
-                $post_content = $XSLT_Processor_XML->decode_string( $post_content, '//xsl:stylesheet[1]', 'xml', '');
+                $post_content = XSLT_Processor_XML::decode_string( $post_content, '//xsl:stylesheet[1]', 'xml', '');
             }
         }
         return $post_content;

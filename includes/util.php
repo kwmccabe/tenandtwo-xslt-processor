@@ -26,7 +26,7 @@ class XSLT_Processor_Util
      *
      * @see date.xsl, template name="date-microtime"
      * @param none
-     * @return float          current microtime with milliseconds
+     * @return float    : current microtime with milliseconds
      */
     public static function getMicrotime()
     {
@@ -48,7 +48,7 @@ class XSLT_Processor_Util
      * - value : datetime string
      * - shift : string, eg "+1 hours"
      * - format : string, eg "Y-m-d H:i:s"
-     * @return string  XML
+     * @return string   : XML
      */
     public static function getDateTime( $params )
     {
@@ -73,8 +73,8 @@ class XSLT_Processor_Util
 
     /**
      * get array of valid, local realpaths from string|array of path(s)
-	 * @param array|string $input   paths to check
-     * @return array                array of valid realpaths
+	 * @param array|string $input   : paths to check
+     * @return array                : array of valid realpaths
      */
     public static function getRealPaths( $input )
     {
@@ -88,7 +88,7 @@ class XSLT_Processor_Util
         $input = preg_replace("|[^$valid]+|", $delim, $input);
         // to array
         $result = explode($delim, $input);
-        foreach ($result as $key => $path)
+        foreach( $result as $key => $path )
         {
             $result[$key] = realpath($path);
             if (empty($path) || empty($result[$key]))
@@ -99,12 +99,124 @@ class XSLT_Processor_Util
     }
 
     /**
+     * get array of local files under path
+     * OR an XML list/fragment if format="xml":
+     *     <file basename="{filename}" bytes="{filesize}">{filepath}</file>
+     * final search is restricted to DOCUMENT_ROOT or search_paths
+     *
+     * @param string $path          : local directory path
+     * @param string $match         : preg_match for full filepath
+     * @param string $levels        : recursive
+     * @param array $search_paths   :
+     * @param array $format         : php (dflt) | xml
+     * @return mixed                : array or XML with valid realpaths
+     */
+    public static function getFileListingLocal( $path, $match = '.xml$', $levels = 1, $search_paths = array(), $format = 'php' )
+    {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('path','match','levels','search_paths','format'),true), E_USER_NOTICE); }
+
+        if (strpos($path,'__') !== false)
+        {
+            $search  = array('__DOCUMENT_ROOT__',      '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
+            $replace = array($_SERVER['DOCUMENT_ROOT'], WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
+            $path = str_replace($search, $replace, $path);
+        }
+        if (!empty($search_paths) && !is_array($search_paths))
+            { $search_paths = array($search_paths); }
+
+        $dir_path = realpath($path);
+        $valid_path = $dir_path && is_dir($dir_path) && is_readable($dir_path);
+        if ($valid_path && strpos($dir_path,$_SERVER['DOCUMENT_ROOT']) === false)
+        {
+            $valid_path = false;
+            foreach( $search_paths as $search_path )
+            {
+                if (strpos($dir_path,$search_path) === false)
+                    { continue; }
+                $valid_path = true;
+                break;
+            }
+        }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('path','dir_path','valid_path'),true), E_USER_NOTICE); }
+
+        $result = array();
+        if ($valid_path)
+        {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : OPENDIR( $dir_path )", E_USER_NOTICE); }
+            if ($dir = opendir($dir_path))
+            {
+                while (($file = readdir($dir)) !== false) {
+                    $fullpath = rtrim($dir_path,'/').'/'.$file;
+
+                    if ('.' === $file[0] || !is_readable($fullpath))
+                        { continue; }
+                    if (is_dir($fullpath) && $levels > 1)
+                    {
+                        $subresult = self::getFileListingLocal( $fullpath, $match, $levels-1 );
+                        if (is_array($subresult))
+                            { $result = array_merge($subresult,$result); }
+                        continue;
+                    }
+                    if (!pathinfo($file, PATHINFO_EXTENSION))
+                        { continue; }
+                    if ($match && !preg_match('/'.$match.'/i', $fullpath))
+                        { continue; }
+
+                    $result[] = $fullpath;
+                }
+                closedir($dir);
+            }
+        }
+        else
+        {
+            foreach( $search_paths as $search_path )
+            {
+                if (empty($search_path)) { continue; }
+                $fullpath = rtrim($search_path,'/').'/'.$path;
+
+                if (!($fullpath && is_dir($fullpath) && is_readable($fullpath)))
+                    { continue; }
+
+                $subresult = self::getFileListingLocal( $fullpath, $match, $levels );
+                if (is_array($subresult))
+                    { $result = array_merge($subresult,$result); }
+            }
+        }
+        if (!empty($result))
+        {
+            $result = array_unique( $result, SORT_STRING );
+            sort( $result, SORT_STRING );
+        }
+
+        if ($format != 'xml')
+        {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('path','match','levels','result'),true), E_USER_NOTICE); }
+            return $result;
+        }
+
+        $rv = '';
+        foreach ($result as $file) {
+            $basename = pathinfo($file,  PATHINFO_BASENAME);
+            $bytes    = filesize($file);
+            $rv .= '<file'
+                . ' basename="'.$basename.'"'
+                . ' bytes="'.$bytes.'"'
+                .'>';
+            $rv .= html_entity_decode($file,ENT_XML1,"UTF-8");
+            $rv .= '</file>';
+        }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('path','match','levels','rv'),true), E_USER_NOTICE); }
+        return $rv;
+    }
+
+    /**
      * check local file exists
      * __DOCUMENT_ROOT__, __WP_CONTENT_DIR__ and __XSLT_PLUGIN_DIR__ automatically replaced
      *
      * @see file.xsl, template name="file-exists-local"
-     * @param string : local path passed to realpath()
-     * @return string : realpath or empty
+     * @param string $file          : local path passed to realpath()
+     * @param array $search_paths   :
+     * @return string               : realpath or empty
      */
     public static function getFileExistsLocal( $file, $search_paths = array() )
     {
@@ -122,12 +234,13 @@ class XSLT_Processor_Util
             return realpath( $file ) ? realpath( $file ) : $file;
         }
 
-        foreach ($search_paths as $path)
+        if (!is_array($search_paths)) { $search_paths = array($search_paths); }
+        foreach( $search_paths as $path )
         {
             if (empty($path)) { continue; }
-            if (file_exists($path."/".$file))
+            if (file_exists(rtrim($path,'/').'/'.$file))
             {
-                $file = $path."/".$file;
+                $file = rtrim($path,'/').'/'.$file;
                 return realpath( $file ) ? realpath( $file ) : $file;
             }
         }
@@ -135,11 +248,28 @@ class XSLT_Processor_Util
     }
 
     /**
+     * retrieve local file body
+     *
+     * @param string $file              : local path passed to file_get_contents()
+     * @param integer $cache_minutes    : cache_minutes for wp transient
+     * @return string                   : page body
+     */
+    public static function getLocalFile( $file, $cache_minutes = 1 )
+    {
+        if (file_exists($file))
+        {
+            return file_get_contents( $file );
+        }
+        return '';
+    }
+
+
+    /**
      * check remote file exists
      *
      * @see file.xsl, template name="file-exists-remote"
-     * @param string : remote path passed to cURL
-     * @return string : url or empty
+     * @param string $url   : remote path passed to cURL
+     * @return string       : url or empty
      */
     public static function getFileExistsRemote( $url )
     {
@@ -161,24 +291,30 @@ class XSLT_Processor_Util
     /**
      * retrieve remote file body
      *
-     * @param string  : remote path passed to cURL
-     * @param integer : cache_minutes for wp transient
-     * @return string : page body
+     * @param string $url               : remote path passed to wp_remote_get()
+     * @param integer $cache_minutes    : >0 for set_transient(), else delete_transient()
+     * @return string                   : response body
      */
     public static function getRemoteFile( $url, $cache_minutes = 1 )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('url','cache_minutes'),true), E_USER_NOTICE); }
 
-        if ($cache_minutes > 0)
-        {
-            $cache_params = array( 'method' => 'md5', 'data' => $url );
-            $cache_key = self::getHash( $cache_params );
-            $body = get_transient( $cache_key );
+        $cache_params = array( 'method' => 'md5', 'data' => $url );
+        $cache_key = self::getHash( $cache_params );
+        $body = get_transient( $cache_key );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('url','cache_key','body'),true), E_USER_NOTICE); }
-            if ($body !== false)
+
+        if ($body !== false)
+        {
+            if ($cache_minutes > 0)
             {
 if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE GET : $cache_key", E_USER_NOTICE); }
                 return $body;
+            }
+            else
+            {
+if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE DELETE : $cache_key", E_USER_NOTICE); }
+                delete_transient( $cache_key );
             }
         }
 
@@ -197,8 +333,6 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE GET : $cache_key", E_USER_NOT
 
         $body = wp_remote_retrieve_body( $response );
         $body = self::utf8_clean( $body );
-        //$body = self::removeXmlDeclaration( $body );
-        //$body = self::removeXmlNamespaces( $body );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('url','response_code','body'),true), E_USER_NOTICE); }
 
         if (0 < $cache_minutes && $response_code < 400)
@@ -209,28 +343,6 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE SET : $cache_key", E_USER_NOT
         return $body;
     }
 
-// function custom_timeout_extend( $time ) { return 20; }
-// add_filter( 'http_request_timeout', 'custom_timeout_extend' );
-
-
-    /**
-     * convert bytes to human-readable string, eg "1.23 MB"
-     *
-     * @see util.xsl, template name="util-byte-size"
-     * @param integer $bytes       integer value to convert
-     * @return string              file size string, eg, "12.34 KB"
-     */
-    public static function getByteSize( $bytes )
-    {
-        $label_arr = array(" bytes"," KB"," MB"," GB"," TB"," PB"," Exabytes"," Zettabytes"," Yottabytes"," Brontobytes"," Geopbytes");
-        $label_idx = 0;
-        $cur_bytes = intval($bytes);
-        while ($cur_bytes >= 1024 && !empty($label_arr[$label_idx+1]))
-            { $label_idx++; $cur_bytes /= 1024; }
-        $rv = round($cur_bytes,2).$label_arr[$label_idx];
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('bytes','rv'),true), E_USER_NOTICE); }
-        return $rv;
-    }
 
     /**
      * @see util.xsl, template name="util-hash"
@@ -255,8 +367,8 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE SET : $cache_key", E_USER_NOT
      * remove header : < ? xml version ...
      * removes one (1) max
      *
-     * @param string $xml    xml value
-     * @return string        xml without version header
+     * @param string $xml   : xml value
+     * @return string       : xml without version header
      */
     public static function removeXmlDeclaration( $xml )
     {
@@ -269,13 +381,13 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE SET : $cache_key", E_USER_NOT
      * remove header : <!DOCTYPE ... >
      * NODE: does not work with nested, eg <!ELEMENT>
      *
-     * @param string $xml    xml value
-     * @return string        xml without DOCTYPE header
+     * @param string $xml   : xml value
+     * @return string       : xml without DOCTYPE header
      */
     public static function removeXmlDoctype( $xml )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
-        $xml = preg_replace('|<\!DOCTYPE[^>]+>|i', '', $xml, 1);
+        $xml = preg_replace('|<\!DOCTYPE[^>]*>|i', '', $xml, 1);
         return trim( $xml );
     }
 
@@ -284,8 +396,8 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE SET : $cache_key", E_USER_NOT
      * remove xmlns:key="uri"
      * change <key:nodename> -to- <nodename>
      *
-     * @param string $xml    xml value
-     * @return string        xml without xmlns attributes
+     * @param string $xml   : xml value
+     * @return string       : xml without xmlns attributes
      */
     public static function removeXmlNamespaces( $xml )
     {
@@ -305,6 +417,9 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE SET : $cache_key", E_USER_NOT
 
     /**
      * remove non-utf8 chars from file
+     * @param string $infile    : local filepath
+     * @param string $outfile   : local filepath, dflt = $infile
+     * @return string           : $outfile | false
      */
     public static function utf8_clean_file( $infile, $outfile = '' )
     {
@@ -334,8 +449,10 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE SET : $cache_key", E_USER_NOT
     /**
      * remove non-utf8 chars from string
      * uses WP function if 'iconv' is available to strip bad chars
-     *
      * @see https://developer.wordpress.org/reference/functions/wp_check_invalid_utf8/
+     *
+     * @param string $value : string to clean
+     * @return string       :
      */
     public static function utf8_clean( $value )
     {

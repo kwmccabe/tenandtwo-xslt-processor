@@ -12,7 +12,8 @@
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" />
 
 
-<!-- date-microtime
+<!-- MARK date-microtime -->
+<!--
     <xsl:call-template name="date-microtime" />
 -->
     <xsl:template name="date-microtime">
@@ -20,7 +21,8 @@
     </xsl:template>
 
 
-<!-- date-format
+<!-- MARK date-format -->
+<!--
     <xsl:call-template name="date-format">
         <xsl:with-param name="value">string datetime</xsl:with-param>
         <xsl:with-param name="shift">string, eg "+x hours +y minutes"</xsl:with-param>

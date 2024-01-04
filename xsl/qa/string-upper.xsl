@@ -55,12 +55,8 @@
 </xsl:stylesheet>
 <!-- end string-upper.xsl -->
 <!--
-[xsl_transform xsl="string-upper.xsl"]
+[xsl_transform xsl="qa/string-upper.xsl"]
 <TESTS>
-  <TEST>
-    <value>abcdefghijklmnopqrstuvwxyzaaaaaaaceeeeiiiidnoooooouuuuyyyz</value>
-    <expected>ABCDEFGHIJKLMNOPQRSTUVWXYZAAAAAAACEEEEIIIIDNOOOOOOUUUUYYYZ</expected>
-  </TEST>
   <TEST>
     <value>abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿž</value>
     <expected>ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞŸŽ</expected>

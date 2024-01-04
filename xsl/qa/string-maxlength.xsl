@@ -72,7 +72,7 @@
   <TEST>
     <value>This &amp; That</value>
     <max>8</max>
-    <expected>This &...</expected>
+    <expected>This &amp;…</expected>
   </TEST>
 </TESTS>
 [/xsl_transform]
