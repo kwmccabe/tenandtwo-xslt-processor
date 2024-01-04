@@ -1,0 +1,83 @@
+# Changelog
+
+Notable changes are documented here.
+
+
+## [Unreleased]
+
+### Added
+### Fixed
+### Changed
+### Removed
+
+
+## [1.0.0] - 2024-01-01
+
+### Added
+
+- one
+
+### Fixed
+
+- a bunch of one
+
+### Changed
+
+- a lot of one
+
+### Removed
+
+- many
+
+
+## [0.9.1] - 2023-11-15
+
+Initial release
+
+### Added
+
+- xslt_processor.php : class XSLT_Processor_Plugin
+- xslt_processor.php : register_activation_hook(   __FILE__, array('XSLT_Processor_Plugin', 'plugin_activation') );
+- xslt_processor.php : register_deactivation_hook( __FILE__, array('XSLT_Processor_Plugin', 'plugin_deactivation') );
+- xslt_processor.php : register_uninstall_hook(    __FILE__, array('XSLT_Processor_Plugin', 'plugin_uninstall') );
+- xslt_processor.php : add_action( 'init', array('XSLT_Processor_Plugin', 'init') );
+- xslt_processor.php : get_option : xslt_processor_options
+- admin.php : class XSLT_Processor_Admin
+- admin.php : load_plugin_textdomain    : xslt_processor
+- admin.php : add_action( 'admin_menu',     array('XSLT_Processor_Admin', 'register_pages') );
+- admin.php : add_options_page          : xslt_processor_settings
+- admin.php : add_action( 'admin_init',     array('XSLT_Processor_Admin', 'register_settings') );
+- admin.php : register_setting          : xslt_processor_settings
+- admin.php : add_settings_field        : post_type_xsl + post_type_xml
+- admin.php : add_settings_field        : sc_transform
+- admin.php : add_settings_field        : sc_select
+- admin.php : add_settings_field        : cache_default
+- admin.php : add_settings_field        : search_path
+- admin.php : add_filter                : plugin_action_links_
+- admin.php : add_filter                : upload_mimes
+- post_type.php : class XSLT_Processor_Post_Type
+- post_type.php : register_post_type    : 'xsl', 'XSL Stylesheets'
+- post_type.php : register_post_type    : 'xml', 'XML Documents'
+- post_type.php : add_action( 'add_meta_boxes', array('XSLT_Processor_Post_Type', 'add_xslt_validation') );
+- post_type.php : register_post_meta    : _xslt_validation   (post_type=xsl|xml)
+- post_type.php : register_post_meta    : _xslt_schema_type  (post_type=xml)
+- post_type.php : register_post_meta    : _xslt_schema_value (post_type=xml)
+- post_type.php : add_action( 'save_post',      array('XSLT_Processor_Post_Type', 'update_xslt_validation'), 10, 3 );
+- post_type.php : add_action( 'save_post',      array('XSLT_Processor_Post_Type', 'xslt_validate'), 11, 3 );
+- post_type.php : add_filter("the_content",     array('XSLT_Processor_Post_Type', 'the_content_filter'), 20);
+- shortcode.php : class XSLT_Processor_Shortcode
+- shortcode.php : add_shortcode : xsl_transform + xsl_transform_alias
+- shortcode.php : add_shortcode : xml_select
+- shortcode.php : add_shortcode : xslt_test  (WP_DEBUG)
+- shortcode.php : add_filter    : no_texturize_shortcodes
+- xsl.php : class XSLT_Processor_XSL
+- xsl.php : eg, transform(), validateXSL(), validateXML()
+- xml.php : class XSLT_Processor_XML
+- xml.php : eg, decode_file(), transcode_xml(), encode_array()
+- util.php : class XSLT_Processor_Util
+- util.php : eg, getDateTime(), getRemoteFile(), utf8_clean()
+- wp.php : class XSLT_Processor_WP
+- wp.php : eg, getShortcodeBooleans(), getPostByName(), getPostContent()
+- callback.php : function XSLT_Callback
+- callback.php : class XSLT_Processor_Callback
+- xslt-functions.php : global $XSLT_PLUGIN_PHP_FUNCTIONS

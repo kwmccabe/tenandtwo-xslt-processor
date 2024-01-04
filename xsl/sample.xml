@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE sample SYSTEM "/var/www/html/wp-content/plugins/xslt-processor/xsl/sample.dtd">
+<sample>
+    <comment>This is a test XML file.
+It contains this &lt;comment&gt; node,
+followed by a single &lt;date&gt; node,
+and a &lt;list&gt; node containing several &lt;item&gt; nodes.</comment>
+    <list title="My List">
+        <item value="1">One</item>
+        <item value="2">Two</item>
+        <item value="3">Three</item>
+        <item value="4">Four</item>
+    </list>
+    <dates>
+        <date>2022-12-02 12:12:12</date>
+        <date>2023-03-03 13:13:13</date>
+    </dates>
+</sample>

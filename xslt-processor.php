@@ -1,0 +1,127 @@
+<?php
+/**
+ * XSLT Processor
+ *
+ * @package           tenandtwo-plugins
+ * @subpackage        xslt-processor
+ * @author            Ten & Two Systems
+ * @copyright         2023 Ten & Two Systems
+ * @license           GPL-2.0-or-later
+ *
+ * @wordpress-plugin
+ * Plugin Name:       XSLT Processor
+ * Plugin URI:        https://www.tenandtwo.io/xslt-processor/
+ * Update URI:        https://wordpress.org/plugins/xslt-processor/
+ * Description:       Transform and display XML from local and remote sources using PHP's XSL extension.
+ * Version:           0.9.1
+ * Requires PHP:      7.0
+ * Requires at least: 5.0
+ * Author:            Ten & Two Systems
+ * Author URI:        https://www.tenandtwo.com/
+ * Text Domain:       xslt-processor
+ * Domain Path:       /languages
+ * License:           GPL v2 or later
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+defined( 'ABSPATH' ) or die( 'Not for browsing' );
+
+define( 'XSLT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'XSLT_PLUGIN_NAME', basename(XSLT_PLUGIN_DIR) );
+define( 'XSLT_PLUGIN_VERSION', '1.0.0' );
+
+define( 'XSLT_TEXT', XSLT_PLUGIN_NAME );  // text domain name
+define( 'XSLT_CACHE_DEFAULT', '60' );     // minutes
+
+
+/**
+ * XSLT_Processor_Plugin
+ * All class methods static and hooked.
+ */
+class XSLT_Processor_Plugin
+{
+    private static $initiated = false;
+
+    /**
+     * init
+     */
+    public static function init() {
+        if (self::$initiated) { return; }
+
+        // register pages, setting, options
+        if (is_admin() && current_user_can('manage_options'))
+        {
+            require_once(XSLT_PLUGIN_DIR.'includes/admin.php');
+            XSLT_Processor_Admin::init();
+
+            require_once(XSLT_PLUGIN_DIR.'includes/notice.php');
+            XSLT_Processor_Notice::init();
+        }
+
+        // return if libxslt missing
+        if (!defined( 'LIBXSLT_VERSION' )) {
+            trigger_error("LIBXSLT_VERSION NOT DEFINED", E_USER_NOTICE);
+            return;
+        }
+
+        require_once(XSLT_PLUGIN_DIR.'includes/callback.php');
+        require_once(XSLT_PLUGIN_DIR.'includes/util.php');
+        require_once(XSLT_PLUGIN_DIR.'includes/wp.php');
+        require_once(XSLT_PLUGIN_DIR.'includes/xml.php');
+        require_once(XSLT_PLUGIN_DIR.'includes/xsl.php');
+        require_once(XSLT_PLUGIN_DIR.'xslt-functions.php');
+
+        $options = get_option( 'xslt_processor_options', array() );
+
+        // register shortcodes
+        if (!empty($options['sc_transform']) || !empty($options['sc_select'])) {
+            require_once(XSLT_PLUGIN_DIR.'includes/shortcode.php');
+            XSLT_Processor_Shortcode::init();
+        }
+
+        // register post types
+        if (!empty($options['post_type_xml']) || !empty($options['post_type_xsl'])) {
+            require_once(XSLT_PLUGIN_DIR.'includes/post_type.php');
+            XSLT_Processor_Post_Type::init();
+        }
+
+        // register blocks ???
+
+        self::$initiated = true;
+    }
+
+    /**
+     * activate
+     */
+    public static function plugin_activation()
+    {
+        add_option( 'xslt_processor_options', array() );
+        flush_rewrite_rules();
+    }
+
+    /**
+     * deactivate
+     */
+    public static function plugin_deactivation()
+    {
+        flush_rewrite_rules();
+    }
+
+    /**
+     * uninstall
+     */
+    public static function plugin_uninstall()
+    {
+        delete_option( 'xslt_processor_options' );
+    }
+
+
+}  // end XSLT_Processor_Plugin
+
+/**
+ * MAIN
+ */
+register_activation_hook(   __FILE__, array('XSLT_Processor_Plugin', 'plugin_activation') );
+register_deactivation_hook( __FILE__, array('XSLT_Processor_Plugin', 'plugin_deactivation') );
+register_uninstall_hook(    __FILE__, array('XSLT_Processor_Plugin', 'plugin_uninstall') );
+
+add_action( 'init', array('XSLT_Processor_Plugin', 'init') );

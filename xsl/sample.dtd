@@ -1,0 +1,8 @@
+<!ELEMENT sample (comment+,list,dates)>
+<!ELEMENT comment ANY>
+<!ELEMENT list (item+)>
+<!ELEMENT item (#PCDATA)>
+<!ATTLIST list title CDATA #REQUIRED>
+<!ATTLIST item value CDATA #REQUIRED>
+<!ELEMENT dates (date*)>
+<!ELEMENT date (#PCDATA)>
