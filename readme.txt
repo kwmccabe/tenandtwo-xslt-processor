@@ -1,4 +1,4 @@
-=== XSLT Processor ===
+=== Ten&Two XSLT Processor ===
 Contributors: tenandtwo
 Donate link: https://www.tenandtwo.io/donate/
 Tags: xslt, xml, xsl, shortcode
@@ -15,7 +15,7 @@ Transform and display XML from local and remote sources using PHP's XSL extensio
 
 == Description ==
 
-The XSLT Processor plugin brings the power of PHP's XSL module to Wordpress.  Once enabled, the plugin creates two shortcodes - [xsl_transform/] and [xml_select/] - which can be used separately or in tandem to enrich your site with content from XML sources.  The plugin also enables two custom post types - 'XSL Stylesheets' and 'XML Documents' - for managing and validating sources within WP Admin.
+The Ten&Two XSLT Processor plugin brings the power of PHP's XSL module to Wordpress.  Once enabled, the plugin creates two shortcodes - [xsl_transform/] and [xml_select/] - which can be used separately or in tandem to enrich your site with content from XML sources.  The plugin also enables two custom post types - 'XSL Stylesheets' and 'XML Documents' - for managing and validating sources within WP Admin.
 
 More information and sample code can be found at https://www.tenandtwo.io/
 
@@ -95,18 +95,18 @@ The XSLT Processor plugin includes a number of useful XSL templates that you can
 
 In WordPress :
 
-1. Go to Plugins > Add New > search for `xslt-processor`
-2. Press "Install Now" for the XSLT Processor plugin
+1. Go to Plugins > Add New > search for `tenandtwo-xslt-processor`
+2. Press "Install Now" for the "Ten&Two XSLT Processor" plugin
 3. Press "Activate Plugin"
 
 WP-CLI installation :
 
-1. `wp plugin install xslt-processor --activate`
+1. `wp plugin install tenandtwo-xslt-processor --activate`
 
 Manual installation
 
-1. Download the latest plugin archive : https://www.tenandtwo.io/wp-content/uploads/xslt-processor-latest.tgz
-2. Upload the `xslt-processor` directory to your `/wp-content/plugins/` directory
+1. Download the latest plugin archive : https://www.tenandtwo.io/wp-content/uploads/tenandtwo-xslt-processor-latest.tgz
+2. Upload the `tenandtwo-xslt-processor` directory to your `/wp-content/plugins/` directory
 3. Activate the plugin through the "Plugins" menu in WordPress
 
 For more details on installation options, see Manage Plugins at wordpreess.org - https://wordpress.org/documentation/article/manage-plugins/
@@ -114,7 +114,7 @@ For more details on installation options, see Manage Plugins at wordpreess.org -
 
 = Requirements =
 
-The XSLT Processor plugin relies upon PHP's XSL extension.  If the extension is installed, then XSLT Processor Settings screen will display a message similar to the first message below.  If LIBXSLT_VERSION is undefined, on the other hand, all plugin options are disabled automatically, and the second message is displayed.
+The Ten&Two XSLT Processor plugin relies upon PHP's XSL extension.  If the extension is installed, then XSLT Processor Settings screen will display a message similar to the first message below.  If LIBXSLT_VERSION is undefined, on the other hand, all plugin options are disabled automatically, and the second message is displayed.
 
 -- PHP's XSL extension is available : XSLT v1.1.32, EXSLT v1.1.32, LIBXML v2.9.4
 -- PHP's XSL extension is NOT available

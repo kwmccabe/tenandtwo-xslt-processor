@@ -17,8 +17,8 @@
  *
  * @see https://www.php.net/manual/en/book.xsl.php
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */
@@ -185,21 +185,21 @@ class XSLT_Processor_XSL
 
         if (WP_DEBUG)
         {
-            trigger_error(__METHOD__." : xml_value ("
+            $msg = __METHOD__." : ";
+            $msg .= "\n- XML ("
                 . $xml_type
                 . ', ' . XSLT_Processor_Util::getByteSize( ($xml_type == "file") ? filesize($xml_value) : strlen($xml_value) )
-                . ") " . ( ($xml_type == "file") ? "'$xml_value'" : '' )
-                , E_USER_NOTICE);
-            trigger_error(__METHOD__." : xsl_value ("
+                . ") " . ( ($xml_type == "file") ? "'$xml_value'" : '' );
+            $msg .= "\n- XSL ("
                 . $xsl_type
                 . ', ' . XSLT_Processor_Util::getByteSize( ($xsl_type == "file") ? filesize($xsl_value) : strlen($xsl_value) )
-                . ") " . ( ($xsl_type == "file") ? "'$xsl_value'" : '' )
-                , E_USER_NOTICE);
+                . ") " . ( ($xsl_type == "file") ? "'$xsl_value'" : '' );
             if (!empty($out_file))
             {
-                trigger_error(__METHOD__." : $bytes bytes written to '$out_file'", E_USER_NOTICE);
+                $msg .= "\n- FILE $bytes bytes written to '$out_file'";
             }
-            trigger_error(__METHOD__." : " . sprintf("%.4f",($stoptime - $starttime)) . " seconds", E_USER_NOTICE);
+            $msg .= "\n- TIME " . sprintf("%.4f",($stoptime - $starttime)) . " seconds \n";
+            trigger_error( $msg, E_USER_NOTICE );
         }
 
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('rv'),true), E_USER_NOTICE); }

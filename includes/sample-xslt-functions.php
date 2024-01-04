@@ -2,12 +2,12 @@
 /**
  * Sample callback function for XSLT
  *
- * xslt-functions.php
+ * add this file to tenandtwo-xslt-functions.php
  * ----
- *   require_once plugin_dir_path( __FILE__ ) . 'includes/functions_sample.php';
+ *   require_once plugin_dir_path( __FILE__ ) . 'includes/sample-xslt-functions.php';
  * ----
  *
- * functions-sample.xsl
+ * sample-xslt-functions.xsl
  * ----
  *   <?xml version="1.0" encoding="utf-8"?>
  *   <xsl:stylesheet version="1.0"
@@ -43,8 +43,8 @@
  *   </xsl:stylesheet>
  * ----
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */

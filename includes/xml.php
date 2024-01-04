@@ -2,8 +2,8 @@
 /**
  * XML
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */

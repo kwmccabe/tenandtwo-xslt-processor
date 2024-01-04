@@ -2,8 +2,8 @@
 /**
  * Util
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */
@@ -112,8 +112,8 @@ class XSLT_Processor_Util
 
         if (strpos($file,'__') !== false)
         {
-            $search  = array('__DOCUMENT_ROOT__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
-            $replace = array($_SERVER['DOCUMENT_ROOT'], WP_CONTENT_DIR, XSLT_PLUGIN_DIR);
+            $search  = array('__DOCUMENT_ROOT__',      '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
+            $replace = array($_SERVER['DOCUMENT_ROOT'], WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
             $file = str_replace($search, $replace, $file);
         }
 
@@ -183,7 +183,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE GET : $cache_key", E_USER_NOT
         }
 
         $request_args = array(
-            'timeout' => 30
+            'timeout' => 30     // pref ???
             );
         $response = wp_remote_get( $url, $request_args );
         if (is_wp_error( $response ))

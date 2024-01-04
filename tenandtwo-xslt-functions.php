@@ -3,10 +3,10 @@
  * XSLT Functions
  *
  * usage:
- * require_once plugin_dir_path( __FILE__ ) . 'xslt-functions.php';
+ * require_once plugin_dir_path( __FILE__ ) . 'tenandtwo-xslt-functions.php';
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) or die( 'Not for browsing' );
  * Functions should return a scalar value (int, float, string, bool)
  *     <xsl:value-of select="php:functionString('fname', string($param))" />
  *
- * OR return a DomDocument(), as demonstrated in includes/functions_sample.php
+ * OR return a DomDocument(), as demonstrated in includes/sample-xslt-functions.php
  *     <xsl:copy-of select="php:function('fname', string($param))" />
  *
  * @see https://www.php.net/manual/en/xsltprocessor.registerphpfunctions.php
@@ -51,6 +51,6 @@ $XSLT_PLUGIN_PHP_FUNCTIONS = array(
  * built-in: convert_uuencode( string $string ): string
  * custom:   function_sample( string $param1, string $param2 ) : DomDocument
  */
-if (is_readable(XSLT_PLUGIN_DIR.'includes/functions_sample.php')) {
-    require_once(XSLT_PLUGIN_DIR.'includes/functions_sample.php');
+if (is_readable(XSLT_PLUGIN_DIR.'includes/sample-xslt-functions.php')) {
+    require_once(XSLT_PLUGIN_DIR.'includes/sample-xslt-functions.php');
 }

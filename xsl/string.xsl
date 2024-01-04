@@ -284,4 +284,4 @@
 	</xsl:template>
 
 </xsl:stylesheet>
-<!-- end xslt-processor/xsl/string.xsl -->
+<!-- end xsl/string.xsl -->

@@ -31,4 +31,4 @@
     </xsl:template>
 
 </xsl:stylesheet>
-<!-- end functions-sample.xsl -->
+<!-- end sample-xslt-functions.xsl -->

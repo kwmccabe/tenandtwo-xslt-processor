@@ -2,8 +2,8 @@
 /**
  * WP utils
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */
@@ -14,9 +14,16 @@ defined( 'ABSPATH' ) or die( 'Not for browsing' );
 class XSLT_Processor_WP
 {
     /**
+     * sanitize html ???
+     * @uses wp_kses( string $content, array[]|string $allowed_html, string[] $allowed_protocols = array() ): string
+     */
+
+    /**
      * convert titles/name to lowercase with dashes
      * eg, "The Title" => "the-title"
      * eg, "COOKING / Methods / Barbecue &amp; Grilling" => "cooking-methods-barbecue-grilling"
+     *
+     * ??? wp_kses( string $content, array[]|string $allowed_html, string[] $allowed_protocols = array() ): string
      *
      * @see wp.xsl, template name="wp-sanitize-title"
      * @uses sanitize_title( string $title, string $fallback_title = '', string $context = 'save' ): string
@@ -114,11 +121,7 @@ class XSLT_Processor_WP
             : self::getPostByName( $id, $post_type );
         if (!$post) { return false; }
 
-        global $XSLT_Processor_XML;
-        if (empty($XSLT_Processor_XML)) { $XSLT_Processor_XML = new XSLT_Processor_XML(); }
-
         $post_content = self::filterPostContent( $post->post_content );
-
         if ($post->post_type == 'page')
         {
             $post_content = '<div class="page-content">'.$post_content.'</div>';
@@ -126,11 +129,13 @@ class XSLT_Processor_WP
             if (!is_array($post_type)) { $post_type = array($post_type); }
             if (in_array('xsl', $post_type))
             {
+                global $XSLT_Processor_XML;
+                if (empty($XSLT_Processor_XML)) { $XSLT_Processor_XML = new XSLT_Processor_XML(); }
+
                 $post_content = $XSLT_Processor_XML->decode_string( $post_content, '//xsl:stylesheet[1]', 'xml', '');
             }
         }
-
-        return trim($post_content);
+        return $post_content;
     }
 
     /**
@@ -141,13 +146,12 @@ class XSLT_Processor_WP
      */
     public static function filterPostContent( $post_content = '' )
     {
+        if (empty($post_content)) { return $post_content; }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('post_content'),true), E_USER_NOTICE); }
-
         $post_content = apply_filters( 'the_content', $post_content );
         $post_content = str_replace( ']]>', ']]&gt;', $post_content );
         $post_content = XSLT_Processor_Util::utf8_clean( $post_content );
         //$post_content = XSLT_Processor_Util::removeXmlDeclaration( $post_content );
-
         return trim($post_content);
     }
 

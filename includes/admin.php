@@ -6,8 +6,8 @@
  * require_once plugin_dir_path( __FILE__ ) . 'includes/admin.php';
  * XSLT_Processor_Admin::init();
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */
@@ -56,7 +56,7 @@ class XSLT_Processor_Admin
 
 
     /**
-     * return validated 'xslt_processor_options' array
+     * return validated options array
      *  sc_transform    boolean
      *  sc_select       boolean
      *  search_path     string
@@ -64,7 +64,7 @@ class XSLT_Processor_Admin
      */
     public static function validate_options( $input )
     {
-// if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('input'),true), E_USER_NOTICE); }
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('input'),true), E_USER_NOTICE); }
 
         $options = array(
             'post_type_xsl' => !empty( $input['post_type_xsl'] ) ? 1 : 0,
@@ -102,7 +102,7 @@ class XSLT_Processor_Admin
      */
     public static function options_update_notice( $after )
     {
-        $before = get_option( 'xslt_processor_options', array() );
+        $before = get_option( XSLT_OPTS, array() );
         $diffs = array_diff_assoc($after,$before);
         if (empty($diffs)) { return; }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('before','after','diffs'),true), E_USER_NOTICE); }
@@ -154,7 +154,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('diffs','msg'),tr
         // register setting group and options array
         register_setting(
             'xslt_processor_settings',
-            'xslt_processor_options',
+            XSLT_OPTS,
             array(
                 'type' => 'array',
                 'sanitize_callback' => array('XSLT_Processor_Admin','validate_options'),
@@ -283,7 +283,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('diffs','msg'),tr
         echo '</form>';
         echo '</div>';
 
-//echo print_r(get_option( 'xslt_processor_options', array() ), true);
+//echo print_r(get_option( XSLT_OPTS, array() ), true);
     }
 
     /**
@@ -309,12 +309,12 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('diffs','msg'),tr
      */
     public static function render_setting_post_types()
     {
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
 
         $value = !empty($options['post_type_xsl']);
         echo '<p>';
         echo '<input type="checkbox"'
-            . ' id="xslt_processor_post_type_xsl" name="xslt_processor_options[post_type_xsl]"'
+            . ' id="xslt_processor_post_type_xsl" name="'.XSLT_OPTS.'[post_type_xsl]"'
             . ' value="1"'
             . ((defined( 'LIBXSLT_VERSION' ) && $value) ? ' checked': '')
             . ' />';
@@ -327,7 +327,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('diffs','msg'),tr
         $value = !empty($options['post_type_xml']);
         echo '<p>';
         echo '<input type="checkbox"'
-            . ' id="xslt_processor_post_type_xml" name="xslt_processor_options[post_type_xml]"'
+            . ' id="xslt_processor_post_type_xml" name="'.XSLT_OPTS.'[post_type_xml]"'
             . ' value="1"'
             . ((defined( 'LIBXSLT_VERSION' ) && $value) ? ' checked': '')
             . ' />';
@@ -348,10 +348,10 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('diffs','msg'),tr
      */
     public static function render_setting_sc_transform()
     {
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
         $value = !empty($options['sc_transform']);
         echo '<input type="checkbox"'
-            . ' id="xslt_processor_sc_transform" name="xslt_processor_options[sc_transform]"'
+            . ' id="xslt_processor_sc_transform" name="'.XSLT_OPTS.'[sc_transform]"'
             . ' value="1"'
             . ((defined( 'LIBXSLT_VERSION' ) && $value) ? ' checked': '')
             . ' />';
@@ -385,10 +385,10 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('diffs','msg'),tr
      */
     public static function render_setting_sc_select()
     {
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
         $value = !empty($options['sc_select']);
         echo '<input type="checkbox"'
-            . ' id="xslt_processor_sc_select" name="xslt_processor_options[sc_select]"'
+            . ' id="xslt_processor_sc_select" name="'.XSLT_OPTS.'[sc_select]"'
             . ' value="1"'
             . ((defined( 'LIBXSLT_VERSION' ) && $value) ? ' checked': '')
             . ' />';
@@ -417,11 +417,11 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('diffs','msg'),tr
      */
     public static function render_setting_cache_default()
     {
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
         $value = $options['cache_default'] ?? XSLT_CACHE_DEFAULT;
 
         echo '<input type="text" size="6"'
-            . ' id="xslt_processor_cache_default" name="xslt_processor_options[cache_default]"'
+            . ' id="xslt_processor_cache_default" name="'.XSLT_OPTS.'[cache_default]"'
             . ' value="'.$value.'"'
             . ' />';
         _e( ' Minutes', XSLT_TEXT );
@@ -438,11 +438,11 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('diffs','msg'),tr
      */
     public static function render_setting_search_path()
     {
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
         $value = $options['search_path'] ?? '';
 
         echo '<textarea rows="4" cols="80"'
-            . ' id="xslt_processor_search_path" name="xslt_processor_options[search_path]"'
+            . ' id="xslt_processor_search_path" name="'.XSLT_OPTS.'[search_path]"'
             . '>' . esc_textarea($value)
             . '</textarea>"';
 

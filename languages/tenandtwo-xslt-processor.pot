@@ -1,0 +1,35 @@
+# Copyright (C) 2023 Ten & Two Systems
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Ten&Two XSLT Processor 0.9.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tenandtwo-xslt-processor\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-11-15T22:01:51+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: tenandtwo-xslt-processor\n"
+
+#. Plugin Name of the plugin
+msgid "Ten&Two XSLT Processor"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.tenandtwo.io/xslt-processor/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Transform and display XML from local and remote sources using PHP's XSL extension."
+msgstr ""
+
+#. Author of the plugin
+msgid "Ten & Two Systems"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.tenandtwo.com/"
+msgstr ""

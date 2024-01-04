@@ -6,7 +6,7 @@
     <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes" />
 
     <!-- include templates from other files -->
-    <xsl:include href="../../../plugins/xslt-processor/xsl/date.xsl" />
+    <xsl:include href="../../../plugins/tenandtwo-xslt-processor/xsl/date.xsl" />
 
     <!-- catch values passed in shortcode attributes -->
     <xsl:param name="hello_name">Nobody</xsl:param>

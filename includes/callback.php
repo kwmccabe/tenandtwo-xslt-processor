@@ -2,12 +2,18 @@
 /**
  * XSLT_Callback
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * usage:
+ * require_once plugin_dir_path( __FILE__ ) . 'includes/callback.php';
+ *
+ * XSLT usage:
+ * <xsl:variable name="PARAMS">$params = array();</xsl:variable>
+ * <xsl:copy-of select="php:function('XSLT_Callback','method',string($PARAMS))/RESULT" />
+ *
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */
-
 defined( 'ABSPATH' ) or die( 'Not for browsing' );
 
 
@@ -43,6 +49,8 @@ function XSLT_Callback( $method, $input ) {
 
 /**
  * Callback class for XSLT_Callback()
+ * string $xml = XSLT_Processor_Callback::$method( $params )
+ * string $xml = '<RESULT template="name">' . $rv . '</RESULT>';
  */
 class XSLT_Processor_Callback {
 
@@ -55,8 +63,8 @@ class XSLT_Processor_Callback {
      */
     public static function getMicrotime( $params )
     {
-        $rv = "<RESULT>" . XSLT_Processor_Util::getMicrotime() . "</RESULT>";
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
+        $rv = '<RESULT template="date-microtime">' . XSLT_Processor_Util::getMicrotime() . '</RESULT>';
+if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
 
@@ -72,7 +80,7 @@ class XSLT_Processor_Callback {
      */
     public static function getDateTime( $params )
     {
-        $rv = "<RESULT>" . XSLT_Processor_Util::getDateTime( $params ) . "</RESULT>";
+        $rv = '<RESULT template="date-format">' . XSLT_Processor_Util::getDateTime( $params ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
@@ -86,8 +94,8 @@ class XSLT_Processor_Callback {
      */
     public static function getFileExistsLocal( $params )
     {
-        if (empty($params['path'])) { return '<RESULT/>'; }
-        $rv = "<RESULT>" . XSLT_Processor_Util::getFileExistsLocal( $params['path'] ) . "</RESULT>";
+        if (empty($params['path'])) { return '<RESULT template="file-exists-local" />'; }
+        $rv = '<RESULT template="file-exists-local">' . XSLT_Processor_Util::getFileExistsLocal( $params['path'] ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
@@ -100,8 +108,8 @@ class XSLT_Processor_Callback {
      */
     public static function getFileExistsRemote( $params )
     {
-        if (empty($params['url'])) { return '<RESULT/>'; }
-        $rv = "<RESULT>" . XSLT_Processor_Util::getFileExistsRemote( $params['url'] ) . "</RESULT>";
+        if (empty($params['url'])) { return '<RESULT template="file-exists-remote" />'; }
+        $rv = '<RESULT template="file-exists-remote">' . XSLT_Processor_Util::getFileExistsRemote( $params['url'] ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
@@ -117,15 +125,15 @@ class XSLT_Processor_Callback {
      */
     public static function getHtmlEntityDecode( $params )
     {
-        if (empty($params['value'])) { return '<RESULT/>'; }
-        $rv = "<RESULT>" . trim(html_entity_decode(stripslashes($params['value']), ENT_QUOTES|ENT_XML1, 'UTF-8'), "\xc2\xa0") . "</RESULT>";
+        if (empty($params['value'])) { return '<RESULT template="string-entity-decode"/>'; }
+        $rv = '<RESULT template="string-entity-decode">' . trim(html_entity_decode(stripslashes($params['value']), ENT_QUOTES|ENT_XML1, 'UTF-8'), "\xc2\xa0") . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
 
     /**
      * apply strip_tags() to $params['value']
-     * br and p tags, unless excluded, are replaced with spaces
+     * <br> and simple <p> tags, unless excluded, are replaced with spaces
      *
      * @see string.xsl, template name="string-strip-tags"
      * @param array $params
@@ -135,22 +143,22 @@ class XSLT_Processor_Callback {
      */
     public static function getStripTags( $params )
     {
-        if (empty($params['value']))        { return '<RESULT/>'; }
+        if (empty($params['value']))        { return '<RESULT template="string-strip-tags"/>'; }
         if (empty($params['allowed_tags'])) { $params['allowed_tags'] = ''; }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params'),true), E_USER_NOTICE); }
 
-        $result = trim(html_entity_decode(stripslashes($params['value']), ENT_QUOTES|ENT_XML1, 'UTF-8'));
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('result'),true), E_USER_NOTICE); }
+        $rv = trim(html_entity_decode(stripslashes($params['value']), ENT_QUOTES|ENT_XML1, 'UTF-8'));
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('rv'),true), E_USER_NOTICE); }
 
-        if (stripos($params['allowed_tags'],'<br>') === false)
-            { $result = str_ireplace(array('<br>','<br/>','<br />'),' ',$result); }
-        if (stripos($params['allowed_tags'],'<p>') === false)
-            { $result = str_ireplace(array('<p>','<p/>'),' ',$result); }
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('result'),true), E_USER_NOTICE); }
+        if (stripos($params['allowed_tags'], '<br>') === false)
+            { $rv = str_ireplace(array('<br>','<br/>','<br />'), ' ', $rv); }
+        if (stripos($params['allowed_tags'], '<p>') === false)
+            { $rv = str_ireplace(array('<p>','<p/>'), ' ', $rv); }
+        $rv = strip_tags( $rv, $params['allowed_tags'] );
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('rv'),true), E_USER_NOTICE); }
 
-        $result = strip_tags($result,$params['allowed_tags']);
-        $result = trim(htmlentities($result, ENT_QUOTES|ENT_XML1, 'UTF-8', false));
-        $rv = "<RESULT>" . $result . "</RESULT>";
+        $rv = trim(htmlentities($rv, ENT_QUOTES|ENT_XML1, 'UTF-8', false));
+        $rv = '<RESULT template="string-strip-tags">' . $rv . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
@@ -172,7 +180,8 @@ class XSLT_Processor_Callback {
 		if (empty($params['index']))   { $params['index'] = ''; }
 
 		global ${$params['global']};
-		if (!isset(${$params['global']})) { return '<RESULT global="'.$params['global'].'" />'; }
+		if (!isset(${$params['global']}))
+		    { return '<RESULT template="util-super-global" global="'.$params['global'].'" />'; }
 
 		global $XSLT_Processor_XML;
         if (empty($XSLT_Processor_XML)) { $XSLT_Processor_XML = new XSLT_Processor_XML(); }
@@ -190,6 +199,7 @@ class XSLT_Processor_Callback {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('subparams','rv'),true), E_USER_NOTICE); }
 
         $xml = new SimpleXMLElement( '<RESULT/>' );
+        $xml->addAttribute( 'template', 'util-super-global' );
         $xml->addAttribute( 'global', $params['global'] );
         $xml->addAttribute( 'index', $params['index'] );
         $rv = $XSLT_Processor_XML->encode_array( $subparams, $xml, false );
@@ -207,8 +217,8 @@ class XSLT_Processor_Callback {
      */
     public static function getByteSize( $params )
     {
-        if (empty($params['bytes'])) { return '<RESULT/>'; }
-        $rv = "<RESULT>" . XSLT_Processor_Util::getByteSize( $params['bytes'] ) . "</RESULT>";
+        if (empty($params['bytes'])) { return '<RESULT template="util-byte-size"/>'; }
+        $rv = '<RESULT template="util-byte-size">' . XSLT_Processor_Util::getByteSize( $params['bytes'] ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
@@ -223,8 +233,8 @@ class XSLT_Processor_Callback {
      */
     public static function getSanitizeTitle( $params )
     {
-        if (empty($params['title'])) { return '<RESULT/>'; }
-        $rv = "<RESULT>" . XSLT_Processor_WP::getSanitizeTitle( $params['title'] ) . "</RESULT>";
+        if (empty($params['title'])) { return '<RESULT template="wp-sanitize-title"/>'; }
+        $rv = '<RESULT template="wp-sanitize-title">' . XSLT_Processor_WP::getSanitizeTitle( $params['title'] ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
@@ -253,7 +263,7 @@ class XSLT_Processor_Callback {
             //'strip-declaration' => $params['strip-declaration'] ?? 'yes',
             'strip-namespaces'  => $params['strip-namespaces']  ?? 'no',
         );
-        $rv = "<RESULT>" . XSLT_Processor_Shortcode::xml_select( $attrs, '' ) . "</RESULT>";
+        $rv = '<RESULT template="wp-xml-select">' . XSLT_Processor_Shortcode::xml_select( $attrs, '' ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
     }

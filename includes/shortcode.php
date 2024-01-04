@@ -6,8 +6,8 @@
  * require_once plugin_dir_path( __FILE__ ) . 'includes/shortcode.php';
  * XSLT_Processor_Shortcode::init();
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */
@@ -26,7 +26,7 @@ class XSLT_Processor_Shortcode
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__, E_USER_NOTICE); }
 
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
 
         if (!shortcode_exists('xsl_transform') && !empty($options['sc_transform'])) {
             add_shortcode( 'xsl_transform',       array('XSLT_Processor_Shortcode', 'xsl_transform') );
@@ -109,7 +109,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             //"some_param" => "some value"
         );
 
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
 
         // get cache_minutes for XSLT_Processor_Util::getRemoteFile()
         $cache_minutes = $options['cache_default'] ?? XSLT_CACHE_DEFAULT;
@@ -276,7 +276,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             //"xsl_keys"   => array(),
         );
 
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
 
         // get cache_minutes for XSLT_Processor_Util::getRemoteFile()
         $cache_minutes = $options['cache_default'] ?? XSLT_CACHE_DEFAULT;

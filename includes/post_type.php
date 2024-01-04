@@ -9,8 +9,8 @@
  * @see https://developer.wordpress.org/reference/functions/get_post_type_labels/
  * @see https://developer.wordpress.org/reference/functions/get_post_type_capabilities/
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  */
@@ -37,7 +37,7 @@ class XSLT_Processor_Post_Type
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__, E_USER_NOTICE); }
 
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('options'),true), E_USER_NOTICE); }
 
         $base_params = array(
@@ -184,11 +184,12 @@ class XSLT_Processor_Post_Type
      */
     public static function the_content_filter( $content )
     {
-        if (!in_array(get_post()->post_type, array('xsl','xml')) )
+        if (empty(get_post()) || !in_array(get_post()->post_type, array('xsl','xml')) )
+            { return $content; }
+        if ( !is_singular() || !in_the_loop() || !is_main_query() )
             { return $content; }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('content'),true), E_USER_NOTICE); }
-        if ( is_singular() && in_the_loop() && is_main_query() )
-            { return '<pre style="font-size: medium">'.htmlentities($content).'</pre>'; }
+        return '<pre style="font-size: medium">'.htmlentities($content).'</pre>';
     }
 
     /**
@@ -331,30 +332,29 @@ editor.savePost = function (options) {
      * $schema_type  = 'none';
      *
      * $schema_type  = 'dtd';
-     *  <!DOCTYPE sample SYSTEM "/var/www/html/wp-content/plugins/xslt-processor/xsl/sample.dtd">
-     *  <!DOCTYPE ONIXMessage SYSTEM "/var/www/html/wp-content/plugins/xslt-processor/xsl/onix2/dtd_reference/onix-international.dtd">
+     *  <!DOCTYPE sample SYSTEM "/var/www/html/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.dtd">
+     *  <!DOCTYPE ONIXMessage SYSTEM "/var/www/html/wp-content/plugins/tenandtwo-xslt-processor/xsl/onix2/dtd_reference/onix-international.dtd">
      *
      * $schema_type  = 'xsd';
-     * $schema_value = '/var/www/html/wp-content/plugins/xslt-processor/xsl/onix2/xsd/ONIX_BookProduct_Release2.1_reference.xsd';
+     * $schema_value = '/var/www/html/wp-content/plugins/tenandtwo-xslt-processor/xsl/onix2/xsd/ONIX_BookProduct_Release2.1_reference.xsd';
      *
      * $schema_type  = 'rng';
-     * $schema_value = '/var/www/html/wp-content/plugins/xslt-processor/xsl/onix2/xsd/ONIX_BookProduct_Release2.1_reference.xsd';
+     * $schema_value = '/var/www/html/wp-content/plugins/tenandtwo-xslt-processor/xsl/onix2/xsd/ONIX_BookProduct_Release2.1_reference.xsd';
      */
     public static function xslt_validate( $post_id, $post, $update )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('post_id','post','update'),true), E_USER_NOTICE); }
 
+        $meta_value = '';
         $post_type = $post->post_type;
         if (!in_array($post_type, array(POST_TYPE_XSL,POST_TYPE_XML))) { return; }
 
-        global $XSLT_Processor_XSL;
-        if (empty($XSLT_Processor_XSL)) { $XSLT_Processor_XSL = new XSLT_Processor_XSL(); }
-
         $post_content = XSLT_Processor_WP::filterPostContent( $post->post_content );
-        $meta_value = '';
-
         if (!empty($post_content))
         {
+            global $XSLT_Processor_XSL;
+            if (empty($XSLT_Processor_XSL)) { $XSLT_Processor_XSL = new XSLT_Processor_XSL(); }
+
             if ($post_type == POST_TYPE_XSL)
             {
                 $params = array(

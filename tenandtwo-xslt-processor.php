@@ -2,23 +2,23 @@
 /**
  * XSLT Processor
  *
- * @package           tenandtwo-plugins
- * @subpackage        xslt-processor
+ * @package           tenandtwo-wp-plugins
+ * @subpackage        tenandtwo-xslt-processor
  * @author            Ten & Two Systems
  * @copyright         2023 Ten & Two Systems
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       XSLT Processor
+ * Plugin Name:       Ten&Two XSLT Processor
  * Plugin URI:        https://www.tenandtwo.io/xslt-processor/
- * Update URI:        https://wordpress.org/plugins/xslt-processor/
+ * Update URI:        https://wordpress.org/plugins/tenandtwo-xslt-processor/
  * Description:       Transform and display XML from local and remote sources using PHP's XSL extension.
- * Version:           0.9.1
+ * Version:           0.9.2
  * Requires PHP:      7.0
  * Requires at least: 5.0
  * Author:            Ten & Two Systems
  * Author URI:        https://www.tenandtwo.com/
- * Text Domain:       xslt-processor
+ * Text Domain:       tenandtwo-xslt-processor
  * Domain Path:       /languages
  * License:           GPL v2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -27,10 +27,12 @@ defined( 'ABSPATH' ) or die( 'Not for browsing' );
 
 define( 'XSLT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'XSLT_PLUGIN_NAME', basename(XSLT_PLUGIN_DIR) );
-define( 'XSLT_PLUGIN_VERSION', '1.0.0' );
+define( 'XSLT_PLUGIN_VERSION', '0.9.2' );
 
+define( 'XSLT_OPTS', 'xslt_processor_options' );  // option name
 define( 'XSLT_TEXT', XSLT_PLUGIN_NAME );  // text domain name
 define( 'XSLT_CACHE_DEFAULT', '60' );     // minutes
+
 
 
 /**
@@ -68,9 +70,9 @@ class XSLT_Processor_Plugin
         require_once(XSLT_PLUGIN_DIR.'includes/wp.php');
         require_once(XSLT_PLUGIN_DIR.'includes/xml.php');
         require_once(XSLT_PLUGIN_DIR.'includes/xsl.php');
-        require_once(XSLT_PLUGIN_DIR.'xslt-functions.php');
+        require_once(XSLT_PLUGIN_DIR.'tenandtwo-xslt-functions.php');
 
-        $options = get_option( 'xslt_processor_options', array() );
+        $options = get_option( XSLT_OPTS, array() );
 
         // register shortcodes
         if (!empty($options['sc_transform']) || !empty($options['sc_select'])) {
@@ -94,7 +96,7 @@ class XSLT_Processor_Plugin
      */
     public static function plugin_activation()
     {
-        add_option( 'xslt_processor_options', array() );
+        add_option( XSLT_OPTS, array() );
         flush_rewrite_rules();
     }
 
@@ -111,7 +113,7 @@ class XSLT_Processor_Plugin
      */
     public static function plugin_uninstall()
     {
-        delete_option( 'xslt_processor_options' );
+        delete_option( XSLT_OPTS );
     }
 
 
