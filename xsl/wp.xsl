@@ -8,7 +8,7 @@
 <!--
 -   wp-xml-select       : xml, select, cache, format, root, strip-namespaces
 -   wp-csv-select       : csv, separator, enclosure, escape, key_row, col, key_col, key, row, class
--   wp-size-format      : bytes, decimala
+-   wp-size-format      : bytes, decimals
 -   wp-sanitize-title   : title
 -->
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" />

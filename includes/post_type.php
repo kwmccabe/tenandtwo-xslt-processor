@@ -8,6 +8,7 @@
  *
  * @see https://developer.wordpress.org/reference/functions/get_post_type_labels/
  * @see https://developer.wordpress.org/reference/functions/get_post_type_capabilities/
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-templates/
  *
  * @package           tenandtwo-wp-plugins
  * @subpackage        tenandtwo-xslt-processor

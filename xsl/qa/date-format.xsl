@@ -79,7 +79,7 @@
   <TEST>
     <time>1672531200</time>
     <format>Y-m-d</format>
-    <expected>2024-01-01</expected>
+    <expected>2023-01-01</expected>
   </TEST>
   <TEST>
     <value>2024-01-01</value>
