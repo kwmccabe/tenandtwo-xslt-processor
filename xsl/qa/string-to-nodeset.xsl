@@ -11,9 +11,13 @@
 
         <xsl:for-each select="//TEST">
             <!-- values from xml -->
-            <xsl:variable name="value"><xsl:copy-of select="value" /></xsl:variable>
-            <xsl:variable name="delimiter"><xsl:copy-of select="delimiter" /></xsl:variable>
-            <xsl:variable name="nodename"><xsl:copy-of select="nodename" /></xsl:variable>
+            <xsl:variable name="value"><xsl:value-of select="value" /></xsl:variable>
+            <xsl:variable name="delimiter"><xsl:value-of select="delimiter" />
+                <xsl:if test="not(string-length(delimiter))">|</xsl:if>
+            </xsl:variable>
+            <xsl:variable name="nodename"><xsl:value-of select="nodename" />
+                <xsl:if test="not(string-length(nodename))">NODE</xsl:if>
+            </xsl:variable>
             <xsl:variable name="expected"><xsl:copy-of select="expected/*" /></xsl:variable>
 
             <!-- run test -->
@@ -47,9 +51,9 @@
             <p>
                 <b>TEST <xsl:value-of select="position()" /> : <xsl:value-of select="$pass" /></b>
                 <br />string-to-nodeset :
-                <br /> - value = <xsl:copy-of select="$value" />
-                <br /> - delimiter = <xsl:copy-of select="$delimiter" />
-                <br /> - nodename = <xsl:copy-of select="$nodename" />
+                <xsl:if test="string-length($value)"><br /> - value = <xsl:copy-of select="$value" /></xsl:if>
+                <xsl:if test="string-length($delimiter)"><br /> - delimiter = <xsl:copy-of select="$delimiter" /></xsl:if>
+                <xsl:if test="string-length($nodename)"><br /> - nodename = <xsl:copy-of select="$nodename" /></xsl:if>
             </p>
 
             <p>result : <br />
@@ -76,8 +80,14 @@
 [xsl_transform xsl="qa/string-to-nodeset.xsl"]
 <TESTS>
   <TEST>
-    <value>one|two|three</value>
+    <value>1|2|3</value>
     <delimiter>|</delimiter>
+    <nodename>NODE</nodename>
+    <expected><RESULT> <NODE>1</NODE> <NODE>2</NODE> <NODE>3</NODE> </RESULT></expected>
+  </TEST>
+  <TEST>
+    <value>one,two,three</value>
+    <delimiter>,</delimiter>
     <nodename>OPTION</nodename>
     <expected><RESULT> <OPTION>one</OPTION> <OPTION>two</OPTION> <OPTION>three</OPTION> </RESULT></expected>
   </TEST>
