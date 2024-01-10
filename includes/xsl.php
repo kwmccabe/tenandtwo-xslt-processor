@@ -254,7 +254,7 @@ class XSLT_Processor_XSL
             $err = "ERROR : DomDocument->load(xsl): ";
             foreach( $errors as $error )
                 { $err .= $this->getXMLError($error, $xsl_type, $xsl_value); }
-            $result = array_merge($result, array('errors' => count($errors), 'message' => $err));
+            $result = array_merge( $result, array('errors' => count($errors), 'message' => $err) );
             libxml_clear_errors();
             trigger_error(__METHOD__." : ".print_r(compact('err','xsl_value'),true), E_USER_NOTICE);
             return $result;
@@ -273,7 +273,7 @@ class XSLT_Processor_XSL
             $err = "ERROR : XSLTProcessor->importStyleSheet(xsl): ";
             foreach( $errors as $error )
                 { $err .= $this->getXMLError($error); }
-            $result = array_merge($result, array('errors' => count($errors), 'message' => $err));
+            $result = array_merge( $result, array('errors' => count($errors), 'message' => $err) );
             libxml_clear_errors();
             $this->releaseProcessor( $idx );
             trigger_error(__METHOD__." : ".print_r(compact('err','xsl_value'),true), E_USER_NOTICE);
@@ -355,7 +355,7 @@ class XSLT_Processor_XSL
             $err = "ERROR : DomDocument->load(xml): ";
             foreach( $errors as $error )
                 { $err .= $this->getXMLError($error, $xml_type, $xml_value); }
-            $result = array_merge($result, array('errors' => count($errors), 'message' => $err));
+            $result = array_merge( $result, array('errors' => count($errors), 'message' => $err) );
             libxml_clear_errors();
             trigger_error(__METHOD__." : ".print_r(compact('err','xml_value'),true), E_USER_NOTICE);
             return $result;
@@ -506,8 +506,8 @@ class XSLT_Processor_XSL
         }
 
         global $XSLT_PLUGIN_PHP_FUNCTIONS;
-        $allowed = array('XSLT_Callback');                            // required
-        $allowed = array_merge($XSLT_PLUGIN_PHP_FUNCTIONS,$allowed);  // optional
+        $allowed = array('XSLT_Callback');                               // required
+        $allowed = array_merge( $XSLT_PLUGIN_PHP_FUNCTIONS, $allowed );  // optional
 
         $this->pool[$idx]['xslt']->registerPHPFunctions($allowed);
         $this->pool[$idx]['exslt'] = $this->pool[$idx]['xslt']->hasExsltSupport();

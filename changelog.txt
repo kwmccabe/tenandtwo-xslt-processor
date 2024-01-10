@@ -12,6 +12,16 @@ Notable changes are documented here in reverse chronological order.
 
 
 
+## [0.9.5] - 2024-02-01
+
+Dev during review
+
+### Changed
+
+- includes/admin.php     : wp_kses($html,'post')
+
+
+
 ## [0.9.4] - 2024-01-10
 
 Second submission

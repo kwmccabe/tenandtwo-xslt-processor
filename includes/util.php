@@ -154,7 +154,7 @@ class XSLT_Processor_Util
                     {
                         $subresult = self::getFileListingLocal( $fullpath, $match, $levels-1 );
                         if (is_array($subresult))
-                            { $result = array_merge($subresult,$result); }
+                            { $result = array_merge( $subresult, $result ); }
                         continue;
                     }
                     if (!pathinfo($file, PATHINFO_EXTENSION))
@@ -179,7 +179,7 @@ class XSLT_Processor_Util
 
                 $subresult = self::getFileListingLocal( $fullpath, $match, $levels );
                 if (is_array($subresult))
-                    { $result = array_merge($subresult,$result); }
+                    { $result = array_merge( $subresult, $result ); }
             }
         }
         if (!empty($result))

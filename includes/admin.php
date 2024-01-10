@@ -318,7 +318,7 @@ class XSLT_Processor_Admin
             . ((defined( 'LIBXSLT_VERSION' ) && $value) ? ' checked': '')
             . ' />';
 
-        $html = '<strong>'.__( 'XSL Stylesheets', 'tenandtwo-xslt-processor' ).'</strong>';
+        $html = '<strong>'.esc_html__( 'XSL Stylesheets', 'tenandtwo-xslt-processor' ).'</strong>';
         $html .= __( ' - Save and manage XSL stylesheets in Wordpress Admin', 'tenandtwo-xslt-processor' );
         echo wp_kses($html, 'post');
         echo '</p>';
@@ -363,7 +363,7 @@ class XSLT_Processor_Admin
         $html .= '<li><code><strong>[xsl_transform xsl="</strong>{file|url|id|slug}<strong>"]</strong>'
             . '[csv_select/]'
             . '<strong>[/xsl_transform]</strong></code></li>';
-        $html .= '<li><a href="'.esc_html(XSLT_PLUGIN_DOCS).'xslt-processor/shortcodes/xsl-transform/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
+        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xsl-transform/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
         $html .= '</ul>';
         echo wp_kses($html, 'post');
     }
@@ -389,7 +389,7 @@ class XSLT_Processor_Admin
         $html .= '<li><code><strong>[xml_select xml="</strong>{file|url|id|slug}<strong>" select="</strong>//nodename<strong>" /]</strong></code></li>';
         $html .= '<li><code><strong>[xml_select xml="</strong>{file|url|id|slug}<strong>"]</strong>//nodename[@id="1234"]<strong>[/xml_select]</strong></code></li>';
         $html .= '<li><code><strong>[xml_select xmlns="</strong>{ns1}+<strong>" ns1="</strong>{namespace-uri-1}<strong>" select="</strong>//ns1:nodename<strong>" /]</strong></code></li>';
-        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xml-select/" target="_blank">'.__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
+        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xml-select/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
         $html .= '</ul>';
         echo wp_kses($html, 'post');
     }
@@ -417,7 +417,7 @@ class XSLT_Processor_Admin
         $html .= '<li><code><strong>[csv_select col="</strong>{num|letter|label}+<strong>" /]</strong></code></li>';
         $html .= '<li><code><strong>[csv_select key_col="</strong>{num|letter|label}<strong>" key="</strong>{val}+<strong>" /]</strong></code></li>';
         $html .= '<li><code><strong>[csv_select row="</strong>{num}+<strong>" /]</strong></code></li>';
-        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/csv-select/" target="_blank">'.__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
+        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/csv-select/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
         $html .= '</ul>';
         echo wp_kses($html, 'post');
     }
@@ -435,7 +435,7 @@ class XSLT_Processor_Admin
             . ' value="'.$value.'"'
             . ' />';
 
-        $html = __( ' Minutes', 'tenandtwo-xslt-processor' );
+        $html = ' '.esc_html__( 'Minutes', 'tenandtwo-xslt-processor' );
         $html .= '<ul>';
         $html .= '<li>'.__( '- Remote files are cached locally when', 'tenandtwo-xslt-processor' )
             . ' <code><strong>xsl="</strong>{url}<strong>"</strong></code>, <code><strong>xml="</strong>{url}<strong>"</strong></code>, or <code><strong>csv="</strong>{url}<strong>"</strong></code></li>';

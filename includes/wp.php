@@ -78,7 +78,7 @@ class XSLT_Processor_WP
                 FROM $wpdb->posts
                 WHERE post_name = %s
                 AND post_type IN (".$post_types.")",
-                array_merge( array($post_id), $post_type)
+                array_merge( array($post_id), $post_type )
             );
         }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('sql'),true), E_USER_NOTICE); }
