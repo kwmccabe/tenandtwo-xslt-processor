@@ -18,8 +18,8 @@
 
 defined( 'ABSPATH' ) or die( 'Not for browsing' );
 
-define( 'POST_TYPE_XSL', 'xsl' );
-define( 'POST_TYPE_XML', 'xml' );
+define( 'XSLT_POST_TYPE_XSL', 'xsl' );
+define( 'XSLT_POST_TYPE_XML', 'xml' );
 
 require_once(XSLT_PLUGIN_DIR.'includes/notice.php');
 
@@ -156,34 +156,34 @@ class XSLT_Processor_Post_Type
      */
     public static function register_xsl_post_type( $params )
     {
-        $params['description']  = __( 'Custom XSL post_type for XSLT Processor', XSLT_TEXT );
+        $params['description']  = esc_html__( 'Custom XSL post_type for XSLT Processor', 'tenandtwo-xslt-processor' );
         $params['menu_icon']    = 'dashicons-media-code';
 
-        $params['labels']['name']                   = __( 'XSL Stylesheets', XSLT_TEXT );
-        $params['labels']['singular_name']          = __( 'XSL Stylesheet', XSLT_TEXT );
-        $params['labels']['add_new_item']           = __( 'Add New XSL', XSLT_TEXT );
-        $params['labels']['edit_item']              = __( 'Edit XSL', XSLT_TEXT );
-        $params['labels']['new_item']               = __( 'New XSL', XSLT_TEXT );
-        $params['labels']['view_item']              = __( 'View XSL', XSLT_TEXT );
-        $params['labels']['view_items']             = __( 'View XSL Stylesheets', XSLT_TEXT );
-        $params['labels']['search_items']           = __( 'Search XSL Stylesheets', XSLT_TEXT );
-        $params['labels']['not_found']              = __( 'No XSL Stylesheets found', XSLT_TEXT );
-        $params['labels']['not_found_in_trash']     = __( 'No XSL Stylesheets found in Trash', XSLT_TEXT );
-        $params['labels']['all_items']              = __( 'All XSL Stylesheets', XSLT_TEXT );
-        $params['labels']['filter_items_list']      = __( 'Filter XSL list', XSLT_TEXT );
-        $params['labels']['items_list_navigation']  = __( 'XSL list navigation', XSLT_TEXT );
-        $params['labels']['items_list']             = __( 'XSL list', XSLT_TEXT );
-        $params['labels']['item_published']         = __( 'XSL published.', XSLT_TEXT );
-        $params['labels']['item_published_privately'] = __( 'XSL published privately.', XSLT_TEXT );
-        $params['labels']['item_reverted_to_draft'] = __( 'XSL reverted to draft.', XSLT_TEXT );
-        $params['labels']['item_trashed']           = __( 'XSL trashed.', XSLT_TEXT );
-        $params['labels']['item_scheduled']         = __( 'XSL scheduled.', XSLT_TEXT );
-        $params['labels']['item_updated']           = __( 'XSL updated.', XSLT_TEXT );
-        $params['labels']['item_link']              = __( 'XSL Link', XSLT_TEXT );
-        $params['labels']['item_link_description']  = __( 'A link to an XSL.', XSLT_TEXT );
+        $params['labels']['name']                   = esc_html__( 'XSL Stylesheets', 'tenandtwo-xslt-processor' );
+        $params['labels']['singular_name']          = esc_html__( 'XSL Stylesheet', 'tenandtwo-xslt-processor' );
+        $params['labels']['add_new_item']           = esc_html__( 'Add New XSL', 'tenandtwo-xslt-processor' );
+        $params['labels']['edit_item']              = esc_html__( 'Edit XSL', 'tenandtwo-xslt-processor' );
+        $params['labels']['new_item']               = esc_html__( 'New XSL', 'tenandtwo-xslt-processor' );
+        $params['labels']['view_item']              = esc_html__( 'View XSL', 'tenandtwo-xslt-processor' );
+        $params['labels']['view_items']             = esc_html__( 'View XSL Stylesheets', 'tenandtwo-xslt-processor' );
+        $params['labels']['search_items']           = esc_html__( 'Search XSL Stylesheets', 'tenandtwo-xslt-processor' );
+        $params['labels']['not_found']              = esc_html__( 'No XSL Stylesheets found', 'tenandtwo-xslt-processor' );
+        $params['labels']['not_found_in_trash']     = esc_html__( 'No XSL Stylesheets found in Trash', 'tenandtwo-xslt-processor' );
+        $params['labels']['all_items']              = esc_html__( 'All XSL Stylesheets', 'tenandtwo-xslt-processor' );
+        $params['labels']['filter_items_list']      = esc_html__( 'Filter XSL list', 'tenandtwo-xslt-processor' );
+        $params['labels']['items_list_navigation']  = esc_html__( 'XSL list navigation', 'tenandtwo-xslt-processor' );
+        $params['labels']['items_list']             = esc_html__( 'XSL list', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_published']         = esc_html__( 'XSL published.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_published_privately'] = esc_html__( 'XSL published privately.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_reverted_to_draft'] = esc_html__( 'XSL reverted to draft.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_trashed']           = esc_html__( 'XSL trashed.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_scheduled']         = esc_html__( 'XSL scheduled.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_updated']           = esc_html__( 'XSL updated.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_link']              = esc_html__( 'XSL Link', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_link_description']  = esc_html__( 'A link to an XSL.', 'tenandtwo-xslt-processor' );
 
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params'),true), E_USER_NOTICE); }
-        register_post_type( POST_TYPE_XSL, $params );
+        register_post_type( XSLT_POST_TYPE_XSL, $params );
     }
 
     /**
@@ -191,34 +191,34 @@ class XSLT_Processor_Post_Type
      */
     public static function register_xml_post_type( $params )
     {
-        $params['description']  = __( 'Custom XML post_type for XSLT Processor', XSLT_TEXT );
+        $params['description']  = esc_html__( 'Custom XML post_type for XSLT Processor', 'tenandtwo-xslt-processor' );
         $params['menu_icon']    = 'dashicons-media-code';
 
-        $params['labels']['name']                   = __( 'XML Documents', XSLT_TEXT );
-        $params['labels']['singular_name']          = __( 'XML Document', XSLT_TEXT );
-        $params['labels']['add_new_item']           = __( 'Add New XML', XSLT_TEXT );
-        $params['labels']['edit_item']              = __( 'Edit XML', XSLT_TEXT );
-        $params['labels']['new_item']               = __( 'New XML', XSLT_TEXT );
-        $params['labels']['view_item']              = __( 'View XML', XSLT_TEXT );
-        $params['labels']['view_items']             = __( 'View XML Documents', XSLT_TEXT );
-        $params['labels']['search_items']           = __( 'Search XML Documents', XSLT_TEXT );
-        $params['labels']['not_found']              = __( 'No XML Documents found', XSLT_TEXT );
-        $params['labels']['not_found_in_trash']     = __( 'No XML Documents found in Trash', XSLT_TEXT );
-        $params['labels']['all_items']              = __( 'All XML Documents', XSLT_TEXT );
-        $params['labels']['filter_items_list']      = __( 'Filter XML list', XSLT_TEXT );
-        $params['labels']['items_list_navigation']  = __( 'XML list navigation', XSLT_TEXT );
-        $params['labels']['items_list']             = __( 'XML list', XSLT_TEXT );
-        $params['labels']['item_published']         = __( 'XML published.', XSLT_TEXT );
-        $params['labels']['item_published_privately'] = __( 'XML published privately.', XSLT_TEXT );
-        $params['labels']['item_reverted_to_draft'] = __( 'XML reverted to draft.', XSLT_TEXT );
-        $params['labels']['item_trashed']           = __( 'XML trashed.', XSLT_TEXT );
-        $params['labels']['item_scheduled']         = __( 'XML scheduled.', XSLT_TEXT );
-        $params['labels']['item_updated']           = __( 'XML updated.', XSLT_TEXT );
-        $params['labels']['item_link']              = __( 'XML Link', XSLT_TEXT );
-        $params['labels']['item_link_description']  = __( 'A link to an XML.', XSLT_TEXT );
+        $params['labels']['name']                   = esc_html__( 'XML Documents', 'tenandtwo-xslt-processor' );
+        $params['labels']['singular_name']          = esc_html__( 'XML Document', 'tenandtwo-xslt-processor' );
+        $params['labels']['add_new_item']           = esc_html__( 'Add New XML', 'tenandtwo-xslt-processor' );
+        $params['labels']['edit_item']              = esc_html__( 'Edit XML', 'tenandtwo-xslt-processor' );
+        $params['labels']['new_item']               = esc_html__( 'New XML', 'tenandtwo-xslt-processor' );
+        $params['labels']['view_item']              = esc_html__( 'View XML', 'tenandtwo-xslt-processor' );
+        $params['labels']['view_items']             = esc_html__( 'View XML Documents', 'tenandtwo-xslt-processor' );
+        $params['labels']['search_items']           = esc_html__( 'Search XML Documents', 'tenandtwo-xslt-processor' );
+        $params['labels']['not_found']              = esc_html__( 'No XML Documents found', 'tenandtwo-xslt-processor' );
+        $params['labels']['not_found_in_trash']     = esc_html__( 'No XML Documents found in Trash', 'tenandtwo-xslt-processor' );
+        $params['labels']['all_items']              = esc_html__( 'All XML Documents', 'tenandtwo-xslt-processor' );
+        $params['labels']['filter_items_list']      = esc_html__( 'Filter XML list', 'tenandtwo-xslt-processor' );
+        $params['labels']['items_list_navigation']  = esc_html__( 'XML list navigation', 'tenandtwo-xslt-processor' );
+        $params['labels']['items_list']             = esc_html__( 'XML list', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_published']         = esc_html__( 'XML published.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_published_privately'] = esc_html__( 'XML published privately.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_reverted_to_draft'] = esc_html__( 'XML reverted to draft.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_trashed']           = esc_html__( 'XML trashed.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_scheduled']         = esc_html__( 'XML scheduled.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_updated']           = esc_html__( 'XML updated.', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_link']              = esc_html__( 'XML Link', 'tenandtwo-xslt-processor' );
+        $params['labels']['item_link_description']  = esc_html__( 'A link to an XML.', 'tenandtwo-xslt-processor' );
 
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params'),true), E_USER_NOTICE); }
-        register_post_type( POST_TYPE_XML, $params );
+        register_post_type( XSLT_POST_TYPE_XML, $params );
     }
 
     /**
@@ -227,42 +227,42 @@ class XSLT_Processor_Post_Type
     public static function register_xsl_taxonomies( $params )
     {
         $cat_params = $params;
-        $cat_params['description']      = __( 'XSL Stylesheet Categories', XSLT_TEXT );
+        $cat_params['description']      = esc_html__( 'XSL Stylesheet Categories', 'tenandtwo-xslt-processor' );
         $cat_params['rewrite']          = array('slug' => 'xsl-category');
         $cat_params['hierarchical']     = true;
-        $cat_params['labels']['name']               = __( 'XSL Categories', XSLT_TEXT );
-        $cat_params['labels']['singular_name']      = __( 'XSL Category', XSLT_TEXT );
-        $cat_params['labels']['search_items']       = __( 'Search XSL Categories', XSLT_TEXT );
-        $cat_params['labels']['all_items']          = __( 'All XSL Categories', XSLT_TEXT );
-        $cat_params['labels']['parent_item']        = __( 'Parent XSL Category', XSLT_TEXT );
-        $cat_params['labels']['parent_item_colon']  = __( 'Parent XSL Category:', XSLT_TEXT );
-        $cat_params['labels']['edit_item']          = __( 'Edit XSL Category', XSLT_TEXT );
-        $cat_params['labels']['update_item']        = __( 'Update XSL Category', XSLT_TEXT );
-        $cat_params['labels']['add_new_item']       = __( 'Add New XSL Category', XSLT_TEXT );
-        $cat_params['labels']['new_item_name']      = __( 'New XSL Category Name', XSLT_TEXT );
-        $cat_params['labels']['menu_name']          = __( 'XSL Category', XSLT_TEXT );
+        $cat_params['labels']['name']               = esc_html__( 'XSL Categories', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['singular_name']      = esc_html__( 'XSL Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['search_items']       = esc_html__( 'Search XSL Categories', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['all_items']          = esc_html__( 'All XSL Categories', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['parent_item']        = esc_html__( 'Parent XSL Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['parent_item_colon']  = esc_html__( 'Parent XSL Category:', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['edit_item']          = esc_html__( 'Edit XSL Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['update_item']        = esc_html__( 'Update XSL Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['add_new_item']       = esc_html__( 'Add New XSL Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['new_item_name']      = esc_html__( 'New XSL Category Name', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['menu_name']          = esc_html__( 'XSL Category', 'tenandtwo-xslt-processor' );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('cat_params'),true), E_USER_NOTICE); }
-        register_taxonomy( 'xsl-category', array(POST_TYPE_XSL), $cat_params );
-        register_taxonomy_for_object_type( 'xsl-category', POST_TYPE_XSL );
+        register_taxonomy( 'xsl-category', array(XSLT_POST_TYPE_XSL), $cat_params );
+        register_taxonomy_for_object_type( 'xsl-category', XSLT_POST_TYPE_XSL );
 
         $tag_params = $params;
-        $tag_params['description']      = __( 'XSL Stylesheet Tags', XSLT_TEXT );
+        $tag_params['description']      = esc_html__( 'XSL Stylesheet Tags', 'tenandtwo-xslt-processor' );
         $tag_params['rewrite']          = array('slug' => 'xsl-tag');
         $tag_params['hierarchical']     = false;
-        $tag_params['labels']['name']               = __( 'XSL Tags', XSLT_TEXT );
-        $tag_params['labels']['singular_name']      = __( 'XSL Tag', XSLT_TEXT );
-        $tag_params['labels']['search_items']       = __( 'Search XSL Tags', XSLT_TEXT );
-        $tag_params['labels']['all_items']          = __( 'All XSL Tags', XSLT_TEXT );
-        $tag_params['labels']['parent_item']        = __( 'Parent XSL Tag', XSLT_TEXT );
-        $tag_params['labels']['parent_item_colon']  = __( 'Parent XSL Tag:', XSLT_TEXT );
-        $tag_params['labels']['edit_item']          = __( 'Edit XSL Tag', XSLT_TEXT );
-        $tag_params['labels']['update_item']        = __( 'Update XSL Tag', XSLT_TEXT );
-        $tag_params['labels']['add_new_item']       = __( 'Add New XSL Tag', XSLT_TEXT );
-        $tag_params['labels']['new_item_name']      = __( 'New XSL Tag Name', XSLT_TEXT );
-        $tag_params['labels']['menu_name']          = __( 'XSL Tag', XSLT_TEXT );
+        $tag_params['labels']['name']               = esc_html__( 'XSL Tags', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['singular_name']      = esc_html__( 'XSL Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['search_items']       = esc_html__( 'Search XSL Tags', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['all_items']          = esc_html__( 'All XSL Tags', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['parent_item']        = esc_html__( 'Parent XSL Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['parent_item_colon']  = esc_html__( 'Parent XSL Tag:', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['edit_item']          = esc_html__( 'Edit XSL Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['update_item']        = esc_html__( 'Update XSL Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['add_new_item']       = esc_html__( 'Add New XSL Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['new_item_name']      = esc_html__( 'New XSL Tag Name', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['menu_name']          = esc_html__( 'XSL Tag', 'tenandtwo-xslt-processor' );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('tag_params'),true), E_USER_NOTICE); }
-        register_taxonomy( 'xsl-tag', array(POST_TYPE_XSL), $tag_params );
-        register_taxonomy_for_object_type( 'xsl-tag', POST_TYPE_XSL );
+        register_taxonomy( 'xsl-tag', array(XSLT_POST_TYPE_XSL), $tag_params );
+        register_taxonomy_for_object_type( 'xsl-tag', XSLT_POST_TYPE_XSL );
 
     }
 
@@ -272,42 +272,42 @@ class XSLT_Processor_Post_Type
     public static function register_xml_taxonomies( $params )
     {
         $cat_params = $params;
-        $cat_params['description']      = __( 'XML Document Categories', XSLT_TEXT );
+        $cat_params['description']      = esc_html__( 'XML Document Categories', 'tenandtwo-xslt-processor' );
         $cat_params['rewrite']          = array('slug' => 'xml-category');
         $cat_params['hierarchical']     = true;
-        $cat_params['labels']['name']               = __( 'XML Categories', XSLT_TEXT );
-        $cat_params['labels']['singular_name']      = __( 'XML Category', XSLT_TEXT );
-        $cat_params['labels']['search_items']       = __( 'Search XML Categories', XSLT_TEXT );
-        $cat_params['labels']['all_items']          = __( 'All XML Categories', XSLT_TEXT );
-        $cat_params['labels']['parent_item']        = __( 'Parent XML Category', XSLT_TEXT );
-        $cat_params['labels']['parent_item_colon']  = __( 'Parent XML Category:', XSLT_TEXT );
-        $cat_params['labels']['edit_item']          = __( 'Edit XML Category', XSLT_TEXT );
-        $cat_params['labels']['update_item']        = __( 'Update XML Category', XSLT_TEXT );
-        $cat_params['labels']['add_new_item']       = __( 'Add New XML Category', XSLT_TEXT );
-        $cat_params['labels']['new_item_name']      = __( 'New XML Category Name', XSLT_TEXT );
-        $cat_params['labels']['menu_name']          = __( 'XML Category', XSLT_TEXT );
+        $cat_params['labels']['name']               = esc_html__( 'XML Categories', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['singular_name']      = esc_html__( 'XML Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['search_items']       = esc_html__( 'Search XML Categories', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['all_items']          = esc_html__( 'All XML Categories', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['parent_item']        = esc_html__( 'Parent XML Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['parent_item_colon']  = esc_html__( 'Parent XML Category:', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['edit_item']          = esc_html__( 'Edit XML Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['update_item']        = esc_html__( 'Update XML Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['add_new_item']       = esc_html__( 'Add New XML Category', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['new_item_name']      = esc_html__( 'New XML Category Name', 'tenandtwo-xslt-processor' );
+        $cat_params['labels']['menu_name']          = esc_html__( 'XML Category', 'tenandtwo-xslt-processor' );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('cat_params'),true), E_USER_NOTICE); }
-        register_taxonomy( 'xml-category', array(POST_TYPE_XML), $cat_params );
-        register_taxonomy_for_object_type( 'xml-category', POST_TYPE_XML );
+        register_taxonomy( 'xml-category', array(XSLT_POST_TYPE_XML), $cat_params );
+        register_taxonomy_for_object_type( 'xml-category', XSLT_POST_TYPE_XML );
 
         $tag_params = $params;
-        $tag_params['description']       = __( 'XML Document Tags', XSLT_TEXT );
+        $tag_params['description']       = esc_html__( 'XML Document Tags', 'tenandtwo-xslt-processor' );
         $tag_params['rewrite']           = array('slug' => 'xml-tag');
         $tag_params['hierarchical']      = false;
-        $tag_params['labels']['name']               = __( 'XML Tags', XSLT_TEXT );
-        $tag_params['labels']['singular_name']      = __( 'XML Tag', XSLT_TEXT );
-        $tag_params['labels']['search_items']       = __( 'Search XML Tags', XSLT_TEXT );
-        $tag_params['labels']['all_items']          = __( 'All XML Tags', XSLT_TEXT );
-        $tag_params['labels']['parent_item']        = __( 'Parent XML Tag', XSLT_TEXT );
-        $tag_params['labels']['parent_item_colon']  = __( 'Parent XML Tag:', XSLT_TEXT );
-        $tag_params['labels']['edit_item']          = __( 'Edit XML Tag', XSLT_TEXT );
-        $tag_params['labels']['update_item']        = __( 'Update XML Tag', XSLT_TEXT );
-        $tag_params['labels']['add_new_item']       = __( 'Add New XML Tag', XSLT_TEXT );
-        $tag_params['labels']['new_item_name']      = __( 'New XML Tag Name', XSLT_TEXT );
-        $tag_params['labels']['menu_name']          = __( 'XML Tag', XSLT_TEXT );
+        $tag_params['labels']['name']               = esc_html__( 'XML Tags', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['singular_name']      = esc_html__( 'XML Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['search_items']       = esc_html__( 'Search XML Tags', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['all_items']          = esc_html__( 'All XML Tags', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['parent_item']        = esc_html__( 'Parent XML Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['parent_item_colon']  = esc_html__( 'Parent XML Tag:', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['edit_item']          = esc_html__( 'Edit XML Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['update_item']        = esc_html__( 'Update XML Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['add_new_item']       = esc_html__( 'Add New XML Tag', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['new_item_name']      = esc_html__( 'New XML Tag Name', 'tenandtwo-xslt-processor' );
+        $tag_params['labels']['menu_name']          = esc_html__( 'XML Tag', 'tenandtwo-xslt-processor' );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('tag_params'),true), E_USER_NOTICE); }
-        register_taxonomy( 'xml-tag', array(POST_TYPE_XML), $tag_params );
-        register_taxonomy_for_object_type( 'xml-tag', POST_TYPE_XML );
+        register_taxonomy( 'xml-tag', array(XSLT_POST_TYPE_XML), $tag_params );
+        register_taxonomy_for_object_type( 'xml-tag', XSLT_POST_TYPE_XML );
 
     }
 
@@ -322,14 +322,14 @@ class XSLT_Processor_Post_Type
         $xsl_category = $query->get( 'xsl-category', false );
         $xsl_tag      = $query->get( 'xsl-tag', false );
         if ($xsl_category || $xsl_tag) {
-            $query->set('post_type', POST_TYPE_XSL);
+            $query->set('post_type', XSLT_POST_TYPE_XSL);
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xsl_category','xsl_tag','query'),true), E_USER_NOTICE); }
         }
 
         $xml_category = $query->get( 'xml-category', false );
         $xml_tag      = $query->get( 'xml-tag', false );
         if ($xml_category || $xml_tag) {
-            $query->set('post_type', POST_TYPE_XML);
+            $query->set('post_type', XSLT_POST_TYPE_XML);
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml_category','xml_tag','query'),true), E_USER_NOTICE); }
         }
 
@@ -341,7 +341,7 @@ class XSLT_Processor_Post_Type
      */
     public static function the_excerpt_filter( $post_excerpt, $post )
     {
-        if (!in_array($post->post_type, array(POST_TYPE_XSL,POST_TYPE_XML)))
+        if (!in_array($post->post_type, array(XSLT_POST_TYPE_XSL,XSLT_POST_TYPE_XML)))
             { return $post_excerpt; }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('post_excerpt','post'),true), E_USER_NOTICE); }
 
@@ -362,7 +362,7 @@ class XSLT_Processor_Post_Type
                 { $post_content .= $validation_warnings.' WARNING'.(($validation_warnings == 1) ? ' ' : 'S '); }
             if ($validation_errors > 0)
                 { $post_content .= $validation_errors.' ERROR'.(($validation_errors == 1) ? ' ' : 'S '); }
-            $post_content .= ': '.$validation_message;
+            $post_content .= ': '.strip_tags($validation_message,'<strong><b><i><a><br>');
             $post_content = preg_replace('|\-+|', '--', $post_content);
         }
         $post_excerpt = esc_html( wp_html_excerpt( $post_content, $limit, '&hellip;' ) );
@@ -375,7 +375,7 @@ class XSLT_Processor_Post_Type
      */
     public static function the_content_filter( $content )
     {
-        if (empty(get_post()) || !in_array(get_post()->post_type, array(POST_TYPE_XSL,POST_TYPE_XML)) )
+        if (empty(get_post()) || !in_array(get_post()->post_type, array(XSLT_POST_TYPE_XSL,XSLT_POST_TYPE_XML)) )
             { return $content; }
         if ( !is_singular() || !in_the_loop() || !is_main_query() )
             { return $content; }
@@ -398,11 +398,11 @@ class XSLT_Processor_Post_Type
             'type'         => 'string',
             );
 
-        $post_types = array(POST_TYPE_XSL, POST_TYPE_XML);
+        $post_types = array(XSLT_POST_TYPE_XSL,XSLT_POST_TYPE_XML);
         foreach( $post_types as $post_type ) {
             $flds = $xsl_xml_fields;
-            if ($post_type == POST_TYPE_XSL) { $flds = array_merge($flds, $xsl_fields); }
-            if ($post_type == POST_TYPE_XML) { $flds = array_merge($flds, $xml_fields); }
+            if ($post_type == XSLT_POST_TYPE_XSL) { $flds = array_merge($flds, $xsl_fields); }
+            if ($post_type == XSLT_POST_TYPE_XML) { $flds = array_merge($flds, $xml_fields); }
 
             foreach( $flds as $fieldname ) {
                 register_post_meta(
@@ -414,7 +414,7 @@ class XSLT_Processor_Post_Type
 
             add_meta_box(
                 '_xslt_validation_meta',
-                strtoupper($post_type).' Validation',
+                esc_html(strtoupper($post_type)).' '.esc_html__( 'Validation', 'tenandtwo-xslt-processor' ),
                 array('XSLT_Processor_Post_Type', 'display_xslt_validation'),
                 $post_type,
                 'normal'
@@ -439,13 +439,13 @@ class XSLT_Processor_Post_Type
         $html = '<div id="xslt_validation">';
         $html .= '<table width="100%">';
 
-        if ($post->post_type == POST_TYPE_XML)
+        if ($post->post_type == XSLT_POST_TYPE_XML)
         {
             $html .= '<tr><td>';
-            $html .= '<label for="_xslt_schema_type"><strong>' . __( 'Method', XSLT_TEXT ) . ' :</strong></label>';
+            $html .= '<label for="_xslt_schema_type"><strong>' . esc_html__( 'Validation Method', 'tenandtwo-xslt-processor' ) . ' :</strong></label>';
             $html .= '<br/>';
             $html .= '<select id="_xslt_schema_type" name="_xslt_schema_type">'
-                . '<option value="none">Syntax Only</option>'
+                . '<option value="none">'.esc_html__( 'Syntax Only', 'tenandtwo-xslt-processor' ).'</option>'
                 . '<option value="dtd"' . (($xslt_schema_type == 'dtd') ? ' selected' : '') . '>DTD</option>'
                 . '<option value="xsd"' . (($xslt_schema_type == 'xsd') ? ' selected' : '') . '>XSD</option>'
                 . '<option value="rng"' . (($xslt_schema_type == 'rng') ? ' selected' : '') . '>RNG</option>'
@@ -453,7 +453,7 @@ class XSLT_Processor_Post_Type
             $html .= '</td></tr>';
 
             $html .= '<tr><td>';
-            $html .= '<label for="_xslt_schema_value"><strong>' . __( 'XSD|RNG File', XSLT_TEXT ) . ' :</strong></label>';
+            $html .= '<label for="_xslt_schema_value"><strong>XSD|RNG ' . esc_html__( 'Schema File', 'tenandtwo-xslt-processor' ) . ' :</strong></label>';
             $html .= '<br/>';
             $html .= '<input type="text" id="_xslt_schema_value" name="_xslt_schema_value"'
                 . ' value="'.esc_attr($xslt_schema_value).'" size="'.$value_size.'"'
@@ -462,14 +462,14 @@ class XSLT_Processor_Post_Type
         }
 
         $html .= '<tr><td>';
-        $html .= '<label><strong>' . __( 'Results', XSLT_TEXT ) . ' :</strong></label>';
+        $html .= '<label><strong>' . esc_html__( 'Validation Results', 'tenandtwo-xslt-processor' ) . ' :</strong></label>';
         $html .= '</td></tr>';
         $html .= '<tr><td id="xslt_validation_message">';
 
         if ($xslt_validation_warnings > 0)
-            { $html .= $xslt_validation_warnings.' Validation Warnings'.(($xslt_validation_warnings == 1) ? ' ' : 's '); }
+            { $html .= $xslt_validation_warnings.' '.(($xslt_validation_warnings == 1) ? esc_html__( 'Validation Warning', 'tenandtwo-xslt-processor' ) : esc_html__( 'Validation Warnings', 'tenandtwo-xslt-processor' )).' '; }
         if ($xslt_validation_errors > 0)
-            { $html .= $xslt_validation_errors.' Validation Error'.(($xslt_validation_errors == 1) ? ' ' : 's '); }
+            { $html .= $xslt_validation_errors.' '.(($xslt_validation_errors == 1) ? esc_html__( 'Validation Error', 'tenandtwo-xslt-processor' ) : esc_html__( 'Validation Errors', 'tenandtwo-xslt-processor' )).' '; }
         if ($xslt_validation_warnings > 0 || $xslt_validation_errors > 0)
             { $html .= "<br/>\n"; }
 
@@ -492,7 +492,7 @@ editor.savePost = function (options) {
             if (!options.isAutosave) {
                 //console.log("savePost");
                 el = document.querySelector( "#xslt_validation_message" );
-                if (el) { el.innerHTML = "<center><a href=\"\">'.__( 'reload', XSLT_TEXT ).'</a></center>"; }
+                if (el) { el.innerHTML = "<center><a href=\"\">'.esc_html__( 'reload', 'tenandtwo-xslt-processor' ).'</a></center>"; }
             }
         });
 }
@@ -507,7 +507,7 @@ editor.savePost = function (options) {
     public static function update_xslt_validation( $post_id, $post, $update )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : _POST=".print_r($_POST,true), E_USER_NOTICE); }
-        if (!in_array($post->post_type, array(POST_TYPE_XSL,POST_TYPE_XML)) ) { return; }
+        if (!in_array($post->post_type, array(XSLT_POST_TYPE_XSL,XSLT_POST_TYPE_XML)) ) { return; }
 
         $updated = false;
     	if (array_key_exists('_xslt_schema_type', $_POST ) )
@@ -558,7 +558,7 @@ editor.savePost = function (options) {
     public static function xslt_validate( $post_id, $post, $update )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('post_id','post','update'),true), E_USER_NOTICE); }
-        if (!in_array($post->post_type, array(POST_TYPE_XSL,POST_TYPE_XML))) { return; }
+        if (!in_array($post->post_type, array(XSLT_POST_TYPE_XSL,XSLT_POST_TYPE_XML))) { return; }
 
         $validation = array('warnings' => -1, 'errors' => -1, 'message' => '');
         $post_content = XSLT_Processor_WP::filterPostContent( $post->post_content );
@@ -572,7 +572,7 @@ editor.savePost = function (options) {
             global $XSLT_Processor_XSL;
             if (empty($XSLT_Processor_XSL)) { $XSLT_Processor_XSL = new XSLT_Processor_XSL(); }
 
-            if ($post->post_type == POST_TYPE_XSL)
+            if ($post->post_type == XSLT_POST_TYPE_XSL)
             {
                 $params = array(
                     "xsl_type"  => 'string',

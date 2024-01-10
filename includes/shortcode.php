@@ -98,6 +98,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
      * @param attribute 'XYZ'   : passed to stylesheet as <param name="XYZ" />
      *
      * @param htmlentities      : no (dflt) | yes
+     * @param outfile           : local filepath, writable
      *
      * @see https://www.php.net/manual/en/book.xsl.php
      */
@@ -113,8 +114,8 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             "xml_value" => XSLT_PLUGIN_DIR.'xsl/default.xml',
             "xsl_type"  => "file",
             "xsl_value" => XSLT_PLUGIN_DIR.'xsl/default.xsl',
-            //"out_file" => "/path/to/output.txt"
-            //"some_param" => "some value"
+            "outfile"   => null,
+            //"some_param" => "some value",
         );
 
         $options = get_option( XSLT_OPTS, array() );
@@ -162,7 +163,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             $search_paths[] = XSLT_PLUGIN_DIR.'xsl';
             $path = XSLT_Processor_Util::getFileExistsLocal( $attrs['xml_file'], $search_paths );
             if (empty($path))
-                { return sprintf( __( "File '%s' not found in search path '%s'", XSLT_TEXT ), $attrs['xml_file'], implode(":",$search_paths) ); }
+                { return sprintf( esc_html__( "File '%s' not found in search path '%s'", 'tenandtwo-xslt-processor' ), $attrs['xml_file'], implode(":",$search_paths) ); }
 
             $params['xml_type']  = 'file';
             $params['xml_value'] = $path;
@@ -170,17 +171,17 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         if (!empty($attrs['xml_url'])) {
             $path = XSLT_Processor_Util::getFileExistsRemote( $attrs['xml_url'] );
             if (empty($path))
-                { return sprintf( __( "Unknown file '%s'", XSLT_TEXT ), $attrs['xml_url'] ); }
+                { return sprintf( esc_html__( "Unknown file '%s'", 'tenandtwo-xslt-processor' ), $attrs['xml_url'] ); }
 
             $params['xml_type']  = 'string';
             $params['xml_value'] = XSLT_Processor_Util::getRemoteFile( $attrs['xml_url'], $cache_minutes );
         }
         if (!empty($attrs['xml_id']) || !empty($attrs['xml_name'])) {
             $id = $attrs['xml_id'] ?? $attrs['xml_name'];
-            $post_type = (!empty($options['post_type_xml'])) ? array(POST_TYPE_XML) : null;
+            $post_type = (!empty($options['post_type_xml'])) ? array(XSLT_POST_TYPE__XML) : null;
             $post = XSLT_Processor_WP::getPostItem( $id, $post_type );
             if ($post === false)
-                { return sprintf( __( "XML '%s' not found", XSLT_TEXT ), $id ); }
+                { return sprintf( esc_html__( "XML '%s' not found", 'tenandtwo-xslt-processor' ), $id ); }
 
             $params['xml_type']  = 'string';
             $params['xml_value'] = XSLT_Processor_WP::getPostContent( $post );
@@ -198,7 +199,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             $search_paths[] = XSLT_PLUGIN_DIR.'xsl';
             $path = XSLT_Processor_Util::getFileExistsLocal( $attrs['xsl_file'], $search_paths );
             if (empty($path))
-                { return sprintf( __( "File '%s' not found in search path '%s'", XSLT_TEXT ), $attrs['xsl_file'], implode(":",$search_paths) ); }
+                { return sprintf( esc_html__( "File '%s' not found in search path '%s'", 'tenandtwo-xslt-processor' ), $attrs['xsl_file'], implode(":",$search_paths) ); }
 
             $params['xsl_type']  = 'file';
             $params['xsl_value'] = $path;
@@ -206,27 +207,45 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         if (!empty($attrs['xsl_url'])) {
             $path = XSLT_Processor_Util::getFileExistsRemote( $attrs['xsl_url'] );
             if (empty($path))
-                { return sprintf( __( "Unknown file '%s'", XSLT_TEXT ), $attrs['xsl_url'] ); }
+                { return sprintf( esc_html__( "Unknown file '%s'", 'tenandtwo-xslt-processor' ), $attrs['xsl_url'] ); }
 
             $params['xsl_type'] = 'string';
             $params['xsl_value'] = XSLT_Processor_Util::getRemoteFile( $attrs['xsl_url'], $cache_minutes );
         }
         if (!empty($attrs['xsl_id']) || !empty($attrs['xsl_name'])) {
             $id = $attrs['xsl_id'] ?? $attrs['xsl_name'];
-            $post_type = (!empty($options['post_type_xsl'])) ? array(POST_TYPE_XSL) : null;
+            $post_type = (!empty($options['post_type_xsl'])) ? array(XSLT_POST_TYPE_XSL) : null;
             $post = XSLT_Processor_WP::getPostItem( $id, $post_type );
             if ($post === false)
-                { return sprintf( __( "XSL '%s' not found", XSLT_TEXT ), $id ); }
+                { return sprintf( esc_html__( "XSL '%s' not found", 'tenandtwo-xslt-processor' ), $id ); }
 
             $params['xsl_type'] = 'string';
             $params['xsl_value'] = XSLT_Processor_WP::getPostContent( $post );
+        }
+
+        // outfile
+        if (!empty($attrs['outfile'])) {
+            $path_parts = pathinfo($attrs['outfile']);
+
+            $dirname = XSLT_Processor_Util::getFileExistsLocal( $path_parts['dirname'] );
+            if (empty($dirname))
+                { return sprintf( esc_html__( "Directory '%s' not found", 'tenandtwo-xslt-processor' ), $path_parts['dirname'] ); }
+            if (!is_writable($dirname))
+                { return sprintf( esc_html__( "Directory '%s' not writable", 'tenandtwo-xslt-processor' ), $dirname ); }
+
+            $outfile = rtrim($dirname,'/').'/'.$path_parts['basename'];
+            $path = XSLT_Processor_Util::getFileExistsLocal( $outfile );
+            if (!empty($path) && !is_writable($path))
+                { return sprintf( esc_html__( "File '%s' not writable", 'tenandtwo-xslt-processor' ), $outfile ); }
+
+            $params['outfile'] = $outfile;
         }
 
         // optional stylesheet params
         $exclude_params = array(
             "xml_file", "xml_url", "xml_id", "xml_name",
             "xsl_file", "xsl_url", "xsl_id", "xsl_name",
-            "xsl_type", "xsl_value", "xml_type", "xml_value", "out_file",
+            "xsl_type", "xsl_value", "xml_type", "xml_value", "outfile",
             "htmlentities", "tidy",
             );
         foreach( $attrs as $key => $val ) {
@@ -254,6 +273,9 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
 
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params'),true), E_USER_NOTICE); }
         $rv = $XSLT_Processor_XSL->transform( $params );
+
+//         if (!empty($params['outfile'])) {}
+
         return ($attrs_bool['htmlentities']) ? htmlentities( $rv ) : $rv;
     }
 
@@ -322,7 +344,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             $search_paths[] = XSLT_PLUGIN_DIR.'xsl';
             $path = XSLT_Processor_Util::getFileExistsLocal( $attrs['xml_file'], $search_paths );
             if (empty($path))
-                { return sprintf( __( "File '%s' not found in search path '%s'", XSLT_TEXT ), $attrs['xml_file'], implode(":",$search_paths) ); }
+                { return sprintf( esc_html__( "File '%s' not found in search path '%s'", 'tenandtwo-xslt-processor' ), $attrs['xml_file'], implode(":",$search_paths) ); }
 
             $params['xml_type']  = 'file';
             $params['xml_value'] = $path;
@@ -331,7 +353,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         if (!empty($attrs['xml_url'])) {
             $path = XSLT_Processor_Util::getFileExistsRemote( $attrs['xml_url'] );
             if (empty($path))
-                { return sprintf( __( "Unknown file '%s'", XSLT_TEXT ), $attrs['xml_url'] ); }
+                { return sprintf( esc_html__( "Unknown file '%s'", 'tenandtwo-xslt-processor' ), $attrs['xml_url'] ); }
 
             $params['xml_type'] = 'string';
             $params['xml_value'] = XSLT_Processor_Util::getRemoteFile( $path, $cache_minutes );
@@ -339,10 +361,10 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         }
         if (!empty($attrs['xml_id']) || !empty($attrs['xml_name'])) {
             $id = $attrs['xml_id'] ?? $attrs['xml_name'];
-            $post_type = (!empty($options['post_type_xml'])) ? array(POST_TYPE_XML) : null;
+            $post_type = (!empty($options['post_type_xml'])) ? array(XSLT_POST_TYPE_XML) : null;
             $post = XSLT_Processor_WP::getPostItem( $id, $post_type );
             if ($post === false)
-                { return sprintf( __( "XML '%s' not found", XSLT_TEXT ), $id ); }
+                { return sprintf( esc_html__( "XML '%s' not found", 'tenandtwo-xslt-processor' ), $id ); }
 
             $params['xml_type']   = 'string';
             $params['xml_value']  = XSLT_Processor_WP::getPostContent( $post );
@@ -394,7 +416,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         }
 
         // namespace array : set in 'xmlns' attribute
-        // [xml_select xml="onix-xml" select="//onix:Product" xmlns="onix" onix="http://www.editeur.org/onix/2.1/reference" /]
+        // eg, [xml_select xml="input-xml" xmlns="ns1" ns1="uri:namespace-one" select="//ns1:node" /]
         if (!empty($attrs['xmlns'])) {
             $xmlns = explode(' ', $attrs['xmlns']);
             foreach( $xmlns as $ns ) {
@@ -469,7 +491,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             $search_paths[] = XSLT_PLUGIN_DIR.'xsl';
             $path = XSLT_Processor_Util::getFileExistsLocal( $params['csv_file'], $search_paths );
             if (empty($path))
-                { return sprintf( __( "File '%s' not found in search path '%s'", XSLT_TEXT ), $params['csv_file'], implode(":",$search_paths) ); }
+                { return sprintf( esc_html__( "File '%s' not found in search path '%s'", 'tenandtwo-xslt-processor' ), $params['csv_file'], implode(":",$search_paths) ); }
 
             $params['csv_type']  = 'file';
             $params['csv_value'] = $path;
@@ -480,7 +502,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         if (!empty($params['csv_url'])) {
             $path = XSLT_Processor_Util::getFileExistsRemote( $params['csv_url'] );
             if (empty($path))
-                { return sprintf( __( "Unknown file '%s'", XSLT_TEXT ), $params['csv_url'] ); }
+                { return sprintf( esc_html__( "Unknown file '%s'", 'tenandtwo-xslt-processor' ), $params['csv_url'] ); }
 
             $params['csv_type'] = 'string';
             $params['csv_value'] = XSLT_Processor_Util::getRemoteFile( $path, $cache_minutes );
