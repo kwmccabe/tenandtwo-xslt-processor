@@ -25,8 +25,8 @@
             </li>
         </ul>
 
-        <p>function_sample(param1,param2): </p>
-<xsl:copy-of select="php:function('function_sample', string($param1), string($param2))" />
+        <p>xslt_function_sample(param1,param2): </p>
+<xsl:copy-of select="php:function('xslt_function_sample', string($param1), string($param2))" />
 
     </xsl:template>
 
