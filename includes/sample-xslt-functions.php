@@ -36,8 +36,8 @@
  *               </li>
  *           </ul>
  *
- *           <p>function_sample(param1,param2): </p>
- *     <xsl:copy-of select="php:function('function_sample', string($param1), string($param2))" />
+ *           <p>xslt_function_sample(param1,param2): </p>
+ *     <xsl:copy-of select="php:function('xslt_function_sample', string($param1), string($param2))" />
  *
  *       </xsl:template>
  *   </xsl:stylesheet>
@@ -51,9 +51,9 @@
 defined( 'ABSPATH' ) or die( 'Not for browsing' );
 
 /**
- * function_sample( $param1 = 'missing', $param2 = 'missing' ) : DomDocument
+ * xslt_function_sample( $param1 = 'missing', $param2 = 'missing' ) : DomDocument
  */
-function function_sample( $param1 = 'missing', $param2 = 'missing' )
+function xslt_function_sample( $param1 = 'missing', $param2 = 'missing' )
 {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('param1','param2'),true), E_USER_NOTICE); }
     $xml = '<ul>' .
@@ -69,5 +69,5 @@ function function_sample( $param1 = 'missing', $param2 = 'missing' )
 /**
  * append function name(s) to list of allowed callbacks
  */
-$XSLT_PLUGIN_PHP_FUNCTIONS[] = 'function_sample';   // custom
-$XSLT_PLUGIN_PHP_FUNCTIONS[] = 'convert_uuencode';  // built-in
+$XSLT_PLUGIN_PHP_FUNCTIONS[] = 'xslt_function_sample';  // custom
+$XSLT_PLUGIN_PHP_FUNCTIONS[] = 'convert_uuencode';      // built-in
