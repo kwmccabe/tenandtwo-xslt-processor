@@ -102,7 +102,7 @@ class XSLT_Processor_Util
      * get array of local files under path
      * OR an XML list/fragment if format="xml":
      *     <file basename="{filename}" bytes="{filesize}">{filepath}</file>
-     * final search is restricted to DOCUMENT_ROOT or search_paths
+     * final search is restricted to ABSPATH or search_paths
      *
      * @param string $path          : local directory path
      * @param string $match         : preg_match for full filepath
@@ -117,8 +117,8 @@ class XSLT_Processor_Util
 
         if (strpos($path,'__') !== false)
         {
-            $search  = array('__DOCUMENT_ROOT__',      '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
-            $replace = array($_SERVER['DOCUMENT_ROOT'], WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
+            $search  = array('__WP_HOME_PATH__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
+            $replace = array( ABSPATH,            WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
             $path = str_replace($search, $replace, $path);
         }
         if (!empty($search_paths) && !is_array($search_paths))
@@ -126,7 +126,7 @@ class XSLT_Processor_Util
 
         $dir_path = realpath($path);
         $valid_path = $dir_path && is_dir($dir_path) && is_readable($dir_path);
-        if ($valid_path && strpos($dir_path,$_SERVER['DOCUMENT_ROOT']) === false)
+        if ($valid_path && strpos($dir_path,ABSPATH) === false)
         {
             $valid_path = false;
             foreach( $search_paths as $search_path )
@@ -211,7 +211,7 @@ class XSLT_Processor_Util
 
     /**
      * check local file exists
-     * __DOCUMENT_ROOT__, __WP_CONTENT_DIR__ and __XSLT_PLUGIN_DIR__ automatically replaced
+     * __WP_HOME_PATH__, __WP_CONTENT_DIR__ and __XSLT_PLUGIN_DIR__ automatically replaced
      *
      * @see file.xsl, template name="file-exists-local"
      * @param string $file          : local path passed to realpath()
@@ -224,8 +224,8 @@ class XSLT_Processor_Util
 
         if (strpos($file,'__') !== false)
         {
-            $search  = array('__DOCUMENT_ROOT__',      '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
-            $replace = array($_SERVER['DOCUMENT_ROOT'], WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
+            $search  = array('__WP_HOME_PATH__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
+            $replace = array( ABSPATH,            WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
             $file = str_replace($search, $replace, $file);
         }
 
