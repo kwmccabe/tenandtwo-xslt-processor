@@ -362,7 +362,7 @@ class XSLT_Processor_Post_Type
                 { $post_content .= $validation_warnings.' WARNING'.(($validation_warnings == 1) ? ' ' : 'S '); }
             if ($validation_errors > 0)
                 { $post_content .= $validation_errors.' ERROR'.(($validation_errors == 1) ? ' ' : 'S '); }
-            $post_content .= ': '.strip_tags($validation_message,'<strong><b><i><a><br>');
+            $post_content .= ': '.wp_kses($validation_message, 'post');
             $post_content = preg_replace('|\-+|', '--', $post_content);
         }
         $post_excerpt = esc_html( wp_html_excerpt( $post_content, $limit, '&hellip;' ) );
@@ -401,8 +401,8 @@ class XSLT_Processor_Post_Type
         $post_types = array(XSLT_POST_TYPE_XSL,XSLT_POST_TYPE_XML);
         foreach( $post_types as $post_type ) {
             $flds = $xsl_xml_fields;
-            if ($post_type == XSLT_POST_TYPE_XSL) { $flds = array_merge($flds, $xsl_fields); }
-            if ($post_type == XSLT_POST_TYPE_XML) { $flds = array_merge($flds, $xml_fields); }
+            if ($post_type == XSLT_POST_TYPE_XSL) { $flds = array_merge( $flds, $xsl_fields ); }
+            if ($post_type == XSLT_POST_TYPE_XML) { $flds = array_merge( $flds, $xml_fields ); }
 
             foreach( $flds as $fieldname ) {
                 register_post_meta(
@@ -478,7 +478,7 @@ class XSLT_Processor_Post_Type
 
         $html .= '</table>';
         $html .= '</div>';
-        echo $html;
+        echo wp_kses($html, 'post');
 
         $js = '
 <script language="javascript">
