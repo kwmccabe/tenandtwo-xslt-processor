@@ -20,11 +20,15 @@
     </xsl:call-template>
     or
     <xsl:call-template name="file-exists-local">
-        <xsl:with-param name="path">__DOCUMENT_ROOT__/wp-content/uploads/file.txt</xsl:with-param>
+        <xsl:with-param name="path">__WP_HOME_PATH__/wp-content/uploads/file.txt</xsl:with-param>
     </xsl:call-template>
     or
     <xsl:call-template name="file-exists-local">
-        <xsl:with-param name="path">__PLUGIN_DIR__/xml/file.xml</xsl:with-param>
+        <xsl:with-param name="path">__WP_CONTENT_DIR__/uploads/file.txt</xsl:with-param>
+    </xsl:call-template>
+    or
+    <xsl:call-template name="file-exists-local">
+        <xsl:with-param name="path">__XSLT_PLUGIN_DIR__/xml/file.xml</xsl:with-param>
     </xsl:call-template>
 -->
     <xsl:template name="file-exists-local">

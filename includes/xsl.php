@@ -10,7 +10,7 @@
  *     "xsl_value" => "/path/to/transform.xsl",
  *     "xml_type"  => "file",
  *     "xml_value" => "/path/to/input.xml",
- *     "out_file"  => "/path/to/output.txt"
+ *     "outfile"   => "/path/to/output.txt"
  *     "some_param" => "some value"
  * );
  * $result = $XSLT_Processor_XSL->transform( $params );
@@ -56,7 +56,7 @@ class XSLT_Processor_XSL
      * - params['xsl_value'] : (string) filepath | xsl
      * - params['xml_type']  : (string) "file" | "string"
      * - params['xml_value'] : (string) filepath | xml
-     * - params['out_file']  : (string) optional filepath for results
+     * - params['outfile']   : (string) optional filepath for results
      * - params['some_param']: additional params passed to stylesheet
      *
      * @return string          transform result
@@ -72,7 +72,7 @@ class XSLT_Processor_XSL
         $xsl_value = (!empty($params['xsl_value'])) ? $params['xsl_value'] : null;
         $xml_type  = (in_array($params['xml_type'], $types)) ? $params['xml_type']  : "string";
         $xml_value = (!empty($params['xml_value'])) ? $params['xml_value'] : null;
-        $out_file  = (!empty($params['out_file']))  ? $params['out_file']  : null;
+        $outfile   = (!empty($params['outfile']))   ? $params['outfile']  : null;
 
         if ($xsl_type == "file" && !file_exists($xsl_value))
         {
@@ -140,7 +140,7 @@ class XSLT_Processor_XSL
 
         // set additional stylesheet params
         $exclude_params = array(
-            "xsl_type", "xsl_value", "xml_type", "xml_value", "out_file"
+            "xsl_type", "xsl_value", "xml_type", "xml_value", "outfile"
             );
         $release_params = array();
         foreach( $params as $key => $val )
@@ -154,10 +154,10 @@ class XSLT_Processor_XSL
 
         // run transform
         if (WP_DEBUG) { $starttime = XSLT_Processor_Util::getMicrotime(); }
-        if (!empty($out_file))
+        if (!empty($outfile))
         {
-            $bytes = $xsltproc->transformToURI($xml,$out_file);
-            $rv = $out_file;
+            $bytes = $xsltproc->transformToURI($xml,$outfile);
+            $rv = $outfile;
         }
         else
         {
@@ -195,9 +195,9 @@ class XSLT_Processor_XSL
                 . $xsl_type
                 . ', ' . size_format( ($xsl_type == "file") ? filesize($xsl_value) : strlen($xsl_value) )
                 . ") " . ( ($xsl_type == "file") ? "'$xsl_value'" : '' );
-            if (!empty($out_file))
+            if (!empty($outfile))
             {
-                $msg .= "\n- FILE $bytes bytes written to '$out_file'";
+                $msg .= "\n- FILE $bytes bytes written to '$outfile'";
             }
             $msg .= "\n- TIME " . sprintf("%.4f",($stoptime - $starttime)) . " seconds \n";
             trigger_error( $msg, E_USER_NOTICE );

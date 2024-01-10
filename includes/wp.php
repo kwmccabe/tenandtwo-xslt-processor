@@ -143,7 +143,7 @@ class XSLT_Processor_WP
             $post_content = '<div class="page-content">'.$post_content.'</div>';
 
             if (!is_array($post_type)) { $post_type = array($post_type); }
-            if (in_array(POST_TYPE_XSL, $post_type))
+            if (in_array(XSLT_POST_TYPE__XSL, $post_type))
             {
                 $post_content = XSLT_Processor_XML::decode_string( $post_content, '//xsl:stylesheet[1]', 'xml', '');
             }

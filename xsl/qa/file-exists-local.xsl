@@ -58,10 +58,6 @@
 [xsl_transform xsl="qa/file-exists-local.xsl"]
 <TESTS>
   <TEST>
-    <path>__DOCUMENT_ROOT__/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</path>
-    <expected>/srv/xsltproc.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</expected>
-  </TEST>
-  <TEST>
     <path>__WP_CONTENT_DIR__/plugins/tenandtwo-xslt-processor/xsl/sample.xml</path>
     <expected>/srv/xsltproc.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</expected>
   </TEST>

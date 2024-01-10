@@ -4,7 +4,6 @@
 	<xsl:output method="html" encoding="UTF-8" indent="yes" />
 
     <!--
-        https://www.w3schools.com/xml/func_systemproperty.asp
     -->
 	<xsl:template match="/">
 

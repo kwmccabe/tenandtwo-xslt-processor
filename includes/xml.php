@@ -168,7 +168,6 @@ class XSLT_Processor_XML
             $attrs .= ' '.$key.'="'.htmlspecialchars($val, ENT_COMPAT | ENT_IGNORE, "UTF-8").'"';
         }
 
-        //$namespaces = array('onix' => 'http://www.editeur.org/onix/2.1/reference');
         $xmlns = $ex = '';
         foreach( $namespaces as $key => $val )
         {
@@ -262,7 +261,6 @@ class XSLT_Processor_XML
             $attrs .= ' '.$key.'="'.htmlspecialchars($val, ENT_COMPAT | ENT_IGNORE, "UTF-8").'"';
         }
 
-        //$namespaces = array('onix' => 'http://www.editeur.org/onix/2.1/reference');
         $xmlns = $ex = '';
         foreach( $namespaces as $key => $val )
         {

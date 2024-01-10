@@ -4,9 +4,6 @@
 	<xsl:output method="html" encoding="UTF-8" indent="yes" />
 
     <!--
-    https://www.oreilly.com/library/view/xslt-10-pocket/9780596801434/ch04.html
-    https://www.w3schools.com/xml/func_elementavailable.asp
-
     Top-Level Elements:
         xsl:stylesheet == xsl:transform
         xsl:attribute-set
@@ -19,8 +16,6 @@
         xsl:script
         xsl:key
         xsl:template
-
-
     -->
 	<xsl:template match="/">
 

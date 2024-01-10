@@ -49,7 +49,7 @@ $XSLT_PLUGIN_PHP_FUNCTIONS = array(
  * Sample extension
  *
  * built-in: convert_uuencode( string $string ): string
- * custom:   function_sample( string $param1, string $param2 ) : DomDocument
+ * custom:   xslt_function_sample( string $param1, string $param2 ) : DomDocument
  */
 if (is_readable(XSLT_PLUGIN_DIR.'includes/sample-xslt-functions.php')) {
     require_once(XSLT_PLUGIN_DIR.'includes/sample-xslt-functions.php');
