@@ -27,7 +27,7 @@ class XSLT_Processor_Admin
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__, E_USER_NOTICE); }
 
-        load_plugin_textdomain( XSLT_PLUGIN_NAME, false, XSLT_PLUGIN_DIR.'/languages' );
+        load_plugin_textdomain( 'tenandtwo-xslt-processor', false, XSLT_PLUGIN_DIR.'/languages' );
 
         add_action( 'admin_menu', array('XSLT_Processor_Admin', 'register_pages') );
         add_action( 'admin_init', array('XSLT_Processor_Admin', 'register_settings') );
@@ -37,9 +37,6 @@ class XSLT_Processor_Admin
         add_filter( $filter_name, array('XSLT_Processor_Admin', 'render_action_links') );
 
         add_filter( 'upload_mimes', array('XSLT_Processor_Admin', 'xslt_mime_types') );
-        // risky? fixes "Sorry, you are not allowed to upload this file type." error
-        if (!defined('ALLOW_UNFILTERED_UPLOADS'))
-            { define('ALLOW_UNFILTERED_UPLOADS', true); }
     }
 
 
@@ -488,9 +485,8 @@ class XSLT_Processor_Admin
      */
     public static function xslt_mime_types( $mimes )
     {
-        $mimes['xml']  = 'text/xml';
-        $mimes['xsl']  = 'application/xslt+xml';
-        $mimes['xslt'] = 'application/xslt+xml';
+        $mimes['xml']      = 'text/xml';
+        $mimes['xsl|xslt'] = 'application/xslt+xml';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('mimes'),true), E_USER_NOTICE); }
         return $mimes;
     }

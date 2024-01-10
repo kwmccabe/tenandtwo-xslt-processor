@@ -1,17 +1,9 @@
 # Changelog
 
-Notable changes are documented here.
+Notable changes are documented here in reverse chronological order.
 
 
-## [Unreleased]
-
-### Added
-### Fixed
-### Changed
-### Removed
-
-
-## [1.0.0] - 2024-01-01
+## [1.0.0] - 2024-02-01
 
 ### Added
 ### Fixed
@@ -20,13 +12,23 @@ Notable changes are documented here.
 
 
 
-## [0.9.4] - 2024-02-01
+## [0.9.4] - 2024-01-10
 
-Dev during review
+Second submission
 
-### Added
 ### Changed
+
+- includes/admin.php     : esc_html(), esc_html__() and esc_html(_x())
+- includes/post_type.php : esc_html(), esc_html__() and esc_html(_x())
+- includes/sample-xslt-functions.php : rename function_sample() to xslt_function_sample()
+- includes/shortcode.php : esc_html(), esc_html__() and esc_html(_x())
+- includes/util.php : replace __DOCUMENT_ROOT__ with __WP_HOME_PATH__
+- languages/tenandtwo-xslt-processor.pot
+- tenandtwo-xslt-processor.php : remove Update URI and textdomain define
+
 ### Removed
+
+- includes/admin.php     : ALLOW_UNFILTERED_UPLOADS
 
 
 ## [0.9.3] - 2023-12-20

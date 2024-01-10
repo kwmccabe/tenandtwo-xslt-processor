@@ -3,8 +3,8 @@ Contributors: tenandtwo
 Donate link: https://xsltproc.tenandtwo.com/donate/
 Tags: xslt, xml, xsl, shortcode
 Requires at least: 5.2
-Tested up to: 6.3.1
-Stable tag: main
+Tested up to: 6.4.2
+Stable tag: 0.9.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -138,7 +138,7 @@ For more details on installation options, see Manage Plugins at wordpreess.org -
 
 = Requirements =
 
-The Ten&Two XSLT Processor plugin relies upon PHP's XSL extension.  If the extension is installed, then XSLT Processor Settings screen will display a message similar to the first message below.  If LIBXSLT_VERSION is undefined, on the other hand, all plugin options are disabled automatically, and the second message is displayed.
+The Ten&Two XSLT Processor plugin relies upon PHP's XSL extension.  If the extension is installed, then the XSLT Processor Settings screen will display a message similar to the first message below.  If LIBXSLT_VERSION is undefined, on the other hand, all plugin options are disabled automatically, and the second message is displayed.
 
 -- PHP's XSL extension is available : XSLT v1.1.32, EXSLT v1.1.32, LIBXML v2.9.4
 -- PHP's XSL extension is NOT available

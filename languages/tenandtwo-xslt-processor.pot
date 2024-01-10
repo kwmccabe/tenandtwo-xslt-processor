@@ -1,15 +1,15 @@
-# Copyright (C) 2023 Ten & Two Systems
+# Copyright (C) 2024 Ten & Two Systems
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ten&Two XSLT Processor 0.9.3\n"
+"Project-Id-Version: Ten&Two XSLT Processor 0.9.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tenandtwo-xslt-processor\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-10T13:27:05+00:00\n"
+"POT-Creation-Date: 2024-01-09T18:21:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: tenandtwo-xslt-processor\n"
@@ -19,7 +19,7 @@ msgid "Ten&Two XSLT Processor"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://www.tenandtwo.io/xslt-processor/"
+msgid "https://wordpress.org/plugins/tenandtwo-xslt-processor/"
 msgstr ""
 
 #. Description of the plugin
@@ -32,4 +32,540 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "https://www.tenandtwo.com/"
+msgstr ""
+
+#: includes/admin.php:102
+#: includes/admin.php:103
+msgid "Activate Content Type"
+msgstr ""
+
+#: includes/admin.php:102
+#: includes/post_type.php:163
+msgid "XSL Stylesheet"
+msgstr ""
+
+#: includes/admin.php:103
+#: includes/post_type.php:198
+msgid "XML Document"
+msgstr ""
+
+#: includes/admin.php:104
+#: includes/admin.php:105
+#: includes/admin.php:106
+msgid "Activate Shortcode"
+msgstr ""
+
+#: includes/admin.php:107
+#: includes/admin.php:258
+msgid "Cache Lifetime"
+msgstr ""
+
+#: includes/admin.php:108
+#: includes/admin.php:269
+msgid "Local File Search Paths"
+msgstr ""
+
+#: includes/admin.php:131
+msgid "XSLT Processor Settings updated:"
+msgstr ""
+
+#: includes/admin.php:163
+msgid "XSLT Processor Settings"
+msgstr ""
+
+#: includes/admin.php:213
+msgid "Activate Content Types"
+msgstr ""
+
+#: includes/admin.php:224
+msgid "Activate Shortcodes"
+msgstr ""
+
+#: includes/admin.php:284
+msgid "XSL extension"
+msgstr ""
+
+#: includes/admin.php:286
+#: includes/admin.php:300
+msgid "is NOT available"
+msgstr ""
+
+#: includes/admin.php:289
+#: includes/admin.php:303
+msgid "is available"
+msgstr ""
+
+#: includes/admin.php:298
+msgid "Tidy extension"
+msgstr ""
+
+#: includes/admin.php:324
+#: includes/post_type.php:162
+msgid "XSL Stylesheets"
+msgstr ""
+
+#: includes/admin.php:325
+msgid " - Save and manage XSL stylesheets in Wordpress Admin"
+msgstr ""
+
+#: includes/admin.php:337
+#: includes/post_type.php:197
+msgid "XML Documents"
+msgstr ""
+
+#: includes/admin.php:338
+msgid " - Save and manage XML data in Wordpress Admin"
+msgstr ""
+
+#: includes/admin.php:356
+msgid " - Process XML data using an XSL stylesheet"
+msgstr ""
+
+#: includes/admin.php:366
+#: includes/admin.php:390
+#: includes/admin.php:416
+msgid "View all options"
+msgstr ""
+
+#: includes/admin.php:384
+msgid " - Filter XML data using an XPath select statement"
+msgstr ""
+
+#: includes/admin.php:408
+msgid " - Convert CSV data to XML"
+msgstr ""
+
+#: includes/admin.php:432
+msgid " Minutes"
+msgstr ""
+
+#: includes/admin.php:434
+msgid "- Remote files are cached locally when"
+msgstr ""
+
+#: includes/admin.php:436
+msgid "- Use"
+msgstr ""
+
+#: includes/admin.php:438
+msgid "to override."
+msgstr ""
+
+#: includes/admin.php:456
+msgid "Specify local directories containing XSL stylesheets and XML data files."
+msgstr ""
+
+#: includes/admin.php:458
+msgid "The default path"
+msgstr ""
+
+#: includes/admin.php:460
+msgid "will be searched last."
+msgstr ""
+
+#: includes/admin.php:480
+msgid "Settings"
+msgstr ""
+
+#: includes/post_type.php:159
+msgid "Custom XSL post_type for XSLT Processor"
+msgstr ""
+
+#: includes/post_type.php:164
+msgid "Add New XSL"
+msgstr ""
+
+#: includes/post_type.php:165
+msgid "Edit XSL"
+msgstr ""
+
+#: includes/post_type.php:166
+msgid "New XSL"
+msgstr ""
+
+#: includes/post_type.php:167
+msgid "View XSL"
+msgstr ""
+
+#: includes/post_type.php:168
+msgid "View XSL Stylesheets"
+msgstr ""
+
+#: includes/post_type.php:169
+msgid "Search XSL Stylesheets"
+msgstr ""
+
+#: includes/post_type.php:170
+msgid "No XSL Stylesheets found"
+msgstr ""
+
+#: includes/post_type.php:171
+msgid "No XSL Stylesheets found in Trash"
+msgstr ""
+
+#: includes/post_type.php:172
+msgid "All XSL Stylesheets"
+msgstr ""
+
+#: includes/post_type.php:173
+msgid "Filter XSL list"
+msgstr ""
+
+#: includes/post_type.php:174
+msgid "XSL list navigation"
+msgstr ""
+
+#: includes/post_type.php:175
+msgid "XSL list"
+msgstr ""
+
+#: includes/post_type.php:176
+msgid "XSL published."
+msgstr ""
+
+#: includes/post_type.php:177
+msgid "XSL published privately."
+msgstr ""
+
+#: includes/post_type.php:178
+msgid "XSL reverted to draft."
+msgstr ""
+
+#: includes/post_type.php:179
+msgid "XSL trashed."
+msgstr ""
+
+#: includes/post_type.php:180
+msgid "XSL scheduled."
+msgstr ""
+
+#: includes/post_type.php:181
+msgid "XSL updated."
+msgstr ""
+
+#: includes/post_type.php:182
+msgid "XSL Link"
+msgstr ""
+
+#: includes/post_type.php:183
+msgid "A link to an XSL."
+msgstr ""
+
+#: includes/post_type.php:194
+msgid "Custom XML post_type for XSLT Processor"
+msgstr ""
+
+#: includes/post_type.php:199
+msgid "Add New XML"
+msgstr ""
+
+#: includes/post_type.php:200
+msgid "Edit XML"
+msgstr ""
+
+#: includes/post_type.php:201
+msgid "New XML"
+msgstr ""
+
+#: includes/post_type.php:202
+msgid "View XML"
+msgstr ""
+
+#: includes/post_type.php:203
+msgid "View XML Documents"
+msgstr ""
+
+#: includes/post_type.php:204
+msgid "Search XML Documents"
+msgstr ""
+
+#: includes/post_type.php:205
+msgid "No XML Documents found"
+msgstr ""
+
+#: includes/post_type.php:206
+msgid "No XML Documents found in Trash"
+msgstr ""
+
+#: includes/post_type.php:207
+msgid "All XML Documents"
+msgstr ""
+
+#: includes/post_type.php:208
+msgid "Filter XML list"
+msgstr ""
+
+#: includes/post_type.php:209
+msgid "XML list navigation"
+msgstr ""
+
+#: includes/post_type.php:210
+msgid "XML list"
+msgstr ""
+
+#: includes/post_type.php:211
+msgid "XML published."
+msgstr ""
+
+#: includes/post_type.php:212
+msgid "XML published privately."
+msgstr ""
+
+#: includes/post_type.php:213
+msgid "XML reverted to draft."
+msgstr ""
+
+#: includes/post_type.php:214
+msgid "XML trashed."
+msgstr ""
+
+#: includes/post_type.php:215
+msgid "XML scheduled."
+msgstr ""
+
+#: includes/post_type.php:216
+msgid "XML updated."
+msgstr ""
+
+#: includes/post_type.php:217
+msgid "XML Link"
+msgstr ""
+
+#: includes/post_type.php:218
+msgid "A link to an XML."
+msgstr ""
+
+#: includes/post_type.php:230
+msgid "XSL Stylesheet Categories"
+msgstr ""
+
+#: includes/post_type.php:233
+msgid "XSL Categories"
+msgstr ""
+
+#: includes/post_type.php:234
+#: includes/post_type.php:243
+msgid "XSL Category"
+msgstr ""
+
+#: includes/post_type.php:235
+msgid "Search XSL Categories"
+msgstr ""
+
+#: includes/post_type.php:236
+msgid "All XSL Categories"
+msgstr ""
+
+#: includes/post_type.php:237
+msgid "Parent XSL Category"
+msgstr ""
+
+#: includes/post_type.php:238
+msgid "Parent XSL Category:"
+msgstr ""
+
+#: includes/post_type.php:239
+msgid "Edit XSL Category"
+msgstr ""
+
+#: includes/post_type.php:240
+msgid "Update XSL Category"
+msgstr ""
+
+#: includes/post_type.php:241
+msgid "Add New XSL Category"
+msgstr ""
+
+#: includes/post_type.php:242
+msgid "New XSL Category Name"
+msgstr ""
+
+#: includes/post_type.php:249
+msgid "XSL Stylesheet Tags"
+msgstr ""
+
+#: includes/post_type.php:252
+msgid "XSL Tags"
+msgstr ""
+
+#: includes/post_type.php:253
+#: includes/post_type.php:262
+msgid "XSL Tag"
+msgstr ""
+
+#: includes/post_type.php:254
+msgid "Search XSL Tags"
+msgstr ""
+
+#: includes/post_type.php:255
+msgid "All XSL Tags"
+msgstr ""
+
+#: includes/post_type.php:256
+msgid "Parent XSL Tag"
+msgstr ""
+
+#: includes/post_type.php:257
+msgid "Parent XSL Tag:"
+msgstr ""
+
+#: includes/post_type.php:258
+msgid "Edit XSL Tag"
+msgstr ""
+
+#: includes/post_type.php:259
+msgid "Update XSL Tag"
+msgstr ""
+
+#: includes/post_type.php:260
+msgid "Add New XSL Tag"
+msgstr ""
+
+#: includes/post_type.php:261
+msgid "New XSL Tag Name"
+msgstr ""
+
+#: includes/post_type.php:275
+msgid "XML Document Categories"
+msgstr ""
+
+#: includes/post_type.php:278
+msgid "XML Categories"
+msgstr ""
+
+#: includes/post_type.php:279
+#: includes/post_type.php:288
+msgid "XML Category"
+msgstr ""
+
+#: includes/post_type.php:280
+msgid "Search XML Categories"
+msgstr ""
+
+#: includes/post_type.php:281
+msgid "All XML Categories"
+msgstr ""
+
+#: includes/post_type.php:282
+msgid "Parent XML Category"
+msgstr ""
+
+#: includes/post_type.php:283
+msgid "Parent XML Category:"
+msgstr ""
+
+#: includes/post_type.php:284
+msgid "Edit XML Category"
+msgstr ""
+
+#: includes/post_type.php:285
+msgid "Update XML Category"
+msgstr ""
+
+#: includes/post_type.php:286
+msgid "Add New XML Category"
+msgstr ""
+
+#: includes/post_type.php:287
+msgid "New XML Category Name"
+msgstr ""
+
+#: includes/post_type.php:294
+msgid "XML Document Tags"
+msgstr ""
+
+#: includes/post_type.php:297
+msgid "XML Tags"
+msgstr ""
+
+#: includes/post_type.php:298
+#: includes/post_type.php:307
+msgid "XML Tag"
+msgstr ""
+
+#: includes/post_type.php:299
+msgid "Search XML Tags"
+msgstr ""
+
+#: includes/post_type.php:300
+msgid "All XML Tags"
+msgstr ""
+
+#: includes/post_type.php:301
+msgid "Parent XML Tag"
+msgstr ""
+
+#: includes/post_type.php:302
+msgid "Parent XML Tag:"
+msgstr ""
+
+#: includes/post_type.php:303
+msgid "Edit XML Tag"
+msgstr ""
+
+#: includes/post_type.php:304
+msgid "Update XML Tag"
+msgstr ""
+
+#: includes/post_type.php:305
+msgid "Add New XML Tag"
+msgstr ""
+
+#: includes/post_type.php:306
+msgid "New XML Tag Name"
+msgstr ""
+
+#: includes/post_type.php:445
+msgid "Method"
+msgstr ""
+
+#: includes/post_type.php:448
+msgid "Syntax Only"
+msgstr ""
+
+#: includes/post_type.php:456
+msgid "File"
+msgstr ""
+
+#: includes/post_type.php:465
+msgid "Results"
+msgstr ""
+
+#: includes/post_type.php:495
+msgid "reload"
+msgstr ""
+
+#: includes/shortcode.php:166
+#: includes/shortcode.php:202
+#: includes/shortcode.php:347
+#: includes/shortcode.php:494
+msgid "File '%s' not found in search path '%s'"
+msgstr ""
+
+#: includes/shortcode.php:174
+#: includes/shortcode.php:210
+#: includes/shortcode.php:356
+#: includes/shortcode.php:505
+msgid "Unknown file '%s'"
+msgstr ""
+
+#: includes/shortcode.php:184
+#: includes/shortcode.php:367
+msgid "XML '%s' not found"
+msgstr ""
+
+#: includes/shortcode.php:220
+msgid "XSL '%s' not found"
+msgstr ""
+
+#: includes/shortcode.php:232
+msgid "Directory '%s' not found"
+msgstr ""
+
+#: includes/shortcode.php:234
+msgid "Directory '%s' not writable"
+msgstr ""
+
+#: includes/shortcode.php:239
+msgid "File '%s' not writable"
 msgstr ""

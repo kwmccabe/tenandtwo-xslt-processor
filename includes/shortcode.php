@@ -34,18 +34,27 @@ class XSLT_Processor_Shortcode
         if (!empty($options['sc_xsl_transform'])) {
             if (!shortcode_exists('xsl_transform'))
                 { add_shortcode( 'xsl_transform',       array('XSLT_Processor_Shortcode', 'xsl_transform') ); }
+            else if (WP_DEBUG)
+                { trigger_error(__METHOD__." : shortcode 'xsl_transform' already exists", E_USER_NOTICE); }
+
             if (!shortcode_exists('xsl_transform_alias'))
                 { add_shortcode( 'xsl_transform_alias', array('XSLT_Processor_Shortcode', 'xsl_transform') ); }
+            else if (WP_DEBUG)
+                { trigger_error(__METHOD__." : shortcode 'xsl_transform_alias' already exists", E_USER_NOTICE); }
         }
 
         if (!empty($options['sc_xml_select'])) {
             if (!shortcode_exists('xml_select'))
                 { add_shortcode( 'xml_select', array('XSLT_Processor_Shortcode', 'xml_select') ); }
+            else if (WP_DEBUG)
+                { trigger_error(__METHOD__." : shortcode 'xml_select' already exists", E_USER_NOTICE); }
         }
 
         if (!empty($options['sc_csv_select'])) {
             if (!shortcode_exists('csv_select'))
                 { add_shortcode( 'csv_select', array('XSLT_Processor_Shortcode', 'csv_select') ); }
+            else if (WP_DEBUG)
+                { trigger_error(__METHOD__." : shortcode 'csv_select' already exists", E_USER_NOTICE); }
         }
 
         if (WP_DEBUG && !shortcode_exists('xslt_test'))
@@ -178,7 +187,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         }
         if (!empty($attrs['xml_id']) || !empty($attrs['xml_name'])) {
             $id = $attrs['xml_id'] ?? $attrs['xml_name'];
-            $post_type = (!empty($options['post_type_xml'])) ? array(XSLT_POST_TYPE__XML) : null;
+            $post_type = (!empty($options['post_type_xml'])) ? array(XSLT_POST_TYPE_XML) : null;
             $post = XSLT_Processor_WP::getPostItem( $id, $post_type );
             if ($post === false)
                 { return sprintf( esc_html__( "XML '%s' not found", 'tenandtwo-xslt-processor' ), $id ); }
