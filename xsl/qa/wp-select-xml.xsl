@@ -26,7 +26,7 @@
 
             <!-- run test -->
             <xsl:variable name="result">
-                <xsl:call-template name="wp-xml-select">
+                <xsl:call-template name="wp-select-xml">
                     <xsl:with-param name="xml"    select="$xml" />
                     <xsl:with-param name="select" select="$select" />
                     <xsl:with-param name="cache" select="$cache" />
@@ -58,7 +58,7 @@
             <hr size="1" />
             <p>
                 <b>TEST <xsl:value-of select="position()" /> : <xsl:value-of select="$pass" /></b>
-                <br />wp-xml-select :
+                <br />wp-select-xml :
                 <xsl:if test="string-length($xml)"><br /> - xml = <xsl:copy-of select="$xml" /></xsl:if>
                 <xsl:if test="string-length($select)"><br /> - select = <xsl:copy-of select="$select" /></xsl:if>
                 <xsl:if test="string-length($cache)"><br /> - cache = <xsl:copy-of select="$cache" /></xsl:if>
@@ -86,9 +86,9 @@
     </xsl:template>
 
 </xsl:stylesheet>
-<!-- end wp-xml-select.xsl -->
+<!-- end wp-select-xml.xsl -->
 <!--
-[xslt_transform xsl="qa/wp-xml-select.xsl"]
+[xslt_transform xsl="qa/wp-select-xml.xsl"]
 <TESTS>
   <TEST>
     <expected><RESULT><NODATA/></RESULT></expected>
@@ -100,14 +100,14 @@
     <format>xml</format>
     <root>DATA</root>
     <strip-namespaces>no</strip-namespaces>
-    <expected><RESULT template="wp-xml-select"><DATA xml="sample-xml" id="876" select="//comment"><comment>This is a test WordPress XML Document item</comment></DATA></RESULT></expected>
+    <expected><RESULT template="wp-select-xml"><DATA xml="sample-xml" id="876" select="//comment"><comment>This is a test WordPress XML Document item</comment></DATA></RESULT></expected>
   </TEST>
   <TEST>
     <xml>sample-xml</xml>
     <select>//item</select>
     <format>json</format>
     <root>JSON</root>
-    <expected><RESULT template="wp-xml-select">{"JSON":[{"attributes":{"xml":"sample-xml","id":"876","select":"\/\/item"},"item":[{"attributes":{"value":"1"},"cdata":"One"},{"attributes":{"value":"2"},"cdata":"Two"},{"attributes":{"value":"3"},"cdata":"Three"},{"attributes":{"value":"4"},"cdata":"Four"}]}]}</RESULT></expected>
+    <expected><RESULT template="wp-select-xml">{"JSON":[{"attributes":{"xml":"sample-xml","id":"876","select":"\/\/item"},"item":[{"attributes":{"value":"1"},"cdata":"One"},{"attributes":{"value":"2"},"cdata":"Two"},{"attributes":{"value":"3"},"cdata":"Three"},{"attributes":{"value":"4"},"cdata":"Four"}]}]}</RESULT></expected>
   </TEST>
 </TESTS>
 [/xslt_transform]

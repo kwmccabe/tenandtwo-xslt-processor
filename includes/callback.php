@@ -328,7 +328,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
     }
 
     /**
-     * @see wp.xsl, template name="wp-xml-select"
+     * @see wp.xsl, template name="wp-select-xml"
      * @see XSLT_Processor_Shortcode::xslt_select_xml()
      * @param array $params
      * - xml    : string file|url|id|slug
@@ -340,7 +340,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
      * - strip-namespaces  : string, no (dflt) | yes
      * @return string  XML
      */
-    public static function getXmlSelect( $params )
+    public static function getSelectXml( $params )
     {
         $attrs = array(
             'xml'    => $params['xml']    ?? '',
@@ -351,13 +351,13 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
             //'strip-declaration' => $params['strip-declaration'] ?? 'yes',
             'strip-namespaces'  => $params['strip-namespaces']  ?? 'no',
         );
-        $rv = '<RESULT template="wp-xml-select">' . XSLT_Processor_Shortcode::xslt_select_xml( $attrs, '' ) . '</RESULT>';
+        $rv = '<RESULT template="wp-select-xml">' . XSLT_Processor_Shortcode::xslt_select_xml( $attrs, '' ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','attrs','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
 
     /**
-     * @see wp.xsl, template name="wp-csv-select"
+     * @see wp.xsl, template name="wp-select-csv"
      * @see XSLT_Processor_Shortcode::xslt_select_csv()
      * @param array $params
      * - csv        : string file|url
@@ -375,7 +375,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
 
      * @return string  XML
      */
-    public static function getCsvSelect( $params )
+    public static function getSelectCsv( $params )
     {
         $attrs = array(
             'csv'       => $params['csv']       ?? '',
@@ -390,7 +390,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
             'class'     => $params['class']     ?? 'table',
             //'htmlentities' => $params['htmlentities'] ?? 'no',
         );
-        $rv = '<RESULT template="wp-csv-select">' . XSLT_Processor_Shortcode::xslt_select_csv( $attrs, '' ) . '</RESULT>';
+        $rv = '<RESULT template="wp-select-csv">' . XSLT_Processor_Shortcode::xslt_select_csv( $attrs, '' ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','attrs','rv'),true), E_USER_NOTICE); }
         return $rv;
     }

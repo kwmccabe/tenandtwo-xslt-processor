@@ -6,18 +6,18 @@
     exclude-result-prefixes="exslt php"
     >
 <!--
--   wp-xml-select       : xml, select, cache, format, root, strip-namespaces
--   wp-csv-select       : csv, separator, enclosure, escape, key_row, col, key_col, key, row, class
+-   wp-select-xml       : xml, select, cache, format, root, strip-namespaces
+-   wp-select-csv       : csv, separator, enclosure, escape, key_row, col, key_col, key, row, class
 -   wp-size-format      : bytes, decimals
 -   wp-sanitize-title   : title
 -->
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" />
 
-<!-- MARK wp-csv-select -->
+<!-- MARK wp-select-csv -->
 <!--
-    uses XSLT_Callback::getCsvSelect()
+    uses XSLT_Callback::getSelectCsv()
 
-    <xsl:call-template name="wp-csv-select">
+    <xsl:call-template name="wp-select-csv">
         <xsl:with-param name="csv">/path/to/local/spreadsheet.csv</xsl:with-param>
         <xsl:with-param name="separator">,</xsl:with-param>
         <xsl:with-param name="enclosure">"</xsl:with-param>
@@ -30,7 +30,7 @@
         <xsl:with-param name="class" select="'table'" />
     </xsl:call-template>
 -->
-    <xsl:template name="wp-csv-select">
+    <xsl:template name="wp-select-csv">
         <xsl:param name="csv"       select="''" />
         <!-- read params -->
         <xsl:param name="separator" select="','" />
@@ -60,7 +60,7 @@
                 <!-- <xsl:text>, "htmlentities" =&gt; "</xsl:text><xsl:value-of select="$htmlentities" /><xsl:text>"</xsl:text> -->
             <xsl:text>);</xsl:text>
         </xsl:variable>
-        <xsl:copy-of select="php:function('XSLT_Callback','getCsvSelect',string($SUBPARAMS))/RESULT" />
+        <xsl:copy-of select="php:function('XSLT_Callback','getSelectCsv',string($SUBPARAMS))/RESULT" />
     </xsl:template>
 
 
@@ -151,11 +151,11 @@
     </xsl:template>
 
 
-<!-- MARK wp-xml-select -->
+<!-- MARK wp-select-xml -->
 <!--
-    uses XSLT_Callback : getXmlSelect()
+    uses XSLT_Callback : getSelectXml()
 
-    <xsl:call-template name="wp-xml-select">
+    <xsl:call-template name="wp-select-xml">
         <xsl:with-param name="xml" select="wp-data-xml" />
         <xsl:with-param name="select" select="'/'" />
         <xsl:with-param name="cache" select="5" />
@@ -164,7 +164,7 @@
         <xsl:with-param name="strip-namespaces" select="'no'" />
     </xsl:call-template>
 -->
-    <xsl:template name="wp-xml-select">
+    <xsl:template name="wp-select-xml">
         <xsl:param name="xml"    select="''" />
         <xsl:param name="select" select="'/'" />
         <xsl:param name="cache" select="'-1'" />
@@ -184,7 +184,7 @@
                 <xsl:text>, "strip-namespaces" =&gt; "</xsl:text><xsl:value-of select="$strip-namespaces" /><xsl:text>"</xsl:text>
             <xsl:text>);</xsl:text>
         </xsl:variable>
-        <xsl:copy-of select="php:function('XSLT_Callback','getXmlSelect',string($SUBPARAMS))/RESULT" />
+        <xsl:copy-of select="php:function('XSLT_Callback','getSelectXml',string($SUBPARAMS))/RESULT" />
     </xsl:template>
 
 

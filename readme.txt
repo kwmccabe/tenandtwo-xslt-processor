@@ -112,7 +112,7 @@ The XSLT Processor plugin includes a number of useful XSL templates that you can
 -- util-bytsize, util-hash-data, util-print-nodes, util-print-node-names, util-super-global
 
 * wp.xsl
--- wp-sanitize-title, wp-xml-select
+-- wp-select-xml, wp-select-csv, wp-post-item, wp-post-meta, wp-sanitize-title, wp-size-format
 
 
 == Installation ==

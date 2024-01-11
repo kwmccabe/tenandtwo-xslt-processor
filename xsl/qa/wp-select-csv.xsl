@@ -36,7 +36,7 @@
 
             <!-- run test -->
             <xsl:variable name="result">
-                <xsl:call-template name="wp-csv-select">
+                <xsl:call-template name="wp-select-csv">
                     <xsl:with-param name="csv" select="$csv" />
                     <xsl:with-param name="separator" select="$separator" />
                     <xsl:with-param name="enclosure" select="$enclosure" />
@@ -72,7 +72,7 @@
             <hr size="1" />
             <p>
                 <b>TEST <xsl:value-of select="position()" /> : <xsl:value-of select="$pass" /></b>
-                <br />wp-csv-select :
+                <br />wp-select-csv :
                 <xsl:if test="string-length($csv)"><br /> - csv = <xsl:copy-of select="$csv" /></xsl:if>
                 <xsl:if test="string-length($separator)"><br /> - separator = <xsl:copy-of select="$separator" /></xsl:if>
                 <xsl:if test="string-length($enclosure)"><br /> - enclosure = <xsl:copy-of select="$enclosure" /></xsl:if>
@@ -104,9 +104,9 @@
     </xsl:template>
 
 </xsl:stylesheet>
-<!-- end wp-csv-select.xsl -->
+<!-- end wp-select-csv.xsl -->
 <!--
-[xslt_transform xsl_file="qa/wp-csv-select.xsl"]
+[xslt_transform xsl_file="qa/wp-select-csv.xsl"]
 <TESTS>
   <TEST>
     <csv>case-study-gsheets/Sheet1.csv</csv>
