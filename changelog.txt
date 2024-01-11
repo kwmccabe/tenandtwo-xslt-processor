@@ -12,13 +12,24 @@ Notable changes are documented here in reverse chronological order.
 
 
 
-## [0.9.5] - 2024-02-01
+## [0.9.5] - 2024-01-11
 
-Dev during review
+Third submission
 
 ### Changed
 
 - includes/admin.php     : wp_kses($html,'post')
+- includes/admin.php     : rename option sc_xsl_transform : sc_transform
+- includes/admin.php     : rename option sc_xml_select    : sc_select_xml
+- includes/admin.php     : rename option sc_csv_select    : sc_select_csv
+- includes/callback.php  : rename method getCsvSelect()   : getSelectCsv()
+- includes/callback.php  : rename method getXmlSelect()   : getSelectXml()
+- includes/post_type.php : rename in-DB post_types        : xslt_xsl and xslt_xml
+- includes/shortcode.php : rename shortcode xsl_transform : xslt_transform
+- includes/shortcode.php : rename shortcode xml_select    : xslt_select_xml
+- includes/shortcode.php : rename shortcode csv_select    : xslt_select_csv
+- xsl/wp.xsl             : rename template wp-csv-select  : wp-select-csv
+- xsl/wp.xsl             : rename template wp-xml-select  : wp-select-xml
 
 
 
