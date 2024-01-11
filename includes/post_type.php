@@ -18,8 +18,8 @@
 
 defined( 'ABSPATH' ) or die( 'Not for browsing' );
 
-define( 'XSLT_POST_TYPE_XSL', 'xsl' );
-define( 'XSLT_POST_TYPE_XML', 'xml' );
+define( 'XSLT_POST_TYPE_XSL', 'xslt_xsl' );
+define( 'XSLT_POST_TYPE_XML', 'xslt_xml' );
 
 require_once(XSLT_PLUGIN_DIR.'includes/notice.php');
 
@@ -436,32 +436,32 @@ class XSLT_Processor_Post_Type
         $xslt_schema_value = get_post_meta( $post->ID, '_xslt_schema_value', true );
 
         $value_size = 28;
-        $html = '<div id="xslt_validation">';
-        $html .= '<table width="100%">';
+        echo '<div id="xslt_validation">';
+        echo '<table width="100%">';
 
         if ($post->post_type == XSLT_POST_TYPE_XML)
         {
-            $html .= '<tr><td>';
-            $html .= '<label for="_xslt_schema_type"><strong>' . esc_html__( 'Validation Method', 'tenandtwo-xslt-processor' ) . ' :</strong></label>';
-            $html .= '<br/>';
-            $html .= '<select id="_xslt_schema_type" name="_xslt_schema_type">'
+            echo '<tr><td>';
+            echo '<label for="_xslt_schema_type"><strong>' . esc_html__( 'Validation Method', 'tenandtwo-xslt-processor' ) . ' :</strong></label>';
+            echo '<br/>';
+            echo '<select id="_xslt_schema_type" name="_xslt_schema_type">'
                 . '<option value="none">'.esc_html__( 'Syntax Only', 'tenandtwo-xslt-processor' ).'</option>'
                 . '<option value="dtd"' . (($xslt_schema_type == 'dtd') ? ' selected' : '') . '>DTD</option>'
                 . '<option value="xsd"' . (($xslt_schema_type == 'xsd') ? ' selected' : '') . '>XSD</option>'
                 . '<option value="rng"' . (($xslt_schema_type == 'rng') ? ' selected' : '') . '>RNG</option>'
                 .'</select>';
-            $html .= '</td></tr>';
+            echo '</td></tr>';
 
-            $html .= '<tr><td>';
-            $html .= '<label for="_xslt_schema_value"><strong>XSD|RNG ' . esc_html__( 'Schema File', 'tenandtwo-xslt-processor' ) . ' :</strong></label>';
-            $html .= '<br/>';
-            $html .= '<input type="text" id="_xslt_schema_value" name="_xslt_schema_value"'
+            echo '<tr><td>';
+            echo '<label for="_xslt_schema_value"><strong>XSD|RNG ' . esc_html__( 'Schema File', 'tenandtwo-xslt-processor' ) . ' :</strong></label>';
+            echo '<br/>';
+            echo '<input type="text" id="_xslt_schema_value" name="_xslt_schema_value"'
                 . ' value="'.esc_attr($xslt_schema_value).'" size="'.$value_size.'"'
                 .'>';
-            $html .= '</td></tr>';
+            echo '</td></tr>';
         }
 
-        $html .= '<tr><td>';
+        $html = '<tr><td>';
         $html .= '<label><strong>' . esc_html__( 'Validation Results', 'tenandtwo-xslt-processor' ) . ' :</strong></label>';
         $html .= '</td></tr>';
         $html .= '<tr><td id="xslt_validation_message">';
@@ -475,10 +475,10 @@ class XSLT_Processor_Post_Type
 
         $html .= $xslt_validation_message;
         $html .= '</td></tr>';
-
-        $html .= '</table>';
-        $html .= '</div>';
         echo wp_kses($html, 'post');
+
+        echo '</table>';
+        echo '</div>';
 
         $js = '
 <script language="javascript">
