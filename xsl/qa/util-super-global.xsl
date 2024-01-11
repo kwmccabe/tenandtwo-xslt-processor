@@ -69,7 +69,7 @@
 </xsl:stylesheet>
 <!-- end util-super-global.xsl -->
 <!--
-[xsl_transform xsl="qa/util-super-global.xsl"]
+[xslt_transform xsl="qa/util-super-global.xsl"]
 <TESTS>
   <TEST>
     <global>_SERVER</global>
@@ -84,5 +84,5 @@
     <global>_COOKIE</global>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

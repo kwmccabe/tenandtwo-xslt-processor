@@ -64,7 +64,7 @@
 </xsl:stylesheet>
 <!-- end file-exists-remote.xsl -->
 <!--
-[xsl_transform xsl="qa/date-format.xsl"]
+[xslt_transform xsl="qa/date-format.xsl"]
 <TESTS>
   <TEST/>
   <TEST>
@@ -88,5 +88,5 @@
     <expected>2024-01-08</expected>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

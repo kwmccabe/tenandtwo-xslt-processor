@@ -69,7 +69,7 @@
 </xsl:stylesheet>
 <!-- end wp-post-item.xsl -->
 <!--
-[xsl_transform xsl="qa/wp-post-item.xsl"]
+[xslt_transform xsl="qa/wp-post-item.xsl"]
 <TESTS>
   <TEST>
     <post>2</post>
@@ -79,5 +79,5 @@
     <type>xml</type>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

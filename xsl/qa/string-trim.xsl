@@ -55,12 +55,12 @@
 </xsl:stylesheet>
 <!-- end string-trim.xsl -->
 <!--
-[xsl_transform xsl="qa/string-trim.xsl"]
+[xslt_transform xsl="qa/string-trim.xsl"]
 <TESTS>
   <TEST>
     <value> what's. the fuss. </value>
     <expected>what's. the fuss.</expected>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

@@ -18,9 +18,9 @@ class XSLT_Processor_Shortcode
 {
 
     /**
-     * add_shortcodes   : xsl_transform, xsl_transform_alias
-     * add_shortcode    : xml_select
-     * add_shortcode    : csv_select
+     * add_shortcodes   : xslt_transform, xslt_transform_alias
+     * add_shortcode    : xslt_select_xml
+     * add_shortcode    : xslt_select_csv
      * add_shortcode    : xslt_test
      */
     public static function init()
@@ -31,30 +31,30 @@ class XSLT_Processor_Shortcode
 
         add_filter( 'no_texturize_shortcodes',  array('XSLT_Processor_Shortcode', 'no_texturize_shortcodes') );
 
-        if (!empty($options['sc_xsl_transform'])) {
-            if (!shortcode_exists('xsl_transform'))
-                { add_shortcode( 'xsl_transform',       array('XSLT_Processor_Shortcode', 'xsl_transform') ); }
+        if (!empty($options['sc_transform'])) {
+            if (!shortcode_exists('xslt_transform'))
+                { add_shortcode( 'xslt_transform',       array('XSLT_Processor_Shortcode', 'xslt_transform') ); }
             else if (WP_DEBUG)
-                { trigger_error(__METHOD__." : shortcode 'xsl_transform' already exists", E_USER_NOTICE); }
+                { trigger_error(__METHOD__." : shortcode 'xslt_transform' already exists", E_USER_NOTICE); }
 
-            if (!shortcode_exists('xsl_transform_alias'))
-                { add_shortcode( 'xsl_transform_alias', array('XSLT_Processor_Shortcode', 'xsl_transform') ); }
+            if (!shortcode_exists('xslt_transform_alias'))
+                { add_shortcode( 'xslt_transform_alias', array('XSLT_Processor_Shortcode', 'xslt_transform') ); }
             else if (WP_DEBUG)
-                { trigger_error(__METHOD__." : shortcode 'xsl_transform_alias' already exists", E_USER_NOTICE); }
+                { trigger_error(__METHOD__." : shortcode 'xslt_transform_alias' already exists", E_USER_NOTICE); }
         }
 
-        if (!empty($options['sc_xml_select'])) {
-            if (!shortcode_exists('xml_select'))
-                { add_shortcode( 'xml_select', array('XSLT_Processor_Shortcode', 'xml_select') ); }
+        if (!empty($options['sc_select_xml'])) {
+            if (!shortcode_exists('xslt_select_xml'))
+                { add_shortcode( 'xslt_select_xml', array('XSLT_Processor_Shortcode', 'xslt_select_xml') ); }
             else if (WP_DEBUG)
-                { trigger_error(__METHOD__." : shortcode 'xml_select' already exists", E_USER_NOTICE); }
+                { trigger_error(__METHOD__." : shortcode 'xslt_select_xml' already exists", E_USER_NOTICE); }
         }
 
-        if (!empty($options['sc_csv_select'])) {
-            if (!shortcode_exists('csv_select'))
-                { add_shortcode( 'csv_select', array('XSLT_Processor_Shortcode', 'csv_select') ); }
+        if (!empty($options['sc_select_csv'])) {
+            if (!shortcode_exists('xslt_select_csv'))
+                { add_shortcode( 'xslt_select_csv', array('XSLT_Processor_Shortcode', 'xslt_select_csv') ); }
             else if (WP_DEBUG)
-                { trigger_error(__METHOD__." : shortcode 'csv_select' already exists", E_USER_NOTICE); }
+                { trigger_error(__METHOD__." : shortcode 'xslt_select_csv' already exists", E_USER_NOTICE); }
         }
 
         if (WP_DEBUG && !shortcode_exists('xslt_test'))
@@ -67,11 +67,11 @@ class XSLT_Processor_Shortcode
      */
     public static function no_texturize_shortcodes( $shortcodes )
     {
-        if (shortcode_exists('xsl_transform'))       { $shortcodes[] = 'xsl_transform'; }
-        if (shortcode_exists('xsl_transform_alias')) { $shortcodes[] = 'xsl_transform_alias'; }
-        if (shortcode_exists('xml_select'))          { $shortcodes[] = 'xml_select'; }
-        if (shortcode_exists('csv_select'))          { $shortcodes[] = 'csv_select'; }
-        if (shortcode_exists('xslt_test'))           { $shortcodes[] = 'xslt_test'; }
+        if (shortcode_exists('xslt_transform'))       { $shortcodes[] = 'xslt_transform'; }
+        if (shortcode_exists('xslt_transform_alias')) { $shortcodes[] = 'xslt_transform_alias'; }
+        if (shortcode_exists('xslt_select_xml'))      { $shortcodes[] = 'xslt_select_xml'; }
+        if (shortcode_exists('xslt_select_csv'))      { $shortcodes[] = 'xslt_select_csv'; }
+        if (shortcode_exists('xslt_test'))            { $shortcodes[] = 'xslt_test'; }
         return $shortcodes;
     }
 
@@ -87,7 +87,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
     }
 
     /**
-     * shortcode : xsl_transform
+     * shortcode : xslt_transform
      *
      * @param content           : xml string data
      *
@@ -111,7 +111,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
      *
      * @see https://www.php.net/manual/en/book.xsl.php
      */
-    public static function xsl_transform( $attrs, $content )
+    public static function xslt_transform( $attrs, $content )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'),true), E_USER_NOTICE); }
 
@@ -289,7 +289,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
     }
 
     /**
-     * shortcode : xml_select
+     * shortcode : xslt_select_xml
      * @param attribute 'xml'
      * @param 'xml_file'        : local filepath
      * @param 'xml_url'         : remote filepath
@@ -308,7 +308,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
      * @param attribute 'htmlentities'      : no (dflt) | yes
      *
      */
-    public static function xml_select( $attrs, $content )
+    public static function xslt_select_xml( $attrs, $content )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'),true), E_USER_NOTICE); }
 
@@ -389,7 +389,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             'strip-declaration' => true,
             'strip-namespaces'  => false,
             'htmlentities'      => false,
-        ), $attrs, 'xml_select' );
+        ), $attrs, 'xslt_select_xml' );
 
         if ($attrs_bool['tidy'] && extension_loaded('tidy'))
         {
@@ -425,7 +425,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         }
 
         // namespace array : set in 'xmlns' attribute
-        // eg, [xml_select xml="input-xml" xmlns="ns1" ns1="uri:namespace-one" select="//ns1:node" /]
+        // eg, [xslt_select_xml xml="input-xml" xmlns="ns1" ns1="uri:namespace-one" select="//ns1:node" /]
         if (!empty($attrs['xmlns'])) {
             $xmlns = explode(' ', $attrs['xmlns']);
             foreach( $xmlns as $ns ) {
@@ -443,7 +443,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
 
 
     /**
-     * shortcode : csv_select
+     * shortcode : xslt_select_csv
      * @param attribute 'csv'
      * @param 'csv_file'        : local filepath
      * @param 'csv_url'         : remote filepath
@@ -465,7 +465,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
      *
      * @param attribute 'htmlentities'  : no (dflt) | yes
      */
-    public static function csv_select( $attrs, $content )
+    public static function xslt_select_csv( $attrs, $content )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'),true), E_USER_NOTICE); }
 
@@ -526,13 +526,13 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         // pre or post-filter per boolean attributes
         $attrs_bool = XSLT_Processor_WP::getShortcodeBooleans( array(
             'htmlentities' => false,
-        ), $attrs, 'csv_select' );
+        ), $attrs, 'xslt_select_csv' );
 
         $attrs_read = shortcode_atts( array(
             'separator' => ",",
             'enclosure' => "\"",
             'escape'    => "\\",
-        ), $attrs, 'csv_select' );
+        ), $attrs, 'xslt_select_csv' );
 
         $attrs_write = shortcode_atts( array(
             'key_row'   => 0,
@@ -541,7 +541,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             'key'       => '',
             'row'       => 0,
             'class'     => 'table',
-        ), $attrs, 'csv_select' );
+        ), $attrs, 'xslt_select_csv' );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','attrs_read','attrs_write'),true), E_USER_NOTICE); }
 
 

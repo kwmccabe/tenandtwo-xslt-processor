@@ -15,7 +15,7 @@ Transform and display XML from local and remote sources using PHP's XSL extensio
 
 == Description ==
 
-The Ten&Two XSLT Processor plugin brings the power of PHP's XSL module to Wordpress.  Once enabled, the plugin creates three (3) shortcodes - [xsl_transform/], [xml_select/], and [csv_select/] - which can be used separately or in tandem to enrich your site with content from XML sources.  The plugin also enables two custom post types - 'XSL Stylesheets' and 'XML Documents' - for managing and validating sources within WP Admin.
+The Ten&Two XSLT Processor plugin brings the power of PHP's XSL module to Wordpress.  Once enabled, the plugin creates three (3) shortcodes - [xslt_transform/], [xslt_select_xml/], and [xslt_select_csv/] - which can be used separately or in tandem to enrich your site with content from XML sources.  The plugin also enables two custom post types - 'XSL Stylesheets' and 'XML Documents' - for managing and validating sources within WP Admin.
 
 More information and sample code can be found at https://xsltproc.tenandtwo.com/
 
@@ -27,72 +27,72 @@ The XSLT Processor plugin enables two custom post types for managing sources wit
 
 = Shortcodes =
 
-[xsl_transform/] is the plugin's primary function.  This shortcode processes XML data using an XSL stylesheet, and then outputs the result as HTML, more XML, or as simple TEXT.
+[xslt_transform/] is the plugin's primary function.  This shortcode processes XML data using an XSL stylesheet, and then outputs the result as HTML, more XML, or as simple TEXT.
 
--- [xsl_transform xsl="{file|url|id|slug}" xml="{file|url|id|slug}" /]
--- [xsl_transform xsl="{file|url|id|slug}"]<DATA>...</DATA>[/xsl_transform]
+-- [xslt_transform xsl="{file|url|id|slug}" xml="{file|url|id|slug}" /]
+-- [xslt_transform xsl="{file|url|id|slug}"]<DATA>...</DATA>[/xslt_transform]
 
 If either the `xsl` or `xml` parameter is left unspecified, defaults are used.  The default XML value is `<NODATA/>`.  The default XSL stylesheet prints all of the incoming data as HTML.  If extra attributes are specified in the shortcode - eg, `mykey="myval"` - those keys/values are passed along as parameters to the stylesheet - `<xsl:param name="mykey"/>`.
 
 -- -- -- -- --
 
-[xml_select/] is a helper function.  It reads XML and returns a selection of the data, based on a supplied XPATH expression.  There are two options for specifying the XPath.  First, using the `select` attribute or, second, using the body of the shortcode.  Complex select statements with quotes, square brackets or other special syntax, should use the second pattern :
+[xslt_select_xml/] is a helper function.  It reads XML and returns a selection of the data, based on a supplied XPATH expression.  There are two options for specifying the XPath.  First, using the `select` attribute or, second, using the body of the shortcode.  Complex select statements with quotes, square brackets or other special syntax, should use the second pattern :
 
--- [xml_select xml="{file|url|id|slug}" select="{XPath}" /]
--- [xml_select xml="{file|url|id|slug}"]{XPath}[/xml_select]
+-- [xslt_select_xml xml="{file|url|id|slug}" select="{XPath}" /]
+-- [xslt_select_xml xml="{file|url|id|slug}"]{XPath}[/xslt_select_xml]
 
 If the XPath select parameter is left unspecified, the default `/` is used, which returns the entire document.  The default output is `format="xml"`.  If `format="json"` is specified, the result is encoded as a JSON string.
 
 -- -- -- -- --
 
-[csv_select/] is a helper function for converting CSV data to XML.  The result can be output directly as an HTML <table>, or the result can be passed to [xsl_transform/] for further processing.
+[xslt_select_csv/] is a helper function for converting CSV data to XML.  The result can be output directly as an HTML <table>, or the result can be passed to [xslt_transform/] for further processing.
 
--- [csv_select csv="{file|url}" /]
--- [csv_select]{csv,data}[/csv_select]
+-- [xslt_select_csv csv="{file|url}" /]
+-- [xslt_select_csv]{csv,data}[/xslt_select_csv]
 
 Three (3) parameters control reading the input.  See https://www.php.net/manual/en/function.fgetcsv.php for details.
--- [csv_select separator="," enclosure="\"" escape="\\" /]
+-- [xslt_select_csv separator="," enclosure="\"" escape="\\" /]
 
 Two (2) parameters control writing columns to the output.  The `key_row` attribute is optional, but allows labels from that row to be used in `col` and `key_col`.
--- [csv_select key_row="{num}" col="{num|letter|label}+" /]
+-- [xslt_select_csv key_row="{num}" col="{num|letter|label}+" /]
 
 Three (3) parameters control writing rows to the output.
--- [csv_select row="{num}+" /]
--- [csv_select key_col="{num|letter|label}" key="{val}+" /]
+-- [xslt_select_csv row="{num}+" /]
+-- [xslt_select_csv key_col="{num|letter|label}" key="{val}+" /]
 
 -- -- -- -- --
 
 If `htmlentities` or `htmlentities="yes"` is added to any of the three shortcodes, the result is escaped for easier in-browser debugging.
 
-Combine [xsl_transform] with [xml_select] :
--- [xsl_transform][xml_select/][/xsl_transform]
+Combine [xslt_transform] with [xslt_select_xml] :
+-- [xslt_transform][xslt_select_xml/][/xslt_transform]
 
-Combine [xsl_transform] with [csv_select] :
--- [xsl_transform][csv_select/][/xsl_transform]
+Combine [xslt_transform] with [xslt_select_csv] :
+-- [xslt_transform][xslt_select_csv/][/xslt_transform]
 
-Combine [xsl_transform] with itself using [/xsl_transform_alias] (WP does not support nested shortcodes with identical names) :
--- [xsl_transform_alias][xsl_transform/][/xsl_transform_alias]
+Combine [xslt_transform] with itself using [/xslt_transform_alias] (WP does not support nested shortcodes with identical names) :
+-- [xslt_transform_alias][xslt_transform/][/xslt_transform_alias]
 
 Combine multiple shortcodes in a single 'XML Document' (see Custom Post Types below) :
--- <DATA><P1>[xml_select/]</P1><P2>[xml_select/]</P2></DATA>
+-- <DATA><P1>[xslt_select_xml/]</P1><P2>[xslt_select_xml/]</P2></DATA>
 
 
 = Cache Parameters =
 
 When either shortcode specifies a remote file - `xml="{url}"` or `csv="{url}"` - that source is cached locally using WP Transients. The default cache duration is set in the XSLT Processor Settings.  To override the default, add `cache="{minutes}"` to the shortcode.
 
--- [xsl_transform xml="{url}" cache="{minutes}" /]
--- [xml_select xml="{url}" cache="{minutes}" /]
--- [csv_select csv="{url}" cache="{minutes}" /]
+-- [xslt_transform xml="{url}" cache="{minutes}" /]
+-- [xslt_select_xml xml="{url}" cache="{minutes}" /]
+-- [xslt_select_csv csv="{url}" cache="{minutes}" /]
 
 
 = Namespace Parameters =
 
-Two methods for handling XML containing namespaces are provided within [xml_select/].  The first is to add `strip-namespaces` to the shortcode.  The second method is to add the needed prefixes and namespace URIs using `xslns`.
+Two methods for handling XML containing namespaces are provided within [xslt_select_xml/].  The first is to add `strip-namespaces` to the shortcode.  The second method is to add the needed prefixes and namespace URIs using `xslns`.
 
--- [xml_select xml="{file}" strip-namespaces="yes" select="//node" /]
--- [xml_select xml="{file}" xmlns="ns1" ns1="{namespace-uri-1}" select="//ns1:node" /]
--- [xml_select xml="{file}" xmlns="ns1 ns2" ns1="{namespace-uri-1}" ns2="{namespace-uri-2}" select="//ns1:node/ns2:node" /]
+-- [xslt_select_xml xml="{file}" strip-namespaces="yes" select="//node" /]
+-- [xslt_select_xml xml="{file}" xmlns="ns1" ns1="{namespace-uri-1}" select="//ns1:node" /]
+-- [xslt_select_xml xml="{file}" xmlns="ns1 ns2" ns1="{namespace-uri-1}" ns2="{namespace-uri-2}" select="//ns1:node/ns2:node" /]
 
 
 = Stylesheets =

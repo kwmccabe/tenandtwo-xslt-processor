@@ -88,7 +88,7 @@
 </xsl:stylesheet>
 <!-- end wp-xml-select.xsl -->
 <!--
-[xsl_transform xsl="qa/wp-xml-select.xsl"]
+[xslt_transform xsl="qa/wp-xml-select.xsl"]
 <TESTS>
   <TEST>
     <expected><RESULT><NODATA/></RESULT></expected>
@@ -110,5 +110,5 @@
     <expected><RESULT template="wp-xml-select">{"JSON":[{"attributes":{"xml":"sample-xml","id":"876","select":"\/\/item"},"item":[{"attributes":{"value":"1"},"cdata":"One"},{"attributes":{"value":"2"},"cdata":"Two"},{"attributes":{"value":"3"},"cdata":"Three"},{"attributes":{"value":"4"},"cdata":"Four"}]}]}</RESULT></expected>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
   -->

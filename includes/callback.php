@@ -329,7 +329,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
 
     /**
      * @see wp.xsl, template name="wp-xml-select"
-     * @see XSLT_Processor_Shortcode::xml_select()
+     * @see XSLT_Processor_Shortcode::xslt_select_xml()
      * @param array $params
      * - xml    : string file|url|id|slug
      * - select : string, xpath
@@ -351,14 +351,14 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
             //'strip-declaration' => $params['strip-declaration'] ?? 'yes',
             'strip-namespaces'  => $params['strip-namespaces']  ?? 'no',
         );
-        $rv = '<RESULT template="wp-xml-select">' . XSLT_Processor_Shortcode::xml_select( $attrs, '' ) . '</RESULT>';
+        $rv = '<RESULT template="wp-xml-select">' . XSLT_Processor_Shortcode::xslt_select_xml( $attrs, '' ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','attrs','rv'),true), E_USER_NOTICE); }
         return $rv;
     }
 
     /**
      * @see wp.xsl, template name="wp-csv-select"
-     * @see XSLT_Processor_Shortcode::csv_select()
+     * @see XSLT_Processor_Shortcode::xslt_select_csv()
      * @param array $params
      * - csv        : string file|url
      * read params:
@@ -390,7 +390,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
             'class'     => $params['class']     ?? 'table',
             //'htmlentities' => $params['htmlentities'] ?? 'no',
         );
-        $rv = '<RESULT template="wp-csv-select">' . XSLT_Processor_Shortcode::csv_select( $attrs, '' ) . '</RESULT>';
+        $rv = '<RESULT template="wp-csv-select">' . XSLT_Processor_Shortcode::xslt_select_csv( $attrs, '' ) . '</RESULT>';
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','attrs','rv'),true), E_USER_NOTICE); }
         return $rv;
     }

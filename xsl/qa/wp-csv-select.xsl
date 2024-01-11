@@ -106,7 +106,7 @@
 </xsl:stylesheet>
 <!-- end wp-csv-select.xsl -->
 <!--
-[xsl_transform xsl_file="qa/wp-csv-select.xsl"]
+[xslt_transform xsl_file="qa/wp-csv-select.xsl"]
 <TESTS>
   <TEST>
     <csv>case-study-gsheets/Sheet1.csv</csv>
@@ -120,5 +120,5 @@
     <class>table table-striped</class>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

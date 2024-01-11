@@ -353,7 +353,7 @@ class XSLT_Processor_Post_Type
         $post_content = '';
         $limit = 100;
         if ($validation_warnings == 0 && $validation_errors == 0) {
-            $shortcode = '[xml_select root="" xml="'.$post->ID.'" htmlentities /]';
+            $shortcode = '[xslt_select_xml root="" xml="'.$post->ID.'" htmlentities /]';
             $post_content = XSLT_Processor_WP::filterPostContent($shortcode);
             $limit = 200;  // many htmlentities
         } else {

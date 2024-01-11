@@ -42,9 +42,9 @@ class XSLT_Processor_Admin
 
     /**
      * return validated options array
-     *  sc_xsl_transform    boolean
-     *  sc_xml_select       boolean
-     *  sc_csv_select       boolean
+     *  sc_transform        boolean
+     *  sc_select_xml       boolean
+     *  sc_select_csv       boolean
      *  search_path         string
      *  cache_default       integer, minutes
      */
@@ -55,9 +55,9 @@ class XSLT_Processor_Admin
         $options = array(
             'post_type_xsl'    => !empty( $input['post_type_xsl'] )    ? 1 : 0,
             'post_type_xml'    => !empty( $input['post_type_xml'] )    ? 1 : 0,
-            'sc_xsl_transform' => !empty( $input['sc_xsl_transform'] ) ? 1 : 0,
-            'sc_xml_select'    => !empty( $input['sc_xml_select'] )    ? 1 : 0,
-            'sc_csv_select'    => !empty( $input['sc_csv_select'] )    ? 1 : 0,
+            'sc_transform'     => !empty( $input['sc_transform'] ) ? 1 : 0,
+            'sc_select_xml'    => !empty( $input['sc_select_xml'] )    ? 1 : 0,
+            'sc_select_csv'    => !empty( $input['sc_select_csv'] )    ? 1 : 0,
             'cache_default'    => XSLT_CACHE_DEFAULT,
             'search_path'      => "",
             );
@@ -66,9 +66,9 @@ class XSLT_Processor_Admin
         {
             $options['post_type_xsl']    = 0;
             $options['post_type_xml']    = 0;
-            $options['sc_xsl_transform'] = 0;
-            $options['sc_xml_select']    = 0;
-            $options['sc_csv_select']    = 0;
+            $options['sc_transform']     = 0;
+            $options['sc_select_xml']    = 0;
+            $options['sc_select_csv']    = 0;
         }
 
         if (isset($input['cache_default']) && 0 <= intval($input['cache_default']))
@@ -98,9 +98,9 @@ class XSLT_Processor_Admin
         $labels = array(
             'post_type_xsl'     => esc_html__( 'Activate Content Type', 'tenandtwo-xslt-processor' ).'<strong>'.esc_html__( 'XSL Stylesheet', 'tenandtwo-xslt-processor' ).'</strong>',
             'post_type_xml'     => esc_html__( 'Activate Content Type', 'tenandtwo-xslt-processor' ).'<strong>'.esc_html__( 'XML Document', 'tenandtwo-xslt-processor' ).'</strong>',
-            'sc_xsl_transform'  => esc_html__( 'Activate Shortcode', 'tenandtwo-xslt-processor' ).' <strong>[xsl_transform/]</strong>',
-            'sc_xml_select'     => esc_html__( 'Activate Shortcode', 'tenandtwo-xslt-processor' ).' <strong>[xml_select/]</strong>',
-            'sc_csv_select'     => esc_html__( 'Activate Shortcode', 'tenandtwo-xslt-processor' ).' <strong>[csv_select/]</strong>',
+            'sc_transform'      => esc_html__( 'Activate Shortcode', 'tenandtwo-xslt-processor' ).' <strong>[xslt_transform/]</strong>',
+            'sc_select_xml'     => esc_html__( 'Activate Shortcode', 'tenandtwo-xslt-processor' ).' <strong>[xslt_select_xml/]</strong>',
+            'sc_select_csv'     => esc_html__( 'Activate Shortcode', 'tenandtwo-xslt-processor' ).' <strong>[xslt_select_csv/]</strong>',
             'cache_default'     => esc_html__( 'Cache Lifetime', 'tenandtwo-xslt-processor' ),
             'search_path'       => esc_html__( 'Local File Search Paths', 'tenandtwo-xslt-processor' ),
             );
@@ -111,7 +111,7 @@ class XSLT_Processor_Admin
             $label = $labels[$key] ?? $key;
             $pre   = $before[$key] ?? "unset";
             $post  = $after[$key]  ?? "unset";
-            if (in_array($key,array('post_type_xsl','post_type_xml','sc_xsl_transform','sc_xml_select','sc_csv_select')))
+            if (in_array($key,array('post_type_xsl','post_type_xml','sc_transform','sc_select_xml','sc_select_csv')))
             {
                 $pre  = ($pre == 1)  ? 'TRUE' : 'FALSE';
                 $post = ($post == 1) ? 'TRUE' : 'FALSE';
@@ -215,38 +215,38 @@ class XSLT_Processor_Admin
                 'label_for' => 'xslt_processor_post_type_xsl',
             ));
 
-        // add field 'sc_xsl_transform'
+        // add field 'sc_transform'
         add_settings_field(
-            'xslt_processor_sc_xsl_transform',
+            'xslt_processor_sc_transform',
             esc_html(_x( 'Activate Shortcodes', 'field_label', 'tenandtwo-xslt-processor' )),
-            array('XSLT_Processor_Admin','render_setting_sc_xsl_transform'),
+            array('XSLT_Processor_Admin','render_setting_sc_transform'),
             'xslt_processor_settings',
             'xslt_processor_settings_main',
             array(
-                'label_for' => 'xslt_processor_sc_xsl_transform', // wrap title in label
+                'label_for' => 'xslt_processor_sc_transform', // wrap title in label
                 //'class'  => 'classname',                        // add to tr
             ));
 
-        // add field 'sc_xml_select'
+        // add field 'sc_select_xml'
         add_settings_field(
-            'xslt_processor_sc_xml_select',
+            'xslt_processor_sc_select_xml',
            '',
-            array('XSLT_Processor_Admin','render_setting_sc_xml_select'),
+            array('XSLT_Processor_Admin','render_setting_sc_select_xml'),
             'xslt_processor_settings',
             'xslt_processor_settings_main',
             array(
-                 //'label_for' => 'xslt_processor_sc_xml_select',
+                 //'label_for' => 'xslt_processor_sc_select_xml',
             ));
 
-        // add field 'sc_csv_select'
+        // add field 'sc_select_csv'
         add_settings_field(
-            'xslt_processor_sc_csv_select',
+            'xslt_processor_sc_select_csv',
            '',
-            array('XSLT_Processor_Admin','render_setting_sc_csv_select'),
+            array('XSLT_Processor_Admin','render_setting_sc_select_csv'),
             'xslt_processor_settings',
             'xslt_processor_settings_main',
             array(
-                 //'label_for' => 'xslt_processor_sc_csv_select',
+                 //'label_for' => 'xslt_processor_sc_select_csv',
             ));
 
         // add field 'cache_default'
@@ -339,84 +339,84 @@ class XSLT_Processor_Admin
     }
 
     /**
-     * render settings field: sc_xsl_transform
+     * render settings field: sc_transform
      */
-    public static function render_setting_sc_xsl_transform()
+    public static function render_setting_sc_transform()
     {
         $options = get_option( XSLT_OPTS, array() );
-        $value = !empty($options['sc_xsl_transform']);
+        $value = !empty($options['sc_transform']);
 
         echo '<input type="checkbox"'
-            . ' id="xslt_processor_sc_xsl_transform" name="'.esc_html(XSLT_OPTS).'[sc_xsl_transform]"'
+            . ' id="xslt_processor_sc_transform" name="'.esc_html(XSLT_OPTS).'[sc_transform]"'
             . ' value="1"'
             . ((defined( 'LIBXSLT_VERSION' ) && $value) ? ' checked': '')
             . ' />';
 
-        $html = '<strong>[xsl_transform]</strong>';
+        $html = '<strong>[xslt_transform]</strong>';
         $html .= __( ' - Process XML data using an XSL stylesheet', 'tenandtwo-xslt-processor' );
         $html .= '<ul>';
         //$html .= '<li>'.esc_html__( 'Usage', 'tenandtwo-xslt-processor' ).':</li>';
-        $html .= '<li><code><strong>[xsl_transform xsl="</strong>{file|url|id|slug}<strong>" xml="</strong>{file|url|id|slug}<strong>" /]</strong></code></li>';
-        $html .= '<li><code><strong>[xsl_transform xsl="</strong>{file|url|id|slug}<strong>"]</strong>'
-            . '[xml_select/]'
-            . '<strong>[/xsl_transform]</strong></code></li>';
-        $html .= '<li><code><strong>[xsl_transform xsl="</strong>{file|url|id|slug}<strong>"]</strong>'
-            . '[csv_select/]'
-            . '<strong>[/xsl_transform]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_transform xsl="</strong>{file|url|id|slug}<strong>" xml="</strong>{file|url|id|slug}<strong>" /]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_transform xsl="</strong>{file|url|id|slug}<strong>"]</strong>'
+            . '[xslt_select_xml/]'
+            . '<strong>[/xslt_transform]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_transform xsl="</strong>{file|url|id|slug}<strong>"]</strong>'
+            . '[xslt_select_csv/]'
+            . '<strong>[/xslt_transform]</strong></code></li>';
         $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xsl-transform/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
         $html .= '</ul>';
         echo wp_kses($html, 'post');
     }
 
     /**
-     * render settings field: sc_xml_select
+     * render settings field: sc_select_xml
      */
-    public static function render_setting_sc_xml_select()
+    public static function render_setting_sc_select_xml()
     {
         $options = get_option( XSLT_OPTS, array() );
-        $value = !empty($options['sc_xml_select']);
+        $value = !empty($options['sc_select_xml']);
 
         echo '<input type="checkbox"'
-            . ' id="xslt_processor_sc_xml_select" name="'.esc_html(XSLT_OPTS).'[sc_xml_select]"'
+            . ' id="xslt_processor_sc_select_xml" name="'.esc_html(XSLT_OPTS).'[sc_select_xml]"'
             . ' value="1"'
             . ((defined( 'LIBXSLT_VERSION' ) && $value) ? ' checked': '')
             . ' />';
 
-        $html = '<strong>[xml_select]</strong>';
+        $html = '<strong>[xslt_select_xml]</strong>';
         $html .= __( ' - Filter XML data using an XPath select statement', 'tenandtwo-xslt-processor' );
         $html .= '<ul>';
         //$html .= '<li>'.esc_html__( 'Usage', 'tenandtwo-xslt-processor' ).':</li>';
-        $html .= '<li><code><strong>[xml_select xml="</strong>{file|url|id|slug}<strong>" select="</strong>//nodename<strong>" /]</strong></code></li>';
-        $html .= '<li><code><strong>[xml_select xml="</strong>{file|url|id|slug}<strong>"]</strong>//nodename[@id="1234"]<strong>[/xml_select]</strong></code></li>';
-        $html .= '<li><code><strong>[xml_select xmlns="</strong>{ns1}+<strong>" ns1="</strong>{namespace-uri-1}<strong>" select="</strong>//ns1:nodename<strong>" /]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_select_xml xml="</strong>{file|url|id|slug}<strong>" select="</strong>//nodename<strong>" /]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_select_xml xml="</strong>{file|url|id|slug}<strong>"]</strong>//nodename[@id="1234"]<strong>[/xslt_select_xml]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_select_xml xmlns="</strong>{ns1}+<strong>" ns1="</strong>{namespace-uri-1}<strong>" select="</strong>//ns1:nodename<strong>" /]</strong></code></li>';
         $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xml-select/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
         $html .= '</ul>';
         echo wp_kses($html, 'post');
     }
 
     /**
-     * render settings field: sc_csv_select
+     * render settings field: sc_select_csv
      */
-    public static function render_setting_sc_csv_select()
+    public static function render_setting_sc_select_csv()
     {
         $options = get_option( XSLT_OPTS, array() );
-        $value = !empty($options['sc_csv_select']);
+        $value = !empty($options['sc_select_csv']);
 
         echo '<input type="checkbox"'
-            . ' id="xslt_processor_sc_csv_select" name="'.esc_html(XSLT_OPTS).'[sc_csv_select]"'
+            . ' id="xslt_processor_sc_select_csv" name="'.esc_html(XSLT_OPTS).'[sc_select_csv]"'
             . ' value="1"'
             . ((defined( 'LIBXSLT_VERSION' ) && $value) ? ' checked': '')
             . ' />';
 
-        $html = '<strong>[csv_select]</strong>';
+        $html = '<strong>[xslt_select_csv]</strong>';
         $html .= __( ' - Convert CSV data to XML', 'tenandtwo-xslt-processor' );
         $html .= '<ul>';
         //$html .= '<li>'.esc_html__( 'Usage', 'tenandtwo-xslt-processor' ).':</li>';
-        $html .= '<li><code><strong>[csv_select csv="</strong>{file|url}<strong>" key_row="</strong>{num}<strong>" /]</strong></code></li>';
-        //$html .= '<li><code><strong>[csv_select separator="</strong>,<strong>" enclosure="</strong>\\&quot;<strong>" escape="</strong>\\\\<strong>" /]</strong></code></li>';
-        $html .= '<li><code><strong>[csv_select col="</strong>{num|letter|label}+<strong>" /]</strong></code></li>';
-        $html .= '<li><code><strong>[csv_select key_col="</strong>{num|letter|label}<strong>" key="</strong>{val}+<strong>" /]</strong></code></li>';
-        $html .= '<li><code><strong>[csv_select row="</strong>{num}+<strong>" /]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_select_csv csv="</strong>{file|url}<strong>" key_row="</strong>{num}<strong>" /]</strong></code></li>';
+        //$html .= '<li><code><strong>[xslt_select_csv separator="</strong>,<strong>" enclosure="</strong>\\&quot;<strong>" escape="</strong>\\\\<strong>" /]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_select_csv col="</strong>{num|letter|label}+<strong>" /]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_select_csv key_col="</strong>{num|letter|label}<strong>" key="</strong>{val}+<strong>" /]</strong></code></li>';
+        $html .= '<li><code><strong>[xslt_select_csv row="</strong>{num}+<strong>" /]</strong></code></li>';
         $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/csv-select/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
         $html .= '</ul>';
         echo wp_kses($html, 'post');

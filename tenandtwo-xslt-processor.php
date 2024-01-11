@@ -75,7 +75,7 @@ class XSLT_Processor_Plugin
         $options = get_option( XSLT_OPTS, array() );
 
         // register shortcodes
-        if (!empty($options['sc_xsl_transform']) || !empty($options['sc_xml_select']) || !empty($options['sc_csv_select'])) {
+        if (!empty($options['sc_transform']) || !empty($options['sc_select_xml']) || !empty($options['sc_select_csv'])) {
             require_once(XSLT_PLUGIN_DIR.'includes/shortcode.php');
             XSLT_Processor_Shortcode::init();
         }

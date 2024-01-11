@@ -55,7 +55,7 @@
 </xsl:stylesheet>
 <!-- end string-nl2br.xsl -->
 <!--
-[xsl_transform xsl="qa/string-nl2br.xsl"]
+[xslt_transform xsl="qa/string-nl2br.xsl"]
 <TESTS>
   <TEST>
     <value>HEY
@@ -64,5 +64,5 @@ there</value>
 there</expected>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

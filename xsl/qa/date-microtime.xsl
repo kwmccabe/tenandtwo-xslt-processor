@@ -47,9 +47,9 @@
 </xsl:stylesheet>
 <!-- end datemicrotime.xsl -->
 <!--
-[xsl_transform xsl="qa/date-microtime.xsl"]
+[xslt_transform xsl="qa/date-microtime.xsl"]
 <TESTS>
   <TEST />
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

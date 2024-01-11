@@ -58,7 +58,7 @@
 </xsl:stylesheet>
 <!-- end string-maxwords.xsl -->
 <!--
-[xsl_transform xsl="qa/string-maxwords.xsl"]
+[xslt_transform xsl="qa/string-maxwords.xsl"]
 <TESTS>
   <TEST>
     <value>what's the fuss</value>
@@ -71,5 +71,5 @@
     <expected>what's the big…</expected>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

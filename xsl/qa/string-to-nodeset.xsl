@@ -77,7 +77,7 @@
 </xsl:stylesheet>
 <!-- end string-to-nodeset.xsl -->
 <!--
-[xsl_transform xsl="qa/string-to-nodeset.xsl"]
+[xslt_transform xsl="qa/string-to-nodeset.xsl"]
 <TESTS>
   <TEST>
     <value>1|2|3</value>
@@ -92,5 +92,5 @@
     <expected><RESULT> <OPTION>one</OPTION> <OPTION>two</OPTION> <OPTION>three</OPTION> </RESULT></expected>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

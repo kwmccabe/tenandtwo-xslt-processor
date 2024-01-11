@@ -62,7 +62,7 @@
 </xsl:stylesheet>
 <!-- end wp-size-format.xsl -->
 <!--
-[xsl_transform xsl="qa/wp-size-format.xsl"]
+[xslt_transform xsl="qa/wp-size-format.xsl"]
 <TESTS>
   <TEST>
     <bytes>1024</bytes>
@@ -77,5 +77,5 @@
     <expected>8 Exabytes</expected>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

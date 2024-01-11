@@ -55,8 +55,12 @@
 </xsl:stylesheet>
 <!-- end file-exists-local.xsl -->
 <!--
-[xsl_transform xsl="qa/file-exists-local.xsl"]
+[xslt_transform xsl="qa/file-exists-local.xsl"]
 <TESTS>
+  <TEST>
+    <path>__WP_HOME_PATH__/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</path>
+    <expected>/srv/xsltproc.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</expected>
+  </TEST>
   <TEST>
     <path>__WP_CONTENT_DIR__/plugins/tenandtwo-xslt-processor/xsl/sample.xml</path>
     <expected>/srv/xsltproc.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</expected>
@@ -70,5 +74,5 @@
     <expected></expected>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

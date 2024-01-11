@@ -55,7 +55,7 @@
 </xsl:stylesheet>
 <!-- end file-exists-remote.xsl -->
 <!--
-[xsl_transform xsl="qa/file-exists-remote.xsl"]
+[xslt_transform xsl="qa/file-exists-remote.xsl"]
 <TESTS>
 <TEST>
   <url>https://tenandtwo.com/</url>
@@ -74,5 +74,5 @@
   <expected>A valid URL was not provided.</expected>
 </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->

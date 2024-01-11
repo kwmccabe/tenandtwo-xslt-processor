@@ -55,12 +55,12 @@
 </xsl:stylesheet>
 <!-- end string-title-case.xsl -->
 <!--
-[xsl_transform xsl="qa/string-title-case.xsl"]
+[xslt_transform xsl="qa/string-title-case.xsl"]
 <TESTS>
   <TEST>
     <value>every good boy does fine</value>
     <expected>Every Good Boy Does Fine</expected>
   </TEST>
 </TESTS>
-[/xsl_transform]
+[/xslt_transform]
 -->
