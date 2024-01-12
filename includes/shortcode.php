@@ -374,12 +374,13 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             $post = XSLT_Processor_WP::getPostItem( $id, $post_type );
             if ($post === false)
                 { return sprintf( esc_html__( "XML '%s' not found", 'tenandtwo-xslt-processor' ), $id ); }
+            $post_type_attr = ($post->post_type == XSLT_POST_TYPE_XML) ? 'xml' : $post->post_type;
 
             $params['xml_type']   = 'string';
             $params['xml_value']  = XSLT_Processor_WP::getPostContent( $post );
             $params['attributes'] = array(
-                $post->post_type => $post->post_name,
-                'id'             => $post->ID,
+                $post_type_attr => $post->post_name,
+                'id'            => $post->ID,
                 );
         }
 
