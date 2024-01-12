@@ -312,8 +312,8 @@ class XSLT_Processor_Post_Type
     }
 
     /**
-     * set post_type = 'xsl' in taxonomy query for xsl-category, xsl-tag
-     * set post_type = 'xml' in taxonomy query for xml-category, xml-tag
+     * set post_type = 'xslt_xsl' in taxonomy query for xsl-category, xsl-tag
+     * set post_type = 'xslt_xml' in taxonomy query for xml-category, xml-tag
      */
     public static function update_taxonomy_query( $query )
     {

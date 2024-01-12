@@ -239,7 +239,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
      *
      * @param array $params
      * - post : int (id) or str (slug)
-     * - type : string, eg 'xml'
+     * - type : string, eg 'xslt_xml'
      * @return string  XML
      */
     public static function getPostItem( $params )
@@ -250,6 +250,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
         $post = XSLT_Processor_WP::getPostItem( $params['post'], $params['type'], OBJECT );
         if (empty($post))
             {  return '<RESULT template="wp-post-item" post="'.$params['post'].'" type="'.$params['type'].'"/>';  }
+        $post_type = ($post->post_type == XSLT_POST_TYPE_XSL) ? 'xsl' : (($post->post_type == XSLT_POST_TYPE_XML) ? 'xml' : $post->post_type);
 
         $result = $post->to_array();
         $result['post_content'] = XSLT_Processor_WP::getPostContent( $post );
@@ -258,7 +259,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
 
         $xml = new SimpleXMLElement( '<RESULT/>' );
         $xml->addAttribute( 'template', 'wp-post-item' );
-        $xml->addAttribute( $post->post_type, $post->post_name );
+        $xml->addAttribute( $post_type, $post->post_name );
         $xml->addAttribute( 'id', $post->ID );
         $rv = XSLT_Processor_XML::encode_array( $result, $xml, false );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
@@ -270,7 +271,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
      *
      * @param array $params
      * - post : int (id) or str (slug)
-     * - type : string, eg 'xml'
+     * - type : string, eg 'xslt_xml'
      * @return string  XML
      */
     public static function getPostMeta( $params )
@@ -281,12 +282,13 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),tr
         $post = XSLT_Processor_WP::getPostItem( $params['post'], $params['type'], OBJECT );
         if (empty($post))
             {  return '<RESULT template="wp-post-meta" post="'.$params['post'].'" type="'.$params['type'].'"/>';  }
+        $post_type = ($post->post_type == XSLT_POST_TYPE_XSL) ? 'xsl' : (($post->post_type == XSLT_POST_TYPE_XML) ? 'xml' : $post->post_type);
 
         $result = XSLT_Processor_WP::getPostMeta( $post );
 
         $xml = new SimpleXMLElement( '<RESULT/>' );
         $xml->addAttribute( 'template', 'wp-post-meta' );
-        $xml->addAttribute( $post->post_type, $post->post_name );
+        $xml->addAttribute( $post_type, $post->post_name );
         $xml->addAttribute( 'id', $post->ID );
         $rv = XSLT_Processor_XML::encode_array( $result, $xml, false );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }

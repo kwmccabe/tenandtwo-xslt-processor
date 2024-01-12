@@ -12,6 +12,13 @@ Notable changes are documented here in reverse chronological order.
 
 
 
+## [0.9.6] - 2024-01-11
+
+
+### Changed
+
+
+
 ## [0.9.5] - 2024-01-11
 
 Third submission

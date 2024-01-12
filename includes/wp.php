@@ -44,7 +44,7 @@ class XSLT_Processor_WP
      * get WP Post OBJECT, ARRAY_A, or ARRAY_N
      *
      * @param mixed $post_id        the post's id or slug
-     * @param array $post_type      select filter, eg array('page','xml')
+     * @param array $post_type      select filter, eg array('page','xslt_xml')
      * @param constant $output      OBJECT, ARRAY_A, or ARRAY_N
      * @return object WP_Post, array, or false
      */
@@ -94,7 +94,7 @@ class XSLT_Processor_WP
      * if meta value is a single-element array, convert to scalar
      *
      * @param mixed $post_id        WP_Post object, post id, or post slug
-     * @param array $post_type      select filter, eg array('page','xml')
+     * @param array $post_type      select filter, eg array('page','xslt_xml')
      * @return array
      */
     public static function getPostMeta( $post_id, $post_type = array() )
@@ -125,7 +125,7 @@ class XSLT_Processor_WP
      * if post_type=page, extract stylesheet for XSL
      *
      * @param mixed $post_id        WP_Post object, post id, or post slug
-     * @param array $post_type      select filter, eg array('page','xml')
+     * @param array $post_type      select filter, eg array('page','xslt_xml')
      * @return string
      */
     public static function getPostContent( $post_id, $post_type = array() )
