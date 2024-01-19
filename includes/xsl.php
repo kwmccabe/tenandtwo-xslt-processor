@@ -49,7 +49,7 @@ class XSLT_Processor_XSL
      * @uses XSLT_Processor_XSL::getXMLError()
      * @uses XSLT_Processor_XSL::releaseProcessor()
      * @uses XSLT_Processor_Util::getMicrotime()
-     * @uses XSLT_Processor_Util::removeXmlDeclaration
+     * @uses XSLT_Processor_XML::removeXmlDeclaration
      *
      * @param array $params
      * - params['xsl_type']  : (string) "file" | "string"
@@ -162,7 +162,7 @@ class XSLT_Processor_XSL
         else
         {
             $rv = $xsltproc->transformToXML($xml);
-            $rv = XSLT_Processor_Util::removeXmlDeclaration( $rv );
+            $rv = XSLT_Processor_XML::removeXmlDeclaration( $rv );
         }
         if (WP_DEBUG) { $stoptime = XSLT_Processor_Util::getMicrotime(); }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('rv'),true), E_USER_NOTICE); }
@@ -506,8 +506,8 @@ class XSLT_Processor_XSL
         }
 
         global $XSLT_PLUGIN_PHP_FUNCTIONS;
-        $allowed = array('XSLT_Callback');                               // required
-        $allowed = array_merge( $XSLT_PLUGIN_PHP_FUNCTIONS, $allowed );  // optional
+        $allowed = array('XSLT_Callback');                                          // required
+        $allowed = array_merge( $XSLT_PLUGIN_PHP_FUNCTIONS ?? array(), $allowed );  // optional
 
         $this->pool[$idx]['xslt']->registerPHPFunctions($allowed);
         $this->pool[$idx]['exslt'] = $this->pool[$idx]['xslt']->hasExsltSupport();

@@ -117,8 +117,8 @@ class XSLT_Processor_Util
 
         if (strpos($path,'__') !== false)
         {
-            $search  = array('__WP_HOME_PATH__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
-            $replace = array( ABSPATH,            WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
+            $search  = array('__WP_HOME__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
+            $replace = array( ABSPATH,       WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
             $path = str_replace($search, $replace, $path);
         }
         if (!empty($search_paths) && !is_array($search_paths))
@@ -211,7 +211,7 @@ class XSLT_Processor_Util
 
     /**
      * check local file exists
-     * __WP_HOME_PATH__, __WP_CONTENT_DIR__ and __XSLT_PLUGIN_DIR__ automatically replaced
+     * __WP_HOME__, __WP_CONTENT_DIR__ and __XSLT_PLUGIN_DIR__ automatically replaced
      *
      * @see file.xsl, template name="file-exists-local"
      * @param string $file          : local path passed to realpath()
@@ -224,8 +224,8 @@ class XSLT_Processor_Util
 
         if (strpos($file,'__') !== false)
         {
-            $search  = array('__WP_HOME_PATH__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
-            $replace = array( ABSPATH,            WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
+            $search  = array('__WP_HOME__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
+            $replace = array( ABSPATH,       WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
             $file = str_replace($search, $replace, $file);
         }
 
@@ -361,58 +361,6 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE SET : $cache_key", E_USER_NOT
         $rv = hash( $params['method'], $params['data'], $params['raw_output'] );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('params','rv'),true), E_USER_NOTICE); }
         return $rv;
-    }
-
-    /**
-     * remove header : < ? xml version ...
-     * removes one (1) max
-     *
-     * @param string $xml   : xml value
-     * @return string       : xml without version header
-     */
-    public static function removeXmlDeclaration( $xml )
-    {
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
-        $xml = preg_replace('|<\?xml[^>]+\?>|i', '', $xml, 1);
-        return trim( $xml );
-    }
-
-    /**
-     * remove header : <!DOCTYPE ... >
-     * NODE: does not work with nested, eg <!ELEMENT>
-     *
-     * @param string $xml   : xml value
-     * @return string       : xml without DOCTYPE header
-     */
-    public static function removeXmlDoctype( $xml )
-    {
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
-        $xml = preg_replace('|<\!DOCTYPE[^>]*>|i', '', $xml, 1);
-        return trim( $xml );
-    }
-
-    /**
-     * remove xmlns="uri"
-     * remove xmlns:key="uri"
-     * change <key:nodename> -to- <nodename>
-     *
-     * @param string $xml   : xml value
-     * @return string       : xml without xmlns attributes
-     */
-    public static function removeXmlNamespaces( $xml )
-    {
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
-
-        $xml = preg_replace('|xmlns[\s]*?=[\s]*?\"[^\"]*?\"|i', '', $xml, -1);
-        $xml = preg_replace('|xmlns[\s]*?=[\s]*?\'[^\"]*?\'|i', '', $xml, -1);
-
-        $xml = preg_replace('|xmlns:[a-z]+[\s]*?=[\s]*?\"[^\"]*?\"|i', '', $xml, -1);
-        $xml = preg_replace('|xmlns:[a-z]+[\s]*?=[\s]*?\'[^\"]*?\'|i', '', $xml, -1);
-
-        $xml = preg_replace('|(<[/]?)[a-z][^:\s>]*?:|i', '\1', $xml, -1);
-
-//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
-        return trim( $xml );
     }
 
     /**

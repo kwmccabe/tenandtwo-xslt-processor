@@ -17,6 +17,9 @@ Notable changes are documented here in reverse chronological order.
 
 ### Changed
 
+- includes/util.php : replace __WP_HOME_DIR__ with __WP_HOME__
+- includes/xml.php : moved removeXmlDeclaration(), removeXmlDoctype(), removeXmlNamespaces() from util.php
+
 
 
 ## [0.9.5] - 2024-01-11
@@ -50,9 +53,10 @@ Second submission
 - includes/post_type.php : esc_html(), esc_html__() and esc_html(_x())
 - includes/sample-xslt-functions.php : rename function_sample() to xslt_function_sample()
 - includes/shortcode.php : esc_html(), esc_html__() and esc_html(_x())
-- includes/util.php : replace __DOCUMENT_ROOT__ with __WP_HOME_PATH__
+- includes/util.php : replace __DOCUMENT_ROOT__ with __WP_HOME_DIR__
 - languages/tenandtwo-xslt-processor.pot
 - tenandtwo-xslt-processor.php : remove Update URI and textdomain define
+
 
 ### Removed
 

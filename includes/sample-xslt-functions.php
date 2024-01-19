@@ -69,5 +69,7 @@ function xslt_function_sample( $param1 = 'missing', $param2 = 'missing' )
 /**
  * append function name(s) to list of allowed callbacks
  */
+global $XSLT_PLUGIN_PHP_FUNCTIONS;
+if (empty($XSLT_PLUGIN_PHP_FUNCTIONS)) { $XSLT_PLUGIN_PHP_FUNCTIONS = array(); }
 $XSLT_PLUGIN_PHP_FUNCTIONS[] = 'xslt_function_sample';  // custom
 $XSLT_PLUGIN_PHP_FUNCTIONS[] = 'convert_uuencode';      // built-in

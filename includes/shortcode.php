@@ -402,9 +402,9 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         }
 
         if ($attrs_bool['strip-declaration'])
-            { $params['xml_value'] = XSLT_Processor_Util::removeXmlDeclaration( $params['xml_value'] ); }
+            { $params['xml_value'] = XSLT_Processor_XML::removeXmlDeclaration( $params['xml_value'] ); }
         if ($attrs_bool['strip-namespaces'])
-            { $params['xml_value'] = XSLT_Processor_Util::removeXmlNamespaces( $params['xml_value'] ); }
+            { $params['xml_value'] = XSLT_Processor_XML::removeXmlNamespaces( $params['xml_value'] ); }
 
         // select path : set in 'select' attribute
         if (!empty($attrs['select'])) {

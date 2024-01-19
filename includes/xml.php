@@ -126,6 +126,59 @@ class XSLT_Processor_XML
 
 
     /**
+     * remove header : < ? xml version ...
+     * removes one (1) max
+     *
+     * @param string $xml   : xml value
+     * @return string       : xml without version header
+     */
+    public static function removeXmlDeclaration( $xml )
+    {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
+        $xml = preg_replace('|<\?xml[^>]+\?>|i', '', $xml, 1);
+        return trim( $xml );
+    }
+
+    /**
+     * remove header : <!DOCTYPE ... >
+     * NODE: does not work with nested, eg <!ELEMENT>
+     *
+     * @param string $xml   : xml value
+     * @return string       : xml without DOCTYPE header
+     */
+    public static function removeXmlDoctype( $xml )
+    {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
+        $xml = preg_replace('|<\!DOCTYPE[^>]*>|i', '', $xml, 1);
+        return trim( $xml );
+    }
+
+    /**
+     * remove xmlns="uri"
+     * remove xmlns:key="uri"
+     * change <key:nodename> -to- <nodename>
+     *
+     * @param string $xml   : xml value
+     * @return string       : xml without xmlns attributes
+     */
+    public static function removeXmlNamespaces( $xml )
+    {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
+
+        $xml = preg_replace('|xmlns[\s]*?=[\s]*?\"[^\"]*?\"|i', '', $xml, -1);
+        $xml = preg_replace('|xmlns[\s]*?=[\s]*?\'[^\"]*?\'|i', '', $xml, -1);
+
+        $xml = preg_replace('|xmlns:[a-z]+[\s]*?=[\s]*?\"[^\"]*?\"|i', '', $xml, -1);
+        $xml = preg_replace('|xmlns:[a-z]+[\s]*?=[\s]*?\'[^\"]*?\'|i', '', $xml, -1);
+
+        $xml = preg_replace('|(<[/]?)[a-z][^:\s>]*?:|i', '\1', $xml, -1);
+
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
+        return trim( $xml );
+    }
+
+
+    /**
      * decode XML file as xml, json, or php array
      *
      * @param string $xml       well-formed xml
@@ -400,7 +453,7 @@ class XSLT_Processor_XML
         if (extension_loaded('tidy'))
             { $rv = self::tidy_string( $rv, 'xml' ); }
         if (!$header)
-            { $rv = XSLT_Processor_Util::removeXmlDeclaration( $rv ); }
+            { $rv = self::removeXmlDeclaration( $rv ); }
 
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('rv'),true), E_USER_NOTICE); }
         return $rv;
