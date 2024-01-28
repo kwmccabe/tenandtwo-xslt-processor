@@ -140,14 +140,14 @@ class XSLT_Processor_XSL
 
         // set additional stylesheet params
         $exclude_params = array(
-            "xsl_type", "xsl_value", "xml_type", "xml_value", "outfile"
+            "xsl_type", "xsl_value", "xml_type", "xml_value" //, "outfile"
             );
         $release_params = array();
         foreach( $params as $key => $val )
         {
-            if (in_array($key,$exclude_params)) { continue; }
-            if (is_array($val)) { continue; }
-            $xsltproc->setParameter("", $key, $val);
+            if (in_array($key,$exclude_params))  { continue; }
+            if (is_null($val) || is_array($val)) { continue; }
+            $xsltproc->setParameter("", $key, strval($val));
             $release_params[$key] = $val;
 //if (WP_DEBUG) { trigger_error(__METHOD__." : stylesheet param '$key' = '$val'", E_USER_NOTICE); }
         }
