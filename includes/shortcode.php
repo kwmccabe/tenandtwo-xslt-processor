@@ -235,6 +235,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         // outfile
         if (!empty($attrs['outfile'])) {
             $path_parts = pathinfo($attrs['outfile']);
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('path_parts'),true), E_USER_NOTICE); }
 
             $dirname = XSLT_Processor_Util::getFileExistsLocal( $path_parts['dirname'] );
             if (empty($dirname))

@@ -86,6 +86,10 @@ class XSLT_Processor_Plugin
             XSLT_Processor_Post_Type::init();
         }
 
+        // register wp-cli commands
+        require_once(XSLT_PLUGIN_DIR.'includes/cli.php');
+        XSLT_Processor_CLI::init();
+
         // register blocks ???
 
         self::$initiated = true;

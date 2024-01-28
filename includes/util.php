@@ -117,8 +117,8 @@ class XSLT_Processor_Util
 
         if (strpos($path,'__') !== false)
         {
-            $search  = array('__WP_HOME__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
-            $replace = array( ABSPATH,       WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
+            $search  = array('__WP_HOME_DIR__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
+            $replace = array( ABSPATH,           WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
             $path = str_replace($search, $replace, $path);
         }
         if (!empty($search_paths) && !is_array($search_paths))
@@ -211,7 +211,7 @@ class XSLT_Processor_Util
 
     /**
      * check local file exists
-     * __WP_HOME__, __WP_CONTENT_DIR__ and __XSLT_PLUGIN_DIR__ automatically replaced
+     * __WP_HOME_DIR__, __WP_CONTENT_DIR__ and __XSLT_PLUGIN_DIR__ automatically replaced
      *
      * @see file.xsl, template name="file-exists-local"
      * @param string $file          : local path passed to realpath()
@@ -224,8 +224,8 @@ class XSLT_Processor_Util
 
         if (strpos($file,'__') !== false)
         {
-            $search  = array('__WP_HOME__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
-            $replace = array( ABSPATH,       WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
+            $search  = array('__WP_HOME_DIR__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
+            $replace = array( ABSPATH,           WP_CONTENT_DIR,       XSLT_PLUGIN_DIR);
             $file = str_replace($search, $replace, $file);
         }
 

@@ -8,6 +8,7 @@
 <!--
 -   string-upper          : value
 -   string-lower          : value
+-   string-title-case     : value
 
 	string-maxlength      : value, max
 	string-maxwords       : value, max, delimiter

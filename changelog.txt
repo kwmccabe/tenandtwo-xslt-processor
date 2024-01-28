@@ -15,9 +15,12 @@ Notable changes are documented here in reverse chronological order.
 ## [0.9.6] - 2024-01-11
 
 
+### Added
+
+- includes/cli.php : WP_CLI::add_command( 'xslt', 'XSLT_Processor_CLI' )
+
 ### Changed
 
-- includes/util.php : replace __WP_HOME_DIR__ with __WP_HOME__
 - includes/xml.php : moved removeXmlDeclaration(), removeXmlDoctype(), removeXmlNamespaces() from util.php
 
 
