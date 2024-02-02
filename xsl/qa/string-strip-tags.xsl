@@ -58,7 +58,7 @@
 </xsl:stylesheet>
 <!-- end string-strip-tags.xsl -->
 <!--
-[xslt_transform xsl="qa/string-strip-tags.xsl"]
+[xslt_transform_xml xsl="qa/string-strip-tags.xsl"]
 <TESTS>
   <TEST>
     <value>&lt;b&gt;HEY&lt;/b&gt;&lt;br/&gt;&lt;i&gt;there&lt;/i&gt;</value>
@@ -75,5 +75,5 @@
     <expected>HEY &lt;i&gt;there&lt;/i&gt;</expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->

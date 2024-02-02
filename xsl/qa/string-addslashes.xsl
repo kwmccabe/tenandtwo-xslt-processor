@@ -55,7 +55,7 @@
 </xsl:stylesheet>
 <!-- end string-addslashes.xsl -->
 <!--
-[xslt_transform xsl="qa/string-addslashes.xsl"]
+[xslt_transform_xml xsl="qa/string-addslashes.xsl"]
 <TESTS>
   <TEST>
     <value>The &quot;Book&quot;</value>
@@ -66,5 +66,5 @@
     <expected>here \&quot;\$\&quot;</expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->

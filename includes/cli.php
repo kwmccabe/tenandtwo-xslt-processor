@@ -27,11 +27,11 @@ class XSLT_Processor_CLI
 
 
     /**
-     * do_shortcode [xslt_transform/]
+     * do_shortcode [xslt_transform_xml/]
      *
      * ## USAGE
      *
-     *   wp xslt transform
+     *   wp xslt transform_xml
      *     --xsl='{file|url|id|slug}'
      *     --xml='{file|url|id|slug}'
      *     --cache={minutes, if xsl|xml={url}}
@@ -42,11 +42,11 @@ class XSLT_Processor_CLI
      *
      * ## EXAMPLES
      *
-     *   wp --allow-root xslt transform --xsl='sample-xsl' --xml='sample-xml' --testparam='HERE' --outfile='__WP_CONTENT_DIR__/uploads/cli-outfile.txt'
+     *   wp --allow-root xslt transform_xml --xsl='sample-xsl' --xml='sample-xml' --testparam='HERE' --outfile='__WP_CONTENT_DIR__/uploads/cli-outfile.txt'
      *
      * @when after_wp_load
      */
-    function transform( $args, $assoc_args ) {
+    function transform_xml( $args, $assoc_args ) {
 if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_args'),true), E_USER_NOTICE); }
 
         if (in_array('tidy',$args))             { $assoc_args['tidy'] = 'yes'; }
@@ -54,7 +54,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_arg
 
         $attrs   = $assoc_args;
         $content = $assoc_args['content'] ?? '';
-        $result  = XSLT_Processor_Shortcode::xslt_transform( $attrs, $content );
+        $result  = XSLT_Processor_Shortcode::xslt_transform_xml( $attrs, $content );
 
         WP_CLI::success('');
         if (WP_DEBUG) { WP_CLI::line( __METHOD__.' : '.print_r($attrs,true) ); }
@@ -130,7 +130,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_arg
      *   wp --allow-root xslt select_csv --csv='case-study-gsheets/Sheet1.csv'
      *   wp --allow-root xslt select_csv --csv="case-study-gsheets/Sheet1.csv" --row="1" --key_row="1" --key_col="ID" --key="1004,1005"
      *
-     *   wp --allow-root xslt transform --xsl='csv-pivot-xsl' --key_row='1' --content='[xslt_select_csv csv="case-study-gsheets/Sheet1.csv" row="1" key_row="1" key_col="ID" key="1004,1005" /]'     *
+     *   wp --allow-root xslt transform_xml --xsl='csv-pivot-xsl' --key_row='1' --content='[xslt_select_csv csv="case-study-gsheets/Sheet1.csv" row="1" key_row="1" key_col="ID" key="1004,1005" /]'     *
      * @when after_wp_load
      */
     function select_csv( $args, $assoc_args ) {

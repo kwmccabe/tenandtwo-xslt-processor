@@ -10,7 +10,6 @@
 
 defined( 'ABSPATH' ) or die( 'Not for browsing' );
 
-defined('ENT_XML1') or define('ENT_XML1', 16 );
 
 /**
  * Encodes PHP values (arrays,scalars) as XML strings

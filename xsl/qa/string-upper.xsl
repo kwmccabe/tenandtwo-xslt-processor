@@ -55,12 +55,12 @@
 </xsl:stylesheet>
 <!-- end string-upper.xsl -->
 <!--
-[xslt_transform xsl="qa/string-upper.xsl"]
+[xslt_transform_xml xsl="qa/string-upper.xsl"]
 <TESTS>
   <TEST>
     <value>abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿž</value>
     <expected>ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞŸŽ</expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->

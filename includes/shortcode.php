@@ -18,7 +18,7 @@ class XSLT_Processor_Shortcode
 {
 
     /**
-     * add_shortcodes   : xslt_transform, xslt_transform_alias
+     * add_shortcodes   : xslt_transform_xml, xslt_transform_alias
      * add_shortcode    : xslt_select_xml
      * add_shortcode    : xslt_select_csv
      * add_shortcode    : xslt_test
@@ -31,14 +31,14 @@ class XSLT_Processor_Shortcode
 
         add_filter( 'no_texturize_shortcodes',  array('XSLT_Processor_Shortcode', 'no_texturize_shortcodes') );
 
-        if (!empty($options['sc_transform'])) {
-            if (!shortcode_exists('xslt_transform'))
-                { add_shortcode( 'xslt_transform',       array('XSLT_Processor_Shortcode', 'xslt_transform') ); }
+        if (!empty($options['sc_transform_xml'])) {
+            if (!shortcode_exists('xslt_transform_xml'))
+                { add_shortcode( 'xslt_transform_xml',       array('XSLT_Processor_Shortcode', 'xslt_transform_xml') ); }
             else if (WP_DEBUG)
-                { trigger_error(__METHOD__." : shortcode 'xslt_transform' already exists", E_USER_NOTICE); }
+                { trigger_error(__METHOD__." : shortcode 'xslt_transform_xml' already exists", E_USER_NOTICE); }
 
             if (!shortcode_exists('xslt_transform_alias'))
-                { add_shortcode( 'xslt_transform_alias', array('XSLT_Processor_Shortcode', 'xslt_transform') ); }
+                { add_shortcode( 'xslt_transform_alias', array('XSLT_Processor_Shortcode', 'xslt_transform_xml') ); }
             else if (WP_DEBUG)
                 { trigger_error(__METHOD__." : shortcode 'xslt_transform_alias' already exists", E_USER_NOTICE); }
         }
@@ -67,7 +67,7 @@ class XSLT_Processor_Shortcode
      */
     public static function no_texturize_shortcodes( $shortcodes )
     {
-        if (shortcode_exists('xslt_transform'))       { $shortcodes[] = 'xslt_transform'; }
+        if (shortcode_exists('xslt_transform_xml'))   { $shortcodes[] = 'xslt_transform_xml'; }
         if (shortcode_exists('xslt_transform_alias')) { $shortcodes[] = 'xslt_transform_alias'; }
         if (shortcode_exists('xslt_select_xml'))      { $shortcodes[] = 'xslt_select_xml'; }
         if (shortcode_exists('xslt_select_csv'))      { $shortcodes[] = 'xslt_select_csv'; }
@@ -87,7 +87,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
     }
 
     /**
-     * shortcode : xslt_transform
+     * shortcode : xslt_transform_xml
      *
      * @param content           : xml string data
      *
@@ -111,7 +111,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
      *
      * @see https://www.php.net/manual/en/book.xsl.php
      */
-    public static function xslt_transform( $attrs, $content )
+    public static function xslt_transform_xml( $attrs, $content )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'),true), E_USER_NOTICE); }
 
@@ -270,7 +270,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         $attrs_bool = XSLT_Processor_WP::getShortcodeBooleans( array(
             'tidy' => false,
             'htmlentities' => false,
-        ), $attrs, 'xml_transform' );
+        ), $attrs, 'xslt_transform_xml' );
 
         if ($attrs_bool['tidy'] && extension_loaded('tidy'))
         {

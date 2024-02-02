@@ -456,7 +456,7 @@ class XSLT_Processor_Post_Type
             echo '<label for="_xslt_schema_value"><strong>XSD|RNG ' . esc_html__( 'Schema File', 'tenandtwo-xslt-processor' ) . ' :</strong></label>';
             echo '<br/>';
             echo '<input type="text" id="_xslt_schema_value" name="_xslt_schema_value"'
-                . ' value="'.esc_attr($xslt_schema_value).'" size="'.$value_size.'"'
+                . ' value="'.esc_attr($xslt_schema_value).'" size="'.esc_attr($value_size).'"'
                 .'>';
             echo '</td></tr>';
         }
@@ -480,7 +480,8 @@ class XSLT_Processor_Post_Type
         echo '</table>';
         echo '</div>';
 
-        $js = '
+        $reload_label = esc_html__( 'reload', 'tenandtwo-xslt-processor' );
+        echo <<<JS_RELOAD
 <script language="javascript">
 const editor = window.wp.data.dispatch("core/editor");
 const savePost = editor.savePost;
@@ -492,12 +493,13 @@ editor.savePost = function (options) {
             if (!options.isAutosave) {
                 //console.log("savePost");
                 el = document.querySelector( "#xslt_validation_message" );
-                if (el) { el.innerHTML = "<center><a href=\"\">'.esc_html__( 'reload', 'tenandtwo-xslt-processor' ).'</a></center>"; }
+                if (el) { el.innerHTML = '<center><a href="">$reload_label</a></center>'; }
             }
         });
 }
-</script>';
-        echo $js;
+</script>
+JS_RELOAD;
+
      }
 
     /**

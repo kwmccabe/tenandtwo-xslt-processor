@@ -12,8 +12,9 @@ Notable changes are documented here in reverse chronological order.
 
 
 
-## [0.9.6] - 2024-01-11
+## [0.9.6] - 2024-02-03
 
+Fourth submission
 
 ### Added
 
@@ -21,6 +22,8 @@ Notable changes are documented here in reverse chronological order.
 
 ### Changed
 
+- includes/admin.php     : rename option sc_transform : sc_transform_xml
+- includes/shortcode.php : rename shortcode xslt_transform : xslt_transform_xml
 - includes/xml.php : moved removeXmlDeclaration(), removeXmlDoctype(), removeXmlNamespaces() from util.php
 
 

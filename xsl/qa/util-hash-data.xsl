@@ -63,7 +63,7 @@
 </xsl:stylesheet>
 <!-- end util-hash-data.xsl -->
 <!--
-[xslt_transform xsl="qa/util-hash-data.xsl"]
+[xslt_transform_xml xsl="qa/util-hash-data.xsl"]
 <TESTS>
   <TEST>
     <method>md5</method>
@@ -78,5 +78,5 @@
     <expected>9c11cfe1363c710aca75c222a6ef957000954fc12705e20e4e01bed34cba446fa44f7da429bef272f5fa2f9be9386d32eff3dc6b7d72f6bee4bd30f1cf132a2a</expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->

@@ -3,7 +3,7 @@ Contributors: tenandtwo
 Donate link: https://xsltproc.tenandtwo.com/donate/
 Tags: xslt, xml, xsl, shortcode
 Requires at least: 5.2
-Tested up to: 6.4.2
+Tested up to: 6.4.3
 Stable tag: 0.9.6
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -74,7 +74,7 @@ Combine [xslt_transform] with itself using [/xslt_transform_alias] (WP does not 
 -- [xslt_transform_alias][xslt_transform/][/xslt_transform_alias]
 
 Combine multiple shortcodes in a single 'XML Document' (see Custom Post Types below) :
--- <DATA><P1>[xslt_select_xml/]</P1><P2>[xslt_select_xml/]</P2></DATA>
+-- <DATA><PART1>[xslt_select_xml/]</PART1><PART2>[xslt_select_xml/]</PART2></DATA>
 
 
 = Cache Parameters =
@@ -88,14 +88,14 @@ When either shortcode specifies a remote file - `xml="{url}"` or `csv="{url}"` -
 
 = Namespace Parameters =
 
-Two methods for handling XML containing namespaces are provided within [xslt_select_xml/].  The first is to add `strip-namespaces` to the shortcode.  The second method is to add the needed prefixes and namespace URIs using `xslns`.
+Within [xslt_select_xml/] the plugin provides two methods for handling XML containing namespaces.  The first is to add `strip-namespaces` to the shortcode.  The second method is to add the needed prefixes and namespace URIs using `xslns`.
 
 -- [xslt_select_xml xml="{file}" strip-namespaces="yes" select="//node" /]
 -- [xslt_select_xml xml="{file}" xmlns="ns1" ns1="{namespace-uri-1}" select="//ns1:node" /]
 -- [xslt_select_xml xml="{file}" xmlns="ns1 ns2" ns1="{namespace-uri-1}" ns2="{namespace-uri-2}" select="//ns1:node/ns2:node" /]
 
 
-= Stylesheets =
+= XSL Stylesheets =
 
 The XSLT Processor plugin includes a number of useful XSL templates that you can include and use in your own projects. They are grouped into five files.
 

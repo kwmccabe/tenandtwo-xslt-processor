@@ -55,7 +55,7 @@
 </xsl:stylesheet>
 <!-- end file-exists-local.xsl -->
 <!--
-[xslt_transform xsl="qa/file-exists-local.xsl"]
+[xslt_transform_xml xsl="qa/file-exists-local.xsl"]
 <TESTS>
   <TEST>
     <path>__WP_HOME_DIR__/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</path>
@@ -74,5 +74,5 @@
     <expected></expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->

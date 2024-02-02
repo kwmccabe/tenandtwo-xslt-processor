@@ -56,7 +56,7 @@
 </xsl:stylesheet>
 <!-- end wp-sanitize-title.xsl -->
 <!--
-[xslt_transform xsl="qa/wp-sanitize-title.xsl"]
+[xslt_transform_xml xsl="qa/wp-sanitize-title.xsl"]
 <TESTS>
   <TEST>
     <title>Turning Titles! into Slugs?</title>
@@ -71,5 +71,5 @@
     <expected>cooking-methods-barbecue-grilling</expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->

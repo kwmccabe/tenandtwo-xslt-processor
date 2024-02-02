@@ -58,7 +58,7 @@
 </xsl:stylesheet>
 <!-- end string-maxlength.xsl -->
 <!--
-[xslt_transform xsl="qa/string-maxlength.xsl"]
+[xslt_transform_xml xsl="qa/string-maxlength.xsl"]
 <TESTS>
   <TEST>
     <value>1234 6789 1234 6789</value>
@@ -75,5 +75,5 @@
     <expected>This &amp;…</expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->

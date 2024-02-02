@@ -72,7 +72,7 @@
 </xsl:stylesheet>
 <!-- end file-listing-local.xsl -->
 <!--
-[xslt_transform xsl="qa/file-listing-local.xsl"]
+[xslt_transform_xml xsl="qa/file-listing-local.xsl"]
 <TESTS>
   <TEST>
     <path>case-study-beer</path>
@@ -87,5 +87,5 @@
     <expected></expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->

@@ -55,7 +55,7 @@
 </xsl:stylesheet>
 <!-- end string-urlencode.xsl -->
 <!--
-[xslt_transform xsl="qa/string-urlencode.xsl"]
+[xslt_transform_xml xsl="qa/string-urlencode.xsl"]
 <TESTS>
   <TEST>
     <value>http://example.com/test#car</value>
@@ -70,5 +70,5 @@
     <expected>%26+%24%25%2B%2C%2F%3A%3B%3D%3F%40%23</expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->

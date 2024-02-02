@@ -61,7 +61,7 @@
 </xsl:stylesheet>
 <!-- end string-replace.xsl -->
 <!--
-[xslt_transform xsl="qa/string-replace.xsl"]
+[xslt_transform_xml xsl="qa/string-replace.xsl"]
 <TESTS>
   <TEST>
     <value>it was me</value>
@@ -70,5 +70,5 @@
     <expected>it was him</expected>
   </TEST>
 </TESTS>
-[/xslt_transform]
+[/xslt_transform_xml]
 -->
