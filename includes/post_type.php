@@ -480,25 +480,19 @@ class XSLT_Processor_Post_Type
         echo '</table>';
         echo '</div>';
 
-        $reload_label = esc_html__( 'reload', 'tenandtwo-xslt-processor' );
-        echo <<<JS_RELOAD
-<script language="javascript">
-const editor = window.wp.data.dispatch("core/editor");
-const savePost = editor.savePost;
-
-editor.savePost = function (options) {
-    options = options || {};
-    return savePost(options)
-        .then(() => {
-            if (!options.isAutosave) {
-                //console.log("savePost");
-                el = document.querySelector( "#xslt_validation_message" );
-                if (el) { el.innerHTML = '<center><a href="">$reload_label</a></center>'; }
-            }
-        });
-}
-</script>
-JS_RELOAD;
+        echo '<script language="javascript">';
+        echo 'const editor = window.wp.data.dispatch("core/editor");'
+            .' const savePost = editor.savePost;'
+            .' editor.savePost = function (options) {'
+            .' options = options || {};';
+        echo ' return savePost(options).then(() => {'
+            .' if (!options.isAutosave) {'
+            //.' console.log("savePost");'
+            .' el = document.querySelector( "#xslt_validation_message" );';
+        echo " if (el) { el.innerHTML = '<center><a href=\"\">";
+        esc_html_e( 'reload', 'tenandtwo-xslt-processor' );
+        echo "</a></center>'; }";
+        echo ' } }); }</script>';
 
      }
 
