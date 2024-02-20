@@ -164,7 +164,7 @@ class XSLT_Processor_WP
         $post_content = apply_filters( 'the_content', $post_content );
         $post_content = str_replace( ']]>', ']]&gt;', $post_content );
         $post_content = XSLT_Processor_Util::utf8_clean( $post_content );
-        //$post_content = XSLT_Processor_XML::removeXmlDeclaration( $post_content );
+        //$post_content = XSLT_Processor_XML::strip_declaration( $post_content );
         return trim($post_content);
     }
 

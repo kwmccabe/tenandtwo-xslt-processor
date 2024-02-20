@@ -12,6 +12,18 @@ Notable changes are documented here in reverse chronological order.
 
 
 
+## [0.9.7] - 2024-02-20
+
+Fifth submission
+
+### Changed
+
+- includes/post_type.php : replace js HEREDOC with echo
+- includes/xml.php : rename removeXmlDoctype()     : strip_doctype()
+- includes/xml.php : rename removeXmlDeclaration() : strip_declaration()
+- includes/xml.php : rename removeXmlNamespaces()  : strip_namespaces()
+
+
 ## [0.9.6] - 2024-02-03
 
 Fourth submission

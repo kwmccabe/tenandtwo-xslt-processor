@@ -37,7 +37,7 @@
                 <xsl:choose>
                     <xsl:when test="$result = $expected">PASS</xsl:when>
                     <xsl:when test="$p_result = $p_expected">PPASS</xsl:when>
-                    <xsl:when test="not(string-length($expected))">UNKNOWN</xsl:when>
+                    <xsl:when test="not(string-length($expected))"><!-- UNKNOWN --></xsl:when>
                     <xsl:otherwise>FAIL</xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>

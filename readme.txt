@@ -4,7 +4,7 @@ Donate link: https://xsltproc.tenandtwo.com/donate/
 Tags: xslt, xml, xsl, shortcode
 Requires at least: 5.2
 Tested up to: 6.4.3
-Stable tag: 0.9.6
+Stable tag: 0.9.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html

@@ -131,7 +131,7 @@ class XSLT_Processor_XML
      * @param string $xml   : xml value
      * @return string       : xml without version header
      */
-    public static function removeXmlDeclaration( $xml )
+    public static function strip_declaration( $xml )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
         $xml = preg_replace('|<\?xml[^>]+\?>|i', '', $xml, 1);
@@ -145,7 +145,7 @@ class XSLT_Processor_XML
      * @param string $xml   : xml value
      * @return string       : xml without DOCTYPE header
      */
-    public static function removeXmlDoctype( $xml )
+    public static function strip_doctype( $xml )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
         $xml = preg_replace('|<\!DOCTYPE[^>]*>|i', '', $xml, 1);
@@ -160,7 +160,7 @@ class XSLT_Processor_XML
      * @param string $xml   : xml value
      * @return string       : xml without xmlns attributes
      */
-    public static function removeXmlNamespaces( $xml )
+    public static function strip_namespaces( $xml )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xml'),true), E_USER_NOTICE); }
 
@@ -452,7 +452,7 @@ class XSLT_Processor_XML
         if (extension_loaded('tidy'))
             { $rv = self::tidy_string( $rv, 'xml' ); }
         if (!$header)
-            { $rv = self::removeXmlDeclaration( $rv ); }
+            { $rv = self::strip_declaration( $rv ); }
 
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('rv'),true), E_USER_NOTICE); }
         return $rv;

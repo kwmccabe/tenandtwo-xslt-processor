@@ -118,6 +118,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         global $XSLT_Processor_XSL;
         if (empty($XSLT_Processor_XSL)) { $XSLT_Processor_XSL = new XSLT_Processor_XSL(); }
 
+        $attrs = array_change_key_case( (array)$attrs, CASE_LOWER );
         $params = array(
             "xml_type"  => "file",
             "xml_value" => XSLT_PLUGIN_DIR.'xsl/default.xml',
@@ -126,7 +127,6 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             "outfile"   => null,
             //"some_param" => "some value",
         );
-
         $options = get_option( XSLT_OPTS, array() );
 
         // get cache_minutes for XSLT_Processor_Util::getRemoteFile()
@@ -136,7 +136,6 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         }
 
         // convert generic 'xml' param to type 'xml_*'
-        $attrs = array_change_key_case( (array)$attrs, CASE_LOWER );
         if (!empty($attrs['xml'])) {
             $url_parts  = parse_url($attrs['xml']);
             $path_parts = pathinfo($attrs['xml']);
@@ -313,8 +312,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'),true), E_USER_NOTICE); }
 
-        $options = get_option( XSLT_OPTS, array() );
-
+        $attrs  = array_change_key_case( (array)$attrs, CASE_LOWER );
         $params = array(
             "xml_type"   => "file",
             "xml_value"  => XSLT_PLUGIN_DIR.'xsl/default.xml',
@@ -325,6 +323,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             "namespaces"   => array(),
             //"xsl_keys"   => array(),
         );
+        $options = get_option( XSLT_OPTS, array() );
 
         // get cache_minutes for XSLT_Processor_Util::getRemoteFile()
         $cache_minutes = $options['cache_default'] ?? XSLT_CACHE_DEFAULT;
@@ -333,7 +332,6 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         }
 
         // convert generic 'xml' param to type 'xml_*'
-        $attrs = array_change_key_case( (array)$attrs, CASE_LOWER );
         if (!empty($attrs['xml'])) {
             $url_parts  = parse_url($attrs['xml']);
             $path_parts = pathinfo($attrs['xml']);
@@ -403,9 +401,9 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         }
 
         if ($attrs_bool['strip-declaration'])
-            { $params['xml_value'] = XSLT_Processor_XML::removeXmlDeclaration( $params['xml_value'] ); }
+            { $params['xml_value'] = XSLT_Processor_XML::strip_declaration( $params['xml_value'] ); }
         if ($attrs_bool['strip-namespaces'])
-            { $params['xml_value'] = XSLT_Processor_XML::removeXmlNamespaces( $params['xml_value'] ); }
+            { $params['xml_value'] = XSLT_Processor_XML::strip_namespaces( $params['xml_value'] ); }
 
         // select path : set in 'select' attribute
         if (!empty($attrs['select'])) {
@@ -471,12 +469,12 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'),true), E_USER_NOTICE); }
 
-        $options = get_option( XSLT_OPTS, array() );
-
+        $attrs  = array_change_key_case( (array)$attrs, CASE_LOWER );
         $params = array(
             "csv_type"  => "file",
             "csv_value" => "",
         );
+        $options = get_option( XSLT_OPTS, array() );
 
         // get cache_minutes for XSLT_Processor_Util::getRemoteFile()
         $cache_minutes = $options['cache_default'] ?? XSLT_CACHE_DEFAULT;
@@ -485,7 +483,6 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
         }
 
         // convert generic 'csv' param to type 'csv_*'
-        $attrs = array_change_key_case( (array)$attrs, CASE_LOWER );
         if (!empty($attrs['csv'])) {
             $url_parts  = parse_url($attrs['csv']);
             $path_parts = pathinfo($attrs['csv']);

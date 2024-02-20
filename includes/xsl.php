@@ -49,7 +49,7 @@ class XSLT_Processor_XSL
      * @uses XSLT_Processor_XSL::getXMLError()
      * @uses XSLT_Processor_XSL::releaseProcessor()
      * @uses XSLT_Processor_Util::getMicrotime()
-     * @uses XSLT_Processor_XML::removeXmlDeclaration
+     * @uses XSLT_Processor_XML::strip_declaration
      *
      * @param array $params
      * - params['xsl_type']  : (string) "file" | "string"
@@ -162,7 +162,7 @@ class XSLT_Processor_XSL
         else
         {
             $rv = $xsltproc->transformToXML($xml);
-            $rv = XSLT_Processor_XML::removeXmlDeclaration( $rv );
+            $rv = XSLT_Processor_XML::strip_declaration( $rv );
         }
         if (WP_DEBUG) { $stoptime = XSLT_Processor_Util::getMicrotime(); }
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('rv'),true), E_USER_NOTICE); }
