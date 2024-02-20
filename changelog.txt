@@ -11,6 +11,8 @@ Notable changes are documented here in reverse chronological order.
 ### Removed
 
 
+## [0.9.8] - 2024-03-??
+
 
 ## [0.9.7] - 2024-02-20
 

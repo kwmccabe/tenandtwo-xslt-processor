@@ -2,16 +2,16 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ten&Two XSLT Processor 0.9.4\n"
+"Project-Id-Version: Ten&Two XSLT Processor 0.9.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tenandtwo-xslt-processor\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-09T18:21:34+00:00\n"
+"POT-Creation-Date: 2024-02-20T18:12:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: tenandtwo-xslt-processor\n"
 
 #. Plugin Name of the plugin
@@ -34,86 +34,97 @@ msgstr ""
 msgid "https://www.tenandtwo.com/"
 msgstr ""
 
-#: includes/admin.php:102
-#: includes/admin.php:103
+#: includes/admin.php:99
+#: includes/admin.php:100
 msgid "Activate Content Type"
 msgstr ""
 
-#: includes/admin.php:102
+#: includes/admin.php:99
 #: includes/post_type.php:163
 msgid "XSL Stylesheet"
 msgstr ""
 
-#: includes/admin.php:103
+#: includes/admin.php:100
 #: includes/post_type.php:198
 msgid "XML Document"
 msgstr ""
 
-#: includes/admin.php:104
-#: includes/admin.php:105
-#: includes/admin.php:106
+#: includes/admin.php:101
+#: includes/admin.php:102
+#: includes/admin.php:103
 msgid "Activate Shortcode"
 msgstr ""
 
-#: includes/admin.php:107
-#: includes/admin.php:258
+#: includes/admin.php:104
 msgid "Cache Lifetime"
 msgstr ""
 
-#: includes/admin.php:108
-#: includes/admin.php:269
+#: includes/admin.php:105
 msgid "Local File Search Paths"
 msgstr ""
 
-#: includes/admin.php:131
-msgid "XSLT Processor Settings updated:"
+#: includes/admin.php:128
+msgid "XSLT Processor Settings updated"
 msgstr ""
 
-#: includes/admin.php:163
+#: includes/admin.php:160
+msgctxt "settings page title"
 msgid "XSLT Processor Settings"
 msgstr ""
 
-#: includes/admin.php:213
+#: includes/admin.php:210
+msgctxt "field_label"
 msgid "Activate Content Types"
 msgstr ""
 
-#: includes/admin.php:224
+#: includes/admin.php:221
+msgctxt "field_label"
 msgid "Activate Shortcodes"
 msgstr ""
 
-#: includes/admin.php:284
+#: includes/admin.php:255
+msgctxt "field_label"
+msgid "Cache Lifetime"
+msgstr ""
+
+#: includes/admin.php:266
+msgctxt "field_label"
+msgid "Local File Search Paths"
+msgstr ""
+
+#: includes/admin.php:281
 msgid "XSL extension"
+msgstr ""
+
+#: includes/admin.php:283
+#: includes/admin.php:297
+msgid "is NOT available"
 msgstr ""
 
 #: includes/admin.php:286
 #: includes/admin.php:300
-msgid "is NOT available"
-msgstr ""
-
-#: includes/admin.php:289
-#: includes/admin.php:303
 msgid "is available"
 msgstr ""
 
-#: includes/admin.php:298
+#: includes/admin.php:295
 msgid "Tidy extension"
 msgstr ""
 
-#: includes/admin.php:324
+#: includes/admin.php:321
 #: includes/post_type.php:162
 msgid "XSL Stylesheets"
 msgstr ""
 
-#: includes/admin.php:325
+#: includes/admin.php:322
 msgid " - Save and manage XSL stylesheets in Wordpress Admin"
 msgstr ""
 
-#: includes/admin.php:337
+#: includes/admin.php:335
 #: includes/post_type.php:197
 msgid "XML Documents"
 msgstr ""
 
-#: includes/admin.php:338
+#: includes/admin.php:336
 msgid " - Save and manage XML data in Wordpress Admin"
 msgstr ""
 
@@ -122,48 +133,49 @@ msgid " - Process XML data using an XSL stylesheet"
 msgstr ""
 
 #: includes/admin.php:366
-#: includes/admin.php:390
-#: includes/admin.php:416
+#: includes/admin.php:392
+#: includes/admin.php:420
 msgid "View all options"
 msgstr ""
 
-#: includes/admin.php:384
+#: includes/admin.php:386
 msgid " - Filter XML data using an XPath select statement"
 msgstr ""
 
-#: includes/admin.php:408
+#: includes/admin.php:412
 msgid " - Convert CSV data to XML"
 msgstr ""
 
-#: includes/admin.php:432
-msgid " Minutes"
+#: includes/admin.php:438
+msgid "Minutes"
 msgstr ""
 
-#: includes/admin.php:434
+#: includes/admin.php:440
 msgid "- Remote files are cached locally when"
 msgstr ""
 
-#: includes/admin.php:436
+#: includes/admin.php:442
 msgid "- Use"
 msgstr ""
 
-#: includes/admin.php:438
-msgid "to override."
+#: includes/admin.php:444
+msgid "to override"
 msgstr ""
 
-#: includes/admin.php:456
-msgid "Specify local directories containing XSL stylesheets and XML data files."
+#: includes/admin.php:463
+msgid "- Specify local directories containing XSL stylesheets and XML data files"
 msgstr ""
 
-#: includes/admin.php:458
-msgid "The default path"
+#: includes/admin.php:465
+msgid "- The default path"
 msgstr ""
 
-#: includes/admin.php:460
-msgid "will be searched last."
+#: includes/admin.php:467
+msgid "will be searched last"
 msgstr ""
 
-#: includes/admin.php:480
+#: includes/admin.php:488
+msgctxt "plugins action link"
 msgid "Settings"
 msgstr ""
 
@@ -515,8 +527,12 @@ msgstr ""
 msgid "New XML Tag Name"
 msgstr ""
 
+#: includes/post_type.php:417
+msgid "Validation"
+msgstr ""
+
 #: includes/post_type.php:445
-msgid "Method"
+msgid "Validation Method"
 msgstr ""
 
 #: includes/post_type.php:448
@@ -524,48 +540,64 @@ msgid "Syntax Only"
 msgstr ""
 
 #: includes/post_type.php:456
-msgid "File"
+msgid "Schema File"
 msgstr ""
 
 #: includes/post_type.php:465
-msgid "Results"
+msgid "Validation Results"
 msgstr ""
 
-#: includes/post_type.php:495
+#: includes/post_type.php:470
+msgid "Validation Warning"
+msgstr ""
+
+#: includes/post_type.php:470
+msgid "Validation Warnings"
+msgstr ""
+
+#: includes/post_type.php:472
+msgid "Validation Error"
+msgstr ""
+
+#: includes/post_type.php:472
+msgid "Validation Errors"
+msgstr ""
+
+#: includes/post_type.php:493
 msgid "reload"
-msgstr ""
-
-#: includes/shortcode.php:166
-#: includes/shortcode.php:202
-#: includes/shortcode.php:347
-#: includes/shortcode.php:494
-msgid "File '%s' not found in search path '%s'"
 msgstr ""
 
 #: includes/shortcode.php:174
 #: includes/shortcode.php:210
-#: includes/shortcode.php:356
-#: includes/shortcode.php:505
+#: includes/shortcode.php:355
+#: includes/shortcode.php:502
+msgid "File '%s' not found in search path '%s'"
+msgstr ""
+
+#: includes/shortcode.php:182
+#: includes/shortcode.php:218
+#: includes/shortcode.php:364
+#: includes/shortcode.php:513
 msgid "Unknown file '%s'"
 msgstr ""
 
-#: includes/shortcode.php:184
-#: includes/shortcode.php:367
+#: includes/shortcode.php:192
+#: includes/shortcode.php:375
 msgid "XML '%s' not found"
 msgstr ""
 
-#: includes/shortcode.php:220
+#: includes/shortcode.php:228
 msgid "XSL '%s' not found"
 msgstr ""
 
-#: includes/shortcode.php:232
+#: includes/shortcode.php:241
 msgid "Directory '%s' not found"
 msgstr ""
 
-#: includes/shortcode.php:234
+#: includes/shortcode.php:243
 msgid "Directory '%s' not writable"
 msgstr ""
 
-#: includes/shortcode.php:239
+#: includes/shortcode.php:248
 msgid "File '%s' not writable"
 msgstr ""
