@@ -125,7 +125,7 @@ The XSLT Processor plugin includes a number of useful XSL templates that you can
 2. Upload the `tenandtwo-xslt-processor` directory to your `/wp-content/plugins/` directory
 3. Activate the plugin through the "Plugins" menu in WordPress
 
-For more details on installation options, see Manage Plugins at wordpreess.org - https://wordpress.org/documentation/article/manage-plugins/
+For more details on installation options, see Manage Plugins at wordpress.org - https://wordpress.org/documentation/article/manage-plugins/
 
 = Requirements =
 
@@ -158,7 +158,7 @@ In WordPress, go to Settings > XSLT Processor.  There are four (4) sections :
 
 = Where is the documentation?
 
-For a quick reference to the shortcodes and their main parameters, go to Settings > XSLT Processor.
+For a quick reference to the shortcodes and their main parameters, go to Settings > XSLT Processor.  The samples for each shortcode show common usage.
 
 Full documentation for the Ten&Two XSLT Processor plugin is available at https://xsltproc.tenandtwo.com/.  There are four (4) main sections :
 

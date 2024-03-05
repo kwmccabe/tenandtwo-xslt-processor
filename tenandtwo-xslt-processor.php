@@ -16,7 +16,7 @@
  * Requires PHP:      7.4
  * Requires at least: 5.2
  * Author:            Ten & Two Systems
- * Author URI:        https://xsltproc.tenandtwo.com
+ * Author URI:        https://xsltproc.tenandtwo.com/
  * Text Domain:       tenandtwo-xslt-processor
  * Domain Path:       /languages
  * License:           GPL v2 or later
