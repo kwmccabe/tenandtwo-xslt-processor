@@ -6,7 +6,7 @@
 **Requires at least:** 5.2  
 **Tested up to:** 6.4  
 **Requires PHP:** 7.4  
-**Stable tag:** 1.0.0  
+**Stable tag:** 1.0.1  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -23,7 +23,7 @@ The Ten&Two XSLT Processor plugin brings the power of PHP's [XSL extension](http
 Detailed documentation and sample code can be found at [https://xsltproc.tenandtwo.com/](https://xsltproc.tenandtwo.com/)
 
 
-### Post Types
+### Custom Post Types
 
 The XSLT Processor plugin provides two (2) custom post types for managing sources within Wordpress - **`XSL Stylesheets`** and **`XML Documents`**.  Both types include basic syntax validation.  XML Documents can be validated further using DTD, XSD, or RNG.  Both types are enabled in **Settings** > **XSLT Processor** > **Activate Content Types**.
 
@@ -56,12 +56,15 @@ If the XPath select parameter is left unspecified, the default `/` is used, whic
  - **`[xslt_select_csv]{csv,data}[/xslt_select_csv]`**
 
 Three (3) parameters - `separator`, `enclosure`, `escape` - control reading the input.  See PHP's [fgetcsv()](https://www.php.net/manual/en/function.fgetcsv.php) function for details.
+
  - **`[xslt_select_csv separator="," enclosure="\"" escape="\\" /]`**
 
 Two (2) parameters - `key_row`, `col` - control writing columns to the output.  The `key_row` attribute is optional, but allows labels from that row to be used in `col` and `key_col`.
+
  - **`[xslt_select_csv key_row="{num}" col="{num|letter|label}+" /]`**
 
 Three (3) parameters - `row`, `key_col`, `key` - control writing rows to the output.
+
  - **`[xslt_select_csv row="{num}+" /]`**
  - **`[xslt_select_csv key_col="{num|letter|label}" key="{val}+" /]`**
 
@@ -69,15 +72,19 @@ Three (3) parameters - `row`, `key_col`, `key` - control writing rows to the out
 ### Nested Shortcodes
 
 Combine `[xslt_transform]` with `[xslt_select_xml]` :
+
  - **`[xslt_transform][xslt_select_xml/][/xslt_transform]`**
 
 Combine `[xslt_transform]` with `[xslt_select_csv]` :
+
  - **`[xslt_transform][xslt_select_csv/][/xslt_transform]`**
 
 Combine `[xslt_transform]` with itself using `[/xslt_transform_alias]` (WP does not support nested shortcodes with identical names) :
+
  - **`[xslt_transform_alias][xslt_transform/][/xslt_transform_alias]`**
 
 Combine multiple shortcodes/sources to create a single `XML Document` (see Custom Post Types above) :
+
  - **`<DATA><PART1>[xslt_select_xml xml="f1.xml" /]</PART1><PART2>[xslt_select_xml xml="f2.xml" /]</PART2></DATA>`**
 
 
@@ -125,7 +132,7 @@ The XSLT Processor plugin includes a number of useful XSL templates that you can
 
 **Manual installation**
 
-1. Download the latest plugin archive : [https://wordpress.org/plugins/tenandtwo-xslt-processor](https://wordpress.org/plugins/tenandtwo-xslt-processor)
+1. Download the latest archive from the [Plugin Homepage](https://wordpress.org/plugins/tenandtwo-xslt-processor)
 1. Upload the `tenandtwo-xslt-processor` directory to your `/wp-content/plugins/` directory
 1. Activate the plugin through the **Plugins** menu in WordPress
 
@@ -133,7 +140,7 @@ For more details on installation options, see [Manage Plugins](https://wordpress
 
 **Requirements**
 
-The Ten&Two XSLT Processor plugin relies upon PHP's [XSL extension](https://www.php.net/manual/en/book.xsl.php).  If the extension is installed, then the XSLT Processor Settings screen will display a message similar to the first message below.  If `LIBXSLT_VERSION` is undefined, all plugin options are disabled automatically and the second message is displayed.
+The Ten&Two XSLT Processor plugin relies upon PHP's [XSL extension](https://www.php.net/manual/en/book.xsl.php).  If the extension is installed, the XSLT Processor Settings screen will display a message similar to the first message below.  If `LIBXSLT_VERSION` is undefined, all plugin options are disabled automatically and the second message is displayed.
 
  - `PHP's XSL extension is available : XSLT v1.1.32, EXSLT v1.1.32, LIBXML v2.9.4`
  - `PHP's XSL extension is NOT available`
@@ -151,7 +158,7 @@ The XSL extension's requirements are detailed at [php.net](https://www.php.net/m
 
 ### Where are the plugin options?
 
-In WordPress, go to Settings > XSLT Processor.  There are four (4) sections :
+In WordPress, go to **Settings** > **XSLT Processor**.  There are four (4) sections :
 
  - **Activate Content Types**
  - **Activate Shortcodes**

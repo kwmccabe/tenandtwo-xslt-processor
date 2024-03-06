@@ -5,7 +5,7 @@ Tags: xml, xsl, xslt, csv, shortcode
 Requires at least: 5.2
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,85 +15,92 @@ Transform and display XML from local and remote sources using PHP's XSL extensio
 
 == Description ==
 
-The Ten&Two XSLT Processor plugin brings the power of PHP's XSL extension to Wordpress.  Once enabled, the plugin creates three (3) shortcodes - [xslt_transform/], [xslt_select_xml/], and [xslt_select_csv/] - which can be used separately or in tandem to enrich your site with content from XML and CSV sources.  The plugin also enables two custom post types - 'XSL Stylesheets' and 'XML Documents' - for managing and validating sources within WP Admin.
+The Ten&Two XSLT Processor plugin brings the power of PHP's XSL extension to Wordpress.  Once enabled, the plugin creates three (3) shortcodes - `[xslt_transform/]`, `[xslt_select_xml/]`, and `[xslt_select_csv/]` - which can be used separately or in tandem to enrich your site with content from XML and CSV sources.  The plugin also enables two custom post types - `XSL Stylesheets` and `XML Documents` - for managing and validating sources within WP Admin.
 
 Detailed documentation and sample code can be found at https://xsltproc.tenandtwo.com/
 
 
-= Post Types =
+= Custom Post Types =
 
 The XSLT Processor plugin provides two (2) custom post types for managing sources within Wordpress - `XSL Stylesheets` and `XML Documents`.  Both types include basic syntax validation.  XML Documents can be validated further using DTD, XSD, or RNG.  Both types are enabled in Settings > XSLT Processor > Activate Content Types.
 
 
-= Shortcode : [xslt_transform/] =
+= Shortcode : `[xslt_transform/]`
 
-[xslt_transform/] is the plugin's primary function.  This shortcode processes XML data using an XSL stylesheet, and then outputs the result as HTML, more XML, or as simple TEXT.
+`[xslt_transform/]` is the plugin's primary function.  This shortcode processes XML data using an XSL stylesheet, and then outputs the result as HTML, more XML, or as simple TEXT.
 
- - [xslt_transform xsl="{file|url|id|slug}" xml="{file|url|id|slug}" /]
- - [xslt_transform xsl="{file|url|id|slug}"]<DATA>...</DATA>[/xslt_transform]
+ - `[xslt_transform xsl="{file|url|id|slug}" xml="{file|url|id|slug}" /]`
+ - `[xslt_transform xsl="{file|url|id|slug}"]<DATA>...</DATA>[/xslt_transform]`
 
 If either the `xsl` or `xml` parameter is left unspecified, defaults are used.  The default XML value is `<NODATA/>`.  The default XSL stylesheet prints all of the incoming data as HTML.  If extra attributes are specified in the shortcode - eg, `mykey="myval"` - those keys/values are passed along as parameters to the stylesheet - `<xsl:param name="mykey"/>`.
 
 
-= Shortcode : [xslt_select_xml/] =
+= Shortcode : `[xslt_select_xml/]`
 
-[xslt_select_xml/] is a helper function.  It reads XML and returns a selection of the data, based on a supplied XPath expression.  There are two options for specifying the XPath.  First, using the `select` attribute or, second, using the body of the shortcode.  Complex select statements with quotes, square brackets or other special syntax, should use the second pattern :
+`[xslt_select_xml/]` is a helper function.  It reads XML and returns a selection of the data, based on a supplied XPath expression.  There are two options for specifying the XPath.  First, using the `select` attribute or, second, using the body of the shortcode.  Complex select statements with quotes, square brackets or other special syntax, should use the second pattern :
 
- - [xslt_select_xml xml="{file|url|id|slug}" select="{XPath}" /]
- - [xslt_select_xml xml="{file|url|id|slug}"]{XPath}[/xslt_select_xml]
+ - `[xslt_select_xml xml="{file|url|id|slug}" select="{XPath}" /]`
+ - `[xslt_select_xml xml="{file|url|id|slug}"]{XPath}[/xslt_select_xml]`
 
 If the XPath select parameter is left unspecified, the default `/` is used, which returns the entire document.  The default output is `format="xml"`.  If `format="json"` is specified, the result is encoded as a JSON string.
 
 
-= Shortcode : [xslt_select_csv/] =
+= Shortcode : `[xslt_select_csv/]` =
 
-[xslt_select_csv/] is a helper function for converting CSV file data to XML.  The result can be output directly as an HTML <table>, or the result can be passed to [xslt_transform/] for further processing.
+`[xslt_select_csv/]` is a helper function for converting CSV file data to XML.  The result can be output directly as an HTML `<table>`, or the result can be passed to `[xslt_transform/]` for further processing.
 
- - [xslt_select_csv csv="{file|url}" /]
- - [xslt_select_csv]{csv,data}[/xslt_select_csv]
+ - `[xslt_select_csv csv="{file|url}" /]`
+ - `[xslt_select_csv]{csv,data}[/xslt_select_csv]`
 
-Three (3) parameters - `separator`, `enclosure`, `escape` - control reading the input.  See PHP's fgetcsv() function for details.
- - [xslt_select_csv separator="," enclosure="\"" escape="\\" /]
+Three (3) parameters - `separator`, `enclosure`, `escape` - control reading the input.  See PHP's `fgetcsv()` function for details.
+
+ - `[xslt_select_csv separator="," enclosure="\"" escape="\\" /]`
 
 Two (2) parameters - `key_row`, `col` - control writing columns to the output.  The `key_row` attribute is optional, but allows labels from that row to be used in `col` and `key_col`.
- - [xslt_select_csv key_row="{num}" col="{num|letter|label}+" /]
+
+ - `[xslt_select_csv key_row="{num}" col="{num|letter|label}+" /]`
 
 Three (3) parameters - `row`, `key_col`, `key` - control writing rows to the output.
- - [xslt_select_csv row="{num}+" /]
- - [xslt_select_csv key_col="{num|letter|label}" key="{val}+" /]
+
+ - `[xslt_select_csv row="{num}+" /]`
+ - `[xslt_select_csv key_col="{num|letter|label}" key="{val}+" /]`
 
 
 = Nested Shortcodes =
 
-Combine [xslt_transform] with [xslt_select_xml] :
- - [xslt_transform][xslt_select_xml/][/xslt_transform]
+Combine `[xslt_transform]` with `[xslt_select_xml]` :
 
-Combine [xslt_transform] with [xslt_select_csv] :
- - [xslt_transform][xslt_select_csv/][/xslt_transform]
+ - `[xslt_transform][xslt_select_xml/][/xslt_transform]`
 
-Combine [xslt_transform] with itself using [/xslt_transform_alias] (WP does not support nested shortcodes with identical names) :
- - [xslt_transform_alias][xslt_transform/][/xslt_transform_alias]
+Combine `[xslt_transform]` with `[xslt_select_csv]` :
 
-Combine multiple shortcodes/sources to create a single 'XML Document' (see Custom Post Types above) :
- - <DATA><PART1>[xslt_select_xml xml="f1.xml" /]</PART1><PART2>[xslt_select_xml xml="f2.xml" /]</PART2></DATA>
+ - `[xslt_transform][xslt_select_csv/][/xslt_transform]`
+
+Combine `[xslt_transform]` with itself using `[/xslt_transform_alias]` (WP does not support nested shortcodes with identical names) :
+
+ - `[xslt_transform_alias][xslt_transform/][/xslt_transform_alias]`
+
+Combine multiple shortcodes/sources to create a single `XML Document` (see Custom Post Types above) :
+
+ - `<DATA><PART1>[xslt_select_xml xml="f1.xml" /]</PART1><PART2>[xslt_select_xml xml="f2.xml" /]</PART2></DATA>`
 
 
 = Cache Parameters =
 
 When a shortcode specifies a remote file - `xml="{url}"` or `csv="{url}"` - that source is cached locally using WP Transients. The default cache duration is set in the XSLT Processor Settings.  To override the default, add `cache="{minutes}"` to the shortcode.
 
- - [xslt_transform xml="{url}" cache="{minutes}" /]
- - [xslt_select_xml xml="{url}" cache="{minutes}" /]
- - [xslt_select_csv csv="{url}" cache="{minutes}" /]
+ - `[xslt_transform xml="{url}" cache="{minutes}" /]`
+ - `[xslt_select_xml xml="{url}" cache="{minutes}" /]`
+ - `[xslt_select_csv csv="{url}" cache="{minutes}" /]`
 
 
 = Namespace Parameters =
 
-Within [xslt_select_xml/] the plugin provides two methods for handling XML containing namespaces.  The first is to add `strip-namespaces` to the shortcode.  The second method is to add the needed prefixes and namespace URIs using `xslns`.
+Within `[xslt_select_xml/]` the plugin provides two methods for handling XML containing namespaces.  The first is to add `strip-namespaces` to the shortcode.  The second method is to add the needed prefixes and namespace URIs using `xslns`.
 
- - [xslt_select_xml xml="{file}" strip-namespaces="yes" select="//node" /]
- - [xslt_select_xml xml="{file}" xmlns="ns1" ns1="{namespace-uri-1}" select="//ns1:node" /]
- - [xslt_select_xml xml="{file}" xmlns="ns1 ns2" ns1="{namespace-uri-1}" ns2="{namespace-uri-2}" select="//ns1:node/ns2:node" /]
+ - `[xslt_select_xml xml="{file}" strip-namespaces="yes" select="//node" /]`
+ - `[xslt_select_xml xml="{file}" xmlns="ns1" ns1="{namespace-uri-1}" select="//ns1:node" /]`
+ - `[xslt_select_xml xml="{file}" xmlns="ns1 ns2" ns1="{namespace-uri-1}" ns2="{namespace-uri-2}" select="//ns1:node/ns2:node" /]`
 
 
 = XSL Stylesheets =
@@ -121,7 +128,7 @@ The XSLT Processor plugin includes a number of useful XSL templates that you can
 
 = Manual installation =
 
-1. Download the latest plugin archive : https://wordpress.org/plugins/tenandtwo-xslt-processor
+1. Download the latest archive from the Plugin Homepage : https://wordpress.org/plugins/tenandtwo-xslt-processor
 2. Upload the `tenandtwo-xslt-processor` directory to your `/wp-content/plugins/` directory
 3. Activate the plugin through the "Plugins" menu in WordPress
 
@@ -129,10 +136,10 @@ For more details on installation options, see Manage Plugins at wordpress.org - 
 
 = Requirements =
 
-The Ten&Two XSLT Processor plugin relies upon PHP's XSL extension.  If the extension is installed, then the XSLT Processor Settings screen will display a message similar to the first message below.  If LIBXSLT_VERSION is undefined, all plugin options are disabled automatically and the second message is displayed.
+The Ten&Two XSLT Processor plugin relies upon PHP's XSL extension.  If the extension is installed, the XSLT Processor Settings screen will display a message similar to the first message below.  If `LIBXSLT_VERSION` is undefined, all plugin options are disabled automatically and the second message is displayed.
 
- - PHP's XSL extension is available : XSLT v1.1.32, EXSLT v1.1.32, LIBXML v2.9.4
- - PHP's XSL extension is NOT available
+ - `PHP's XSL extension is available : XSLT v1.1.32, EXSLT v1.1.32, LIBXML v2.9.4`
+ - `PHP's XSL extension is NOT available`
 
 The XSL extension's requirements are detailed at php.net - https://www.php.net/manual/en/book.xsl.php
 
@@ -146,7 +153,7 @@ The XSL extension's requirements are detailed at php.net - https://www.php.net/m
 
 == Frequently Asked Questions ==
 
-= Where are the plugin options?
+= Where are the plugin options? =
 
 In WordPress, go to Settings > XSLT Processor.  There are four (4) sections :
 
@@ -156,17 +163,16 @@ In WordPress, go to Settings > XSLT Processor.  There are four (4) sections :
  - Local File Search Paths
 
 
-= Where is the documentation?
+= Where is the documentation? =
 
 For a quick reference to the shortcodes and their main parameters, go to Settings > XSLT Processor.  The samples for each shortcode show common usage.
 
-Full documentation for the Ten&Two XSLT Processor plugin is available at https://xsltproc.tenandtwo.com/.  There are four (4) main sections :
+Detailed documentation and working examples can be found at https://xsltproc.tenandtwo.com/.  There are four (4) main sections :
 
  - Getting Started : https://xsltproc.tenandtwo.com/xslt-processor/getting-started
  - Shortcodes      : https://xsltproc.tenandtwo.com/xslt-processor/shortcodes
  - Stylesheets     : https://xsltproc.tenandtwo.com/xslt-processor/stylsheets
  - How To          : https://xsltproc.tenandtwo.com/xslt-processor/how-to
-
 
 
 == Screenshots ==
