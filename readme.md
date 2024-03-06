@@ -6,7 +6,7 @@
 **Requires at least:** 5.2  
 **Tested up to:** 6.4  
 **Requires PHP:** 7.4  
-**Stable tag:** 1.0.1  
+**Stable tag:** 1.0.2  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -156,6 +156,8 @@ The XSL extension's requirements are detailed at [php.net](https://www.php.net/m
 
 ## Frequently Asked Questions
 
+- - -
+
 ### Where are the plugin options?
 
 In WordPress, go to **Settings** > **XSLT Processor**.  There are four (4) sections :
@@ -165,6 +167,7 @@ In WordPress, go to **Settings** > **XSLT Processor**.  There are four (4) secti
  - **Cache Lifetime**
  - **Local File Search Paths**
 
+- - -
 
 ### Where is the documentation?
 
@@ -177,3 +180,44 @@ Full documentation for the Ten&Two XSLT Processor plugin is available at https:/
  - [Stylesheets](https://xsltproc.tenandtwo.com/xslt-processor/stylsheets)
  - [How To](https://xsltproc.tenandtwo.com/xslt-processor/how-to)
 
+- - -
+
+### Does it integrate with the WP-CLI?
+
+All three (3) shortcodes have command-line equivalents. They can be used, for instance, to run quick tests. Or they can be used, by piping the outputs into files, to pre-generate results.
+
+ *      wp xslt transform_xml
+            --xsl='{file|url|id|slug}'
+            --xml='{file|url|id|slug}'
+            --cache='{minutes, if xsl|xml={url}}'
+            --tidy='{yes|html}' or tidy or --tidy='xml'
+            --{myparam}='{myvalue}'
+            --outfile='{filepath}'
+            --htmlentities='yes' or htmlentities
+
+ *      wp xslt select_xml
+            --xml='{file|url|id|slug}'
+            --cache='{minutes, if xml={url}}'
+            --select='{xpath}'
+            --root='{nodename|empty}'
+            --tidy='{yes|html}' or tidy or --tidy='xml'
+            --strip-namespaces='yes' or strip-namespaces
+            --strip-declaration='no'
+            --format='{xml|json}'
+            --htmlentities='yes' or htmlentities
+
+ *      wp xslt select_csv
+            --csv='{file|url}'
+            --cache='{minutes, if csv={url}}'
+            --separator=','
+            --enclosure='\"'
+            --escape='\\'
+            --key_row='{row number for column labels}'
+            --col='{return column number(s), letter(s), or label(s)}'
+            --key_col='{col number, letter, or label for key matching}'
+            --key='{value(s) for key_col matching}'
+            --row='{return row number(s)}'
+            --class='{css classname(s) for result <table>}'
+            --htmlentities='yes' or htmlentities
+
+- - -

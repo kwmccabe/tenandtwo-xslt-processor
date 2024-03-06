@@ -34,7 +34,7 @@ class XSLT_Processor_CLI
      *   wp xslt transform_xml
      *     --xsl='{file|url|id|slug}'
      *     --xml='{file|url|id|slug}'
-     *     --cache={minutes, if xsl|xml={url}}
+     *     --cache='{minutes, if xsl|xml={url}}'
      *     --tidy='{yes|html}' or tidy or --tidy='xml'
      *     --{myparam}='{myvalue}'
      *     --outfile='{filepath}'
@@ -43,11 +43,12 @@ class XSLT_Processor_CLI
      * ## EXAMPLES
      *
      *   wp --allow-root xslt transform_xml --xsl='sample-xsl' --xml='sample-xml' --testparam='HERE' --outfile='__WP_CONTENT_DIR__/uploads/cli-outfile.txt'
+     *   wp --allow-root xslt transform_xml --xsl='sample-xsl' --xml='sample-xml' --testparam='HERE' > ./cli-outfile.txt
      *
      * @when after_wp_load
      */
-    function transform_xml( $args, $assoc_args ) {
-if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_args'),true), E_USER_NOTICE); }
+    public function transform_xml( $args, $assoc_args ) {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_args'),true), E_USER_NOTICE); }
 
         if (in_array('tidy',$args))             { $assoc_args['tidy'] = 'yes'; }
         if (in_array('htmlentities',$args))     { $assoc_args['htmlentities'] = 'yes'; }
@@ -55,9 +56,8 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_arg
         $attrs   = $assoc_args;
         $content = $assoc_args['content'] ?? '';
         $result  = XSLT_Processor_Shortcode::xslt_transform_xml( $attrs, $content );
+if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content','result'),true), E_USER_NOTICE); }
 
-        WP_CLI::success('');
-        if (WP_DEBUG) { WP_CLI::line( __METHOD__.' : '.print_r($attrs,true) ); }
         WP_CLI::line( print_r($result,true) );
     }
 
@@ -69,25 +69,26 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_arg
      *
      *   wp xslt select_xml
      *     --xml='{file|url|id|slug}'
-     *     --cache={minutes, if xml={url}}
+     *     --cache='{minutes, if xml={url}}'
      *     --select='{xpath}'
      *     --root='{nodename|empty}'
      *
-     *     --tidy=yes|html or tidy or --tidy=xml
-     *     --strip-namespaces=yes or strip-namespaces
-     *     --strip-declaration=yes|no
+     *     --tidy='{yes|html}' or tidy or --tidy='xml'
+     *     --strip-namespaces='{no|yes}' or strip-namespaces
+     *     --strip-declaration='{yes|no}'
      *
      *     --format='{xml|json}'
-     *     --htmlentities=yes or htmlentities
+     *     --htmlentities='yes' or htmlentities
      *
      * ## EXAMPLES
      *
      *   wp --allow-root xslt select_xml --xml='sample-xml' --select='//list'
+     *   wp --allow-root xslt select_xml --xml='sample-xml' --select='//list' > ./cli-outfile.txt
      *
      * @when after_wp_load
      */
-    function select_xml( $args, $assoc_args ) {
-if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_args'),true), E_USER_NOTICE); }
+    public function select_xml( $args, $assoc_args ) {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_args'),true), E_USER_NOTICE); }
 
         if (in_array('strip-namespaces',$args)) { $assoc_args['strip-namespaces'] = 'yes'; }
         if (in_array('tidy',$args))             { $assoc_args['tidy'] = 'yes'; }
@@ -96,9 +97,8 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_arg
         $attrs   = $assoc_args;
         $content = $assoc_args['content'] ?? '';
         $result  = XSLT_Processor_Shortcode::xslt_select_xml( $attrs, $content );
+if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content','result'),true), E_USER_NOTICE); }
 
-        WP_CLI::success('');
-        if (WP_DEBUG) { WP_CLI::line( __METHOD__.' : '.print_r($attrs,true) ); }
         WP_CLI::line( print_r($result,true) );
     }
 
@@ -110,40 +110,39 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_arg
      *
      *   wp xslt select_csv
      *     --csv='{file|url}'
-     *     --cache={minutes, if csv={url}}
+     *     --cache='{minutes, if csv={url}}'
      *
-     *     --separator=","
-     *     --enclosure="\""
-     *     --escape="\\"
+     *     --separator=','
+     *     --enclosure='\"'
+     *     --escape='\\'
      *
-     *     --key_row="{row number for column labels}"
-     *     --col="{return column number(s), letter(s), or label(s)}"
-     *     --key_col="{col number, letter, or label for key matching}"
-     *     --key="{value(s) for key_col matching}"
-     *     --row="{return row number(s)}"
-     *     --class="{css classname(s) for result <table>}"
+     *     --key_row='{row number for column labels}'
+     *     --col='{return column number(s), letter(s), or label(s)}'
+     *     --key_col='{col number, letter, or label for key matching}'
+     *     --key='{value(s) for key_col matching}'
+     *     --row='{return row number(s)}'
+     *     --class='{css classname(s) for result <table>}'
      *
-     *     --htmlentities=yes or htmlentities
+     *     --htmlentities='yes' or htmlentities
      *
      * ## EXAMPLES
      *
      *   wp --allow-root xslt select_csv --csv='case-study-gsheets/Sheet1.csv'
      *   wp --allow-root xslt select_csv --csv="case-study-gsheets/Sheet1.csv" --row="1" --key_row="1" --key_col="ID" --key="1004,1005"
+     *   wp --allow-root xslt transform_xml --xsl='csv-pivot-xsl' --key_row='1' --content='[xslt_select_csv csv="case-study-gsheets/Sheet1.csv" row="1" key_row="1" key_col="ID" key="1004,1005" /]'
      *
-     *   wp --allow-root xslt transform_xml --xsl='csv-pivot-xsl' --key_row='1' --content='[xslt_select_csv csv="case-study-gsheets/Sheet1.csv" row="1" key_row="1" key_col="ID" key="1004,1005" /]'     *
      * @when after_wp_load
      */
-    function select_csv( $args, $assoc_args ) {
-if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_args'),true), E_USER_NOTICE); }
+    public function select_csv( $args, $assoc_args ) {
+//if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('args','assoc_args'),true), E_USER_NOTICE); }
 
         if (in_array('htmlentities',$args))     { $assoc_args['htmlentities'] = 'yes'; }
 
         $attrs   = $assoc_args;
         $content = $assoc_args['content'] ?? '';
         $result  = XSLT_Processor_Shortcode::xslt_select_csv( $attrs, $content );
+if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content','result'),true), E_USER_NOTICE); }
 
-        WP_CLI::success('');
-        if (WP_DEBUG) { WP_CLI::line( __METHOD__.' : '.print_r($attrs,true) ); }
         WP_CLI::line( print_r($result,true) );
     }
 
