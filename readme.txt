@@ -20,12 +20,12 @@ The Ten&Two XSLT Processor plugin brings the power of PHP's XSL extension to Wor
 Detailed documentation and sample code can be found at https://xsltproc.tenandtwo.com/
 
 
-= Custom Post Types =
+### Custom Post Types
 
 The XSLT Processor plugin provides two (2) custom post types for managing sources within Wordpress - `XSL Stylesheets` and `XML Documents`.  Both types include basic syntax validation.  XML Documents can be validated further using DTD, XSD, or RNG.  Both types are enabled in Settings > XSLT Processor > Activate Content Types.
 
 
-= Shortcode : [xslt_transform_xml/] =
+### Shortcode : [xslt_transform_xml/]
 
 [xslt_transform_xml/] is the plugin's primary function.  This shortcode processes XML data using an XSL stylesheet, and then outputs the result as HTML, more XML, or as simple TEXT.
 
@@ -35,7 +35,7 @@ The XSLT Processor plugin provides two (2) custom post types for managing source
 If either the `xsl` or `xml` parameter is left unspecified, defaults are used.  The default XML value is `<NODATA/>`.  The default XSL stylesheet prints all of the incoming data as HTML.  If extra attributes are specified in the shortcode - eg, `mykey="myval"` - those keys/values are passed along as parameters to the stylesheet - `<xsl:param name="mykey"/>`.
 
 
-= Shortcode : [xslt_select_xml/] =
+### Shortcode : [xslt_select_xml/]
 
 [xslt_select_xml/] is a helper function.  It reads XML and returns a selection of the data, based on a supplied XPath expression.  There are two (2) options for specifying the XPath.  First, using the `select` attribute or, second, using the body of the shortcode.  Complex select statements with quotes, square brackets or other special syntax, should use the second pattern :
 
@@ -45,7 +45,7 @@ If either the `xsl` or `xml` parameter is left unspecified, defaults are used.  
 If the XPath select parameter is left unspecified, the default `/` is used, which returns the entire document.  The default output is `format="xml"`.  If `format="json"` is specified, the result is encoded as a JSON string.
 
 
-= Shortcode : [xslt_select_csv/] =
+### Shortcode : [xslt_select_csv/]
 
 [xslt_select_csv/] is a helper function for converting CSV file data to XML.  The result can be output directly as an HTML `<table>`, or the result can be passed to `[xslt_transform_xml/]` for further processing.
 
@@ -66,7 +66,7 @@ Three (3) parameters - `row`, `key_col`, `key` - control writing rows to the out
  - `[xslt_select_csv key_col="{num|letter|label}" key="{val}+" /]`
 
 
-= Nested Shortcodes =
+### Nested Shortcodes
 
 Combine `[xslt_transform_xml]` with `[xslt_select_xml]` :
 
@@ -85,7 +85,7 @@ Combine multiple shortcodes/sources to create a single `XML Document` (see Custo
  - `<DATA><PART1>[xslt_select_xml xml="f1.xml" /]</PART1><PART2>[xslt_select_xml xml="f2.xml" /]</PART2></DATA>`
 
 
-= Cache Parameters =
+### Cache Parameters
 
 When a shortcode specifies a remote file - `xml="{url}"` or `csv="{url}"` - that source is cached locally using WP Transients. The default cache duration is set in the XSLT Processor Settings.  To override the default, add `cache="{minutes}"` to the shortcode.
 
@@ -94,7 +94,7 @@ When a shortcode specifies a remote file - `xml="{url}"` or `csv="{url}"` - that
  - `[xslt_select_csv csv="{url}" cache="{minutes}" /]`
 
 
-= Namespace Parameters =
+### Namespace Parameters
 
 Within `[xslt_select_xml/]` the plugin provides two (2) methods for handling XML containing namespaces.  The first is to add `strip-namespaces` to the shortcode.  The second method is to add the needed prefixes and namespace URIs using `xslns`.
 
@@ -103,7 +103,7 @@ Within `[xslt_select_xml/]` the plugin provides two (2) methods for handling XML
  - `[xslt_select_xml xml="{file}" xmlns="ns1 ns2" ns1="{namespace-uri-1}" ns2="{namespace-uri-2}" select="//ns1:node/ns2:node" /]`
 
 
-= WP-CLI =
+### WP-CLI
 
 All three (3) shortcodes have command-line equivalents. They can be used, for instance, to run quick tests. Or they can be used, by piping the outputs into files, to pre-generate results.
 
@@ -138,11 +138,11 @@ All three (3) shortcodes have command-line equivalents. They can be used, for in
             --key_col='{col number, letter, or label for key matching}'
             --key='{value(s) for key_col matching}'
             --row='{return row number(s)}'
-            --class='{css classname(s) for result <table>}'
+            --class='{css classname(s) for result table}'
             --htmlentities='yes' or htmlentities
 
 
-= XSL Stylesheets =
+### XSL Stylesheets
 
 The XSLT Processor plugin includes a number of useful XSL templates that you can include and use in your own projects. They are grouped into five files.
 
@@ -155,17 +155,17 @@ The XSLT Processor plugin includes a number of useful XSL templates that you can
 
 == Installation ==
 
-= WordPress installation =
+### WordPress installation
 
-1. Go to Plugins > Add New > search for `tenandtwo-xslt-processor`
+1. Go to Plugins > Add New > Search for "tenandtwo-xslt-processor"
 2. Press "Install Now" for the "Ten&Two XSLT Processor" plugin
 3. Press "Activate Plugin"
 
-= WP-CLI installation =
+### WP-CLI installation
 
 1. `wp plugin install tenandtwo-xslt-processor --activate`
 
-= Manual installation =
+### Manual installation
 
 1. Download the latest archive from the Plugin Homepage : https://wordpress.org/plugins/tenandtwo-xslt-processor
 2. Upload the `tenandtwo-xslt-processor` directory to your `/wp-content/plugins/` directory
@@ -173,7 +173,7 @@ The XSLT Processor plugin includes a number of useful XSL templates that you can
 
 For more details on installation options, see Manage Plugins at wordpress.org - https://wordpress.org/documentation/article/manage-plugins/
 
-= Requirements =
+## Requirements
 
 The Ten&Two XSLT Processor plugin relies upon PHP's XSL extension.  If the extension is installed, the XSLT Processor Settings screen will display a message similar to the first message below.  If `LIBXSLT_VERSION` is undefined, all plugin options are disabled automatically and the second message is displayed.
 
@@ -192,9 +192,8 @@ The XSL extension's requirements are detailed at php.net - https://www.php.net/m
 
 == Frequently Asked Questions ==
 
-- - -
 
-= Where are the plugin options? =
+### Where are the plugin options?
 
 In WordPress, go to Settings > XSLT Processor.  There are four (4) sections :
 
@@ -203,22 +202,21 @@ In WordPress, go to Settings > XSLT Processor.  There are four (4) sections :
  - Cache Lifetime
  - Local File Search Paths
 
-- - -
 
-= Where is the documentation? =
+### Where is the documentation?
 
 For a quick reference to the shortcodes and their main parameters, go to Settings > XSLT Processor.  The samples for each shortcode show common usage.
 
-Detailed documentation and working examples can be found at https://xsltproc.tenandtwo.com/.  There are four (4) main sections :
+Full documentation and working examples are available at https://xsltproc.tenandtwo.com/.  There are four (4) main sections :
 
  - Getting Started : https://xsltproc.tenandtwo.com/xslt-processor/getting-started
  - Shortcodes      : https://xsltproc.tenandtwo.com/xslt-processor/shortcodes
  - Stylesheets     : https://xsltproc.tenandtwo.com/xslt-processor/stylsheets
  - How To          : https://xsltproc.tenandtwo.com/xslt-processor/how-to
 
-- - -
 
 == Screenshots ==
+
 
 1. XSLT Processor Settings
 

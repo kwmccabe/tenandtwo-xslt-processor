@@ -25,7 +25,7 @@ Detailed documentation and sample code can be found at [https://xsltproc.tenandt
 
 ### Custom Post Types
 
-The XSLT Processor plugin provides two (2) custom post types for managing sources within Wordpress - **`XSL Stylesheets`** and **`XML Documents`**.  Both types include basic syntax validation.  XML Documents can be validated further using DTD, XSD, or RNG.  Both types are enabled in **Settings** > **XSLT Processor** > **Activate Content Types**.
+The XSLT Processor plugin provides two (2) custom post types for managing sources within Wordpress - **`XSL Stylesheets`** and **`XML Documents`**.  Both types include basic syntax validation.  XML Documents can be validated further using DTD, XSD, or RNG.  Both types are enabled in *Settings* > *XSLT Processor* > *Activate Content Types*.
 
 
 ### Shortcode : `[xslt_transform_xml/]`
@@ -159,25 +159,25 @@ The XSLT Processor plugin includes a number of useful XSL templates that you can
 
 ## Installation
 
-**WordPress installation**
+### WordPress installation
 
-1. Go to **Plugins** > **Add New** > search for `tenandtwo-xslt-processor`
-1. Press **Install Now** for the **Ten&Two XSLT Processor** plugin
+1. Go to *Plugins* > *Add New* > *Search* for "tenandtwo-xslt-processor"
+1. Press **Install Now** for the "Ten&Two XSLT Processor" plugin
 1. Press **Activate Plugin**
 
-**WP-CLI installation**
+### WP-CLI installation
 
 1. `wp plugin install tenandtwo-xslt-processor --activate`
 
-**Manual installation**
+### Manual installation
 
 1. Download the latest archive from the [Plugin Homepage](https://wordpress.org/plugins/tenandtwo-xslt-processor)
 1. Upload the `tenandtwo-xslt-processor` directory to your `/wp-content/plugins/` directory
-1. Activate the plugin through the **Plugins** menu in WordPress
+1. Activate the plugin through the *Plugins* menu in WordPress
 
 For more details on installation options, see [Manage Plugins](https://wordpress.org/documentation/article/manage-plugins/) at wordpress.org.
 
-**Requirements**
+## Requirements
 
 The Ten&Two XSLT Processor plugin relies upon PHP's [XSL extension](https://www.php.net/manual/en/book.xsl.php).  If the extension is installed, the XSLT Processor Settings screen will display a message similar to the first message below.  If `LIBXSLT_VERSION` is undefined, all plugin options are disabled automatically and the second message is displayed.
 
@@ -192,31 +192,28 @@ The XSL extension's requirements are detailed at [php.net](https://www.php.net/m
 > This extension uses libxslt which can be found at » [http://xmlsoft.org/XSLT/](http://xmlsoft.org/XSLT/). libxslt version 1.1.0 or greater is required."
 
 
-
 ## Frequently Asked Questions
 
-- - -
 
 ### Where are the plugin options?
 
-In WordPress, go to **Settings** > **XSLT Processor**.  There are four (4) sections :
+In WordPress, go to *Settings* > *XSLT Processor*.  There are four (4) sections :
 
  - **Activate Content Types**
  - **Activate Shortcodes**
  - **Cache Lifetime**
  - **Local File Search Paths**
 
-- - -
 
 ### Where is the documentation?
 
-For a quick reference to the shortcodes and their main parameters, go to **Settings** > **XSLT Processor**.  The samples for each shortcode show common usage.
+For a quick reference to the shortcodes and their main parameters, go to *Settings* > *XSLT Processor*.  The samples for each shortcode show common usage.
 
-Full documentation for the Ten&Two XSLT Processor plugin is available at https://xsltproc.tenandtwo.com/.  There are four (4) main sections :
+Full documentation and working examples are available at https://xsltproc.tenandtwo.com/.  There are four (4) main sections :
 
- - [Getting Started](https://xsltproc.tenandtwo.com/xslt-processor/getting-started)
- - [Shortcodes](https://xsltproc.tenandtwo.com/xslt-processor/shortcodes)
- - [Stylesheets](https://xsltproc.tenandtwo.com/xslt-processor/stylsheets)
- - [How To](https://xsltproc.tenandtwo.com/xslt-processor/how-to)
+ - [**Getting Started**](https://xsltproc.tenandtwo.com/xslt-processor/getting-started)
+ - [**Shortcodes**](https://xsltproc.tenandtwo.com/xslt-processor/shortcodes)
+ - [**Stylesheets**](https://xsltproc.tenandtwo.com/xslt-processor/stylsheets)
+ - [**How To**](https://xsltproc.tenandtwo.com/xslt-processor/how-to)
 
-- - -
+
