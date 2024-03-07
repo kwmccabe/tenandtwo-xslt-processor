@@ -215,13 +215,7 @@ For a quick reference to the shortcodes and their main parameters, go to **Setti
 Full documentation for the Ten&Two XSLT Processor plugin is available at https://xsltproc.tenandtwo.com/.  There are four (4) main sections :
 
  - [Getting Started](https://xsltproc.tenandtwo.com/xslt-processor/getting-started)
-    - Installation
-    - Settings
  - [Shortcodes](https://xsltproc.tenandtwo.com/xslt-processor/shortcodes)
-    - [xslt_transform_xml]
-    - Settings
-    - Settings
-    - Settings
  - [Stylesheets](https://xsltproc.tenandtwo.com/xslt-processor/stylsheets)
  - [How To](https://xsltproc.tenandtwo.com/xslt-processor/how-to)
 

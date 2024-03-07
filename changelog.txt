@@ -3,19 +3,14 @@
 Notable changes are documented here in reverse chronological order.
 
 
-## [1.0.2] - 2024-03-07
-
-### Changed
-
-- includes/cli.php : finalize transform_xml(), select_xml(), select_csv()
-
-
+## [1.0.2] - 2024-03-06
 ## [1.0.1] - 2024-03-06
 
 ### Changed
 
 - readme.md
 - readme.txt
+- includes/cli.php : finalize transform_xml(), select_xml(), select_csv()
 
 
 ## [1.0.0] - 2024-03-05

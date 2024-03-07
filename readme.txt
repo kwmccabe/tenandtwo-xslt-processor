@@ -225,8 +225,6 @@ Detailed documentation and working examples can be found at https://xsltproc.ten
 
 == Changelog ==
 
-= 1.0.1 =
-* Update readme files
-
-= 1.0.0 =
+= 1.0.x =
 * Initial Release
+* Add WP-CLI commands
