@@ -226,3 +226,5 @@ Full documentation and working examples are available at https://xsltproc.tenand
 = 1.0.x =
 * Initial Release
 * Add WP-CLI commands
+* Test with WP 6.5
+
