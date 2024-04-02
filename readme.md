@@ -1,14 +1,14 @@
 # Ten&Two XSLT Processor
 
-**Contributors:** tenandtwo  
-**Donate link:**  
-**Tags:** xml, xsl, xslt, csv, shortcode  
-**Requires at least:** 5.2  
-**Tested up to:** 6.4  
-**Requires PHP:** 7.4  
-**Stable tag:** 1.0.2  
-**License:** GPLv2 or later  
-**License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
+**Contributors:** tenandtwo
+**Donate link:**
+**Tags:** xml, xsl, xslt, csv, shortcode
+**Requires at least:** 5.2
+**Tested up to:** 6.5
+**Requires PHP:** 7.4
+**Stable tag:** 1.0.3
+**License:** GPLv2 or later
+**License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
 
 Transform and display XML from local and remote sources using PHP's XSL extension.
@@ -149,7 +149,7 @@ All three (3) shortcodes have command-line equivalents. They can be used, for in
 
 The XSLT Processor plugin includes a number of useful XSL templates that you can include and use in your own projects. They are grouped into five files.
 
- - **date.xsl** : `date-format`, `date-microtime`  
+ - **date.xsl** : `date-format`, `date-microtime`
  - **file.xsl** : `file-exists-local`, `file-exists-remote`
  - **string.xsl** : `string-replace`, `string-upper`, `string-lower`, `string-title-case`, `string-trim`, `string-rtrim`, `string-ltrim`, `string-maxlength`, `string-maxwords`, `string-add-slashes`, `string-urlencode`, `string-strip-tags`, `string-nl2br`, `string-entity-decode`, `string-to-nodeset`
  - **util.xsl** : `util-bytsize`, `util-hash-data`, `util-print-nodes`, `util-print-node-names`, `util-super-global`
@@ -188,7 +188,7 @@ The XSL extension's requirements are detailed at [php.net](https://www.php.net/m
 
 
 > "This extension requires the libxml PHP extension. This means passing the **--with-libxml**, or prior to PHP 7.4 the **--enable-libxml**, configuration flag, although this is implicitly accomplished because libxml is enabled by default.
-> 
+>
 > This extension uses libxslt which can be found at » [http://xmlsoft.org/XSLT/](http://xmlsoft.org/XSLT/). libxslt version 1.1.0 or greater is required."
 
 
