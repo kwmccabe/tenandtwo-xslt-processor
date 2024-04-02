@@ -34,26 +34,26 @@ class XSLT_Processor_Shortcode
         if (!empty($options['sc_transform_xml'])) {
             if (!shortcode_exists('xslt_transform_xml'))
                 { add_shortcode( 'xslt_transform_xml',       array('XSLT_Processor_Shortcode', 'xslt_transform_xml') ); }
-            else if (WP_DEBUG)
+            elseif (WP_DEBUG)
                 { trigger_error(__METHOD__." : shortcode 'xslt_transform_xml' already exists", E_USER_NOTICE); }
 
             if (!shortcode_exists('xslt_transform_alias'))
                 { add_shortcode( 'xslt_transform_alias', array('XSLT_Processor_Shortcode', 'xslt_transform_xml') ); }
-            else if (WP_DEBUG)
+            elseif (WP_DEBUG)
                 { trigger_error(__METHOD__." : shortcode 'xslt_transform_alias' already exists", E_USER_NOTICE); }
         }
 
         if (!empty($options['sc_select_xml'])) {
             if (!shortcode_exists('xslt_select_xml'))
                 { add_shortcode( 'xslt_select_xml', array('XSLT_Processor_Shortcode', 'xslt_select_xml') ); }
-            else if (WP_DEBUG)
+            elseif (WP_DEBUG)
                 { trigger_error(__METHOD__." : shortcode 'xslt_select_xml' already exists", E_USER_NOTICE); }
         }
 
         if (!empty($options['sc_select_csv'])) {
             if (!shortcode_exists('xslt_select_csv'))
                 { add_shortcode( 'xslt_select_csv', array('XSLT_Processor_Shortcode', 'xslt_select_csv') ); }
-            else if (WP_DEBUG)
+            elseif (WP_DEBUG)
                 { trigger_error(__METHOD__." : shortcode 'xslt_select_csv' already exists", E_USER_NOTICE); }
         }
 
@@ -141,9 +141,9 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             $path_parts = pathinfo($attrs['xml']);
             if (!empty($url_parts['scheme']) && !empty($url_parts['host'])) {
                 $attrs['xml_url'] = $attrs['xml'];
-            } else if (!empty($path_parts['basename']) && !empty($path_parts['extension'])) {
+            } elseif (!empty($path_parts['basename']) && !empty($path_parts['extension'])) {
                 $attrs['xml_file'] = $url_parts['path'];
-            } else if (is_numeric($attrs['xml'])) {
+            } elseif (is_numeric($attrs['xml'])) {
                 $attrs['xml_id'] = $attrs['xml'];
             } else {
                 $attrs['xml_name'] = sanitize_title($attrs['xml']);
@@ -156,9 +156,9 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             $path_parts = pathinfo($attrs['xsl']);
             if (!empty($url_parts['scheme']) && !empty($url_parts['host'])) {
                 $attrs['xsl_url'] = $attrs['xsl'];
-            } else if (!empty($path_parts['basename']) && !empty($path_parts['extension'])) {
+            } elseif (!empty($path_parts['basename']) && !empty($path_parts['extension'])) {
                 $attrs['xsl_file'] = $url_parts['path'];
-            } else if (is_numeric($attrs['xsl'])) {
+            } elseif (is_numeric($attrs['xsl'])) {
                 $attrs['xsl_id'] = $attrs['xsl'];
             } else {
                 $attrs['xsl_name'] = sanitize_title($attrs['xsl']);
@@ -337,9 +337,9 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             $path_parts = pathinfo($attrs['xml']);
             if (!empty($url_parts['scheme']) && !empty($url_parts['host'])) {
                 $attrs['xml_url'] = $attrs['xml'];
-            } else if (!empty($path_parts['basename']) && !empty($path_parts['extension'])) {
+            } elseif (!empty($path_parts['basename']) && !empty($path_parts['extension'])) {
                 $attrs['xml_file'] = $url_parts['path'];
-            } else if (is_numeric($attrs['xml'])) {
+            } elseif (is_numeric($attrs['xml'])) {
                 $attrs['xml_id'] = $attrs['xml'];
             } else {
                 $attrs['xml_name'] = sanitize_title($attrs['xml']);

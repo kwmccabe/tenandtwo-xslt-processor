@@ -184,7 +184,7 @@ class XSLT_Processor_XSL
         }
         $this->releaseProcessor( $idx, $release_params );
 
-        if (WP_DEBUG)
+        if (WP_DEBUG && !empty($outfile))
         {
             $msg = __METHOD__." : ";
             $msg .= "\n- XML ("
