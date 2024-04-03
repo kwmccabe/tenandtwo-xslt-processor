@@ -12,7 +12,7 @@
  * Plugin Name:       Ten&Two XSLT Processor
  * Plugin URI:        https://wordpress.org/plugins/tenandtwo-xslt-processor/
  * Description:       Transform and display XML from local and remote sources using PHP's XSL extension.
- * Version:           1.0.3
+ * Version:           1.0.4
  * Requires PHP:      7.4
  * Requires at least: 5.2
  * Author:            Ten & Two Systems
@@ -57,6 +57,7 @@ class XSLT_Processor_Plugin
             require_once(XSLT_PLUGIN_DIR.'includes/notice.php');
             XSLT_Processor_Notice::init();
         }
+        require_once(XSLT_PLUGIN_DIR.'includes/util.php');
 
         // return if libxslt missing
         if (!defined( 'LIBXSLT_VERSION' )) {
@@ -66,7 +67,6 @@ class XSLT_Processor_Plugin
 
         require_once(XSLT_PLUGIN_DIR.'includes/callback.php');
         require_once(XSLT_PLUGIN_DIR.'includes/csv.php');
-        require_once(XSLT_PLUGIN_DIR.'includes/util.php');
         require_once(XSLT_PLUGIN_DIR.'includes/wp.php');
         require_once(XSLT_PLUGIN_DIR.'includes/xml.php');
         require_once(XSLT_PLUGIN_DIR.'includes/xsl.php');
