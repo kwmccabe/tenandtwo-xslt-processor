@@ -6,7 +6,7 @@
 **Requires at least:** 5.2
 **Tested up to:** 6.5
 **Requires PHP:** 7.4
-**Stable tag:** 1.0.3
+**Stable tag:** 1.0.5
 **License:** GPLv2 or later
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,5 +215,3 @@ Full documentation and working examples are available at https://xsltproc.tenand
  - [**Shortcodes**](https://xsltproc.tenandtwo.com/xslt-processor/shortcodes)
  - [**Stylesheets**](https://xsltproc.tenandtwo.com/xslt-processor/stylsheets)
  - [**How To**](https://xsltproc.tenandtwo.com/xslt-processor/how-to)
-
-

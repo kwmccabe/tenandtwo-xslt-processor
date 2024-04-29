@@ -369,7 +369,7 @@ class XSLT_Processor_Admin
         $html .= '<li><code><strong>[xslt_transform_xml xsl="</strong>{file|url|id|slug}<strong>"]</strong>'
             . '[xslt_select_csv/]'
             . '<strong>[/xslt_transform_xml]</strong></code></li>';
-        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xsl-transform-xml/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
+        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xslt-transform-xml/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
         $html .= '</ul>';
         echo wp_kses($html, 'post');
     }
@@ -395,7 +395,7 @@ class XSLT_Processor_Admin
         $html .= '<li><code><strong>[xslt_select_xml xml="</strong>{file|url|id|slug}<strong>" select="</strong>//nodename<strong>" /]</strong></code></li>';
         $html .= '<li><code><strong>[xslt_select_xml xml="</strong>{file|url|id|slug}<strong>"]</strong>//nodename[@id="1234"]<strong>[/xslt_select_xml]</strong></code></li>';
         $html .= '<li><code><strong>[xslt_select_xml xmlns="</strong>{ns1}+<strong>" ns1="</strong>{namespace-uri-1}<strong>" select="</strong>//ns1:nodename<strong>" /]</strong></code></li>';
-        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xml-select/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
+        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xslt-select-xml/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
         $html .= '</ul>';
         echo wp_kses($html, 'post');
     }
@@ -423,7 +423,7 @@ class XSLT_Processor_Admin
         $html .= '<li><code><strong>[xslt_select_csv col="</strong>{num|letter|label}+<strong>" /]</strong></code></li>';
         $html .= '<li><code><strong>[xslt_select_csv key_col="</strong>{num|letter|label}<strong>" key="</strong>{val}+<strong>" /]</strong></code></li>';
         $html .= '<li><code><strong>[xslt_select_csv row="</strong>{num}+<strong>" /]</strong></code></li>';
-        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/csv-select/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
+        $html .= '<li><a href="'.XSLT_PLUGIN_DOCS.'xslt-processor/shortcodes/xslt-select-csv/" target="_blank">'.esc_html__( 'View all options', 'tenandtwo-xslt-processor' ).'</a> <span class="dashicons dashicons-external"></li>';
         $html .= '</ul>';
         echo wp_kses($html, 'post');
     }
