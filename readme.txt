@@ -5,7 +5,7 @@ Tags: xml, xsl, xslt, csv, shortcode
 Requires at least: 5.2
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,7 +114,7 @@ All three (3) shortcodes have command-line equivalents. They can be used, for in
             --tidy='{yes|html}' or tidy or --tidy='xml'
             --{myparam}='{myvalue}'
             --outfile='{filepath}'
-            --htmlentities='yes' or htmlentities
+            --htmlentities or --htmlentities='yes'
 
  *      wp xslt select_xml
             --xml='{file|url|id|slug}'
@@ -125,7 +125,7 @@ All three (3) shortcodes have command-line equivalents. They can be used, for in
             --strip-namespaces='yes' or strip-namespaces
             --strip-declaration='no'
             --format='{xml|json}'
-            --htmlentities='yes' or htmlentities
+            --htmlentities or --htmlentities='yes'
 
  *      wp xslt select_csv
             --csv='{file|url}'
@@ -139,7 +139,7 @@ All three (3) shortcodes have command-line equivalents. They can be used, for in
             --key='{value(s) for key_col matching}'
             --row='{return row number(s)}'
             --class='{css classname(s) for result table}'
-            --htmlentities='yes' or htmlentities
+            --htmlentities or --htmlentities='yes'
 
 
 ### XSL Stylesheets
@@ -227,4 +227,3 @@ Full documentation and working examples are available at https://xsltproc.tenand
 * Initial Release
 * Add WP-CLI commands
 * Test with WP 6.5
-

@@ -197,7 +197,7 @@ class XSLT_Processor_CSV
         global $XSLT_Processor_XSL;
         if (empty($XSLT_Processor_XSL)) { $XSLT_Processor_XSL = new XSLT_Processor_XSL(); }
 
-        if (!file_exists($csv))
+        if (!is_file($csv))
         {
             $err = "Missing input csv file '".$csv."'";
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);

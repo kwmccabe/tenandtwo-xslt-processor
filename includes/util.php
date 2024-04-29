@@ -222,6 +222,7 @@ class XSLT_Processor_Util
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('file','search_paths'),true), E_USER_NOTICE); }
 
+        $file = trim($file);
         if (strpos($file,'__') !== false)
         {
             $search  = array('__WP_HOME_DIR__', '__WP_CONTENT_DIR__', '__XSLT_PLUGIN_DIR__');
@@ -229,7 +230,7 @@ class XSLT_Processor_Util
             $file = str_replace($search, $replace, $file);
         }
 
-        if (file_exists($file))
+        if (strpos($file,'/') === 0 && is_file($file))
         {
             return realpath( $file ) ? realpath( $file ) : $file;
         }
@@ -238,10 +239,10 @@ class XSLT_Processor_Util
         foreach( $search_paths as $path )
         {
             if (empty($path)) { continue; }
-            if (file_exists(rtrim($path,'/').'/'.$file))
+            $fullpath = rtrim($path,'/').'/'.$file;
+            if (is_file($fullpath))
             {
-                $file = rtrim($path,'/').'/'.$file;
-                return realpath( $file ) ? realpath( $file ) : $file;
+                return realpath( $fullpath ) ? realpath( $fullpath ) : $fullpath;
             }
         }
         return '';
@@ -256,7 +257,7 @@ class XSLT_Processor_Util
      */
     public static function getLocalFile( $file, $cache_minutes = 1 )
     {
-        if (file_exists($file))
+        if (is_file($file) && is_readable($file))
         {
             return file_get_contents( $file );
         }
@@ -372,7 +373,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE SET : $cache_key", E_USER_NOT
     public static function utf8_clean_file( $infile, $outfile = '' )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('infile','outfile'),true), E_USER_NOTICE); }
-        if (!file_exists($infile))
+        if (!is_file($infile))
             { trigger_error(__METHOD__.' ERROR : invalid input file ('.$infile.')', E_USER_ERROR); }
         if (empty($outfile))
             { $outfile = $infile; }

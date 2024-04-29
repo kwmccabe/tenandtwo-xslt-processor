@@ -117,7 +117,7 @@ All three (3) shortcodes have command-line equivalents. They can be used, for in
             --tidy='{yes|html}' or tidy or --tidy='xml'
             --{myparam}='{myvalue}'
             --outfile='{filepath}'
-            --htmlentities='yes' or htmlentities
+            --htmlentities or --htmlentities='yes'
 
  *      wp xslt select_xml
             --xml='{file|url|id|slug}'
@@ -128,7 +128,7 @@ All three (3) shortcodes have command-line equivalents. They can be used, for in
             --strip-namespaces='yes' or strip-namespaces
             --strip-declaration='no'
             --format='{xml|json}'
-            --htmlentities='yes' or htmlentities
+            --htmlentities or --htmlentities='yes'
 
  *      wp xslt select_csv
             --csv='{file|url}'
@@ -142,7 +142,7 @@ All three (3) shortcodes have command-line equivalents. They can be used, for in
             --key='{value(s) for key_col matching}'
             --row='{return row number(s)}'
             --class='{css classname(s) for result <table>}'
-            --htmlentities='yes' or htmlentities
+            --htmlentities or --htmlentities='yes'
 
 
 ### XSL Stylesheets

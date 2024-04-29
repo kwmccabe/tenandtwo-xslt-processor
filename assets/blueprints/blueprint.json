@@ -15,7 +15,7 @@
             "step": "installPlugin",
             "pluginZipFile": {
                 "resource": "url",
-                "url": "https:\/\/downloads.wordpress.org\/plugin\/tenandtwo-xslt-processor.1.0.3.zip"
+                "url": "https:\/\/downloads.wordpress.org\/plugin\/tenandtwo-xslt-processor.1.0.5.zip"
             },
             "options": {
                 "activate": true
@@ -25,6 +25,10 @@
             "step": "login",
             "username": "admin",
             "password": "password"
+        },
+        {
+            "step": "runPHP",
+            "code": "<?php require_once('wordpress/wp-load.php'); wp_insert_post('post_title' => 'title', 'post_status' => 'publish', 'post_content' => 'post content here');",
         }
     ]
 }

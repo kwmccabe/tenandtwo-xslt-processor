@@ -236,7 +236,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             $path_parts = pathinfo($attrs['outfile']);
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('path_parts'),true), E_USER_NOTICE); }
 
-            $dirname = XSLT_Processor_Util::getFileExistsLocal( $path_parts['dirname'] );
+            $dirname = (is_dir($path_parts['dirname'])) ? realpath($path_parts['dirname']) : '';
             if (empty($dirname))
                 { return sprintf( esc_html__( "Directory '%s' not found", 'tenandtwo-xslt-processor' ), $path_parts['dirname'] ); }
             if (!is_writable($dirname))

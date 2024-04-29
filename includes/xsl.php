@@ -74,13 +74,13 @@ class XSLT_Processor_XSL
         $xml_value = (!empty($params['xml_value'])) ? $params['xml_value'] : null;
         $outfile   = (!empty($params['outfile']))   ? $params['outfile']  : null;
 
-        if ($xsl_type == "file" && !file_exists($xsl_value))
+        if ($xsl_type == "file" && !is_file($xsl_value))
         {
             $err = 'ERROR : XSL file ('.$xsl_value.') not found';
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);
             return $err;
         }
-        if ($xml_type == "file" && !file_exists($xml_value))
+        if ($xml_type == "file" && !is_file($xml_value))
         {
             $err = 'ERROR : XML file ('.$xml_value.') not found';
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);
@@ -232,7 +232,7 @@ class XSLT_Processor_XSL
         $xsl_value = (!empty($params['xsl_value'])) ? $params['xsl_value'] : null;
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('xsl_type','xsl_value'),true), E_USER_NOTICE); }
 
-        if ($xsl_type == "file" && !file_exists($xsl_value))
+        if ($xsl_type == "file" && !is_file($xsl_value))
         {
             $err = 'ERROR : XSL file ('.$xsl_value.') not found';
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);
@@ -321,14 +321,14 @@ class XSLT_Processor_XSL
         $schema_value = (!empty($params['schema_value'])) ? $params['schema_value'] : null;
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('schema_type','schema_value'),true), E_USER_NOTICE); }
 
-        if ($xml_type == "file" && !file_exists($xml_value))
+        if ($xml_type == "file" && !is_file($xml_value))
         {
             $err = 'ERROR : XML file ('.$xml_value.') not found';
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);
             return array('errors' => 1, 'message' => $err);
         }
 
-        if (in_array($schema_type, array('xsd','rng')) && !empty($schema_value) && !file_exists($schema_value))
+        if (in_array($schema_type, array('xsd','rng')) && !empty($schema_value) && !is_file($schema_value))
         {
             $err = 'ERROR : '.strtoupper($schema_type).' schema file ('.$schema_value.') not found';
             trigger_error(__METHOD__." : ".print_r(compact('err'),true), E_USER_NOTICE);

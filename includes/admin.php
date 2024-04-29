@@ -278,6 +278,12 @@ class XSLT_Processor_Admin
      */
     public static function render_section_main()
     {
+        if (!defined( 'LIBXML_VERSION' )) {
+            echo 'PHP\'s <a href="https://www.php.net/manual/en/book.libxml.php" target="_blank">'.esc_html__( 'LIBXML extension', 'tenandtwo-xslt-processor' ).'</a> ';
+            esc_html_e( 'is NOT available', 'tenandtwo-xslt-processor' );
+            return;
+        }
+
         echo 'PHP\'s <a href="https://www.php.net/manual/en/book.xsl.php" target="_blank">'.esc_html__( 'XSL extension', 'tenandtwo-xslt-processor' ).'</a> ';
         if (!defined( 'LIBXSLT_VERSION' )) {
             esc_html_e( 'is NOT available', 'tenandtwo-xslt-processor' );

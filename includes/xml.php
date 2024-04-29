@@ -299,7 +299,7 @@ class XSLT_Processor_XML
         global $XSLT_Processor_XSL;
         if (empty($XSLT_Processor_XSL)) { $XSLT_Processor_XSL = new XSLT_Processor_XSL(); }
 
-        if (!file_exists($file))
+        if (!is_file($file))
         {
             trigger_error(__METHOD__.' ERROR : invalid input file ('.$file.')', E_USER_NOTICE);
             return "Unkown file '".$file."'";

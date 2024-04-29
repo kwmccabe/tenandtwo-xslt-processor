@@ -3,6 +3,16 @@
 Notable changes are documented here in reverse chronological order.
 
 
+## [1.0.5] - 2024-04-29
+
+Rev
+
+### Changed
+
+- assets/blueprints.json - currently unable to add xsltlib to WASM env
+- update local file error checking
+
+
 ## [1.0.4] - 2024-04-03
 
 Init WASM compatibility for playground
@@ -27,6 +37,7 @@ Init WASM compatibility for playground
 - includes/cli.php : finalize transform_xml(), select_xml(), select_csv()
 - languages/tenandtwo-xslt-processor.pot
 - tested with WP 6.5
+
 
 ## [1.0.0] - 2024-03-05
 

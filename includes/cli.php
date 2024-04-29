@@ -38,7 +38,7 @@ class XSLT_Processor_CLI
      *     --tidy='{yes|html}' or tidy or --tidy='xml'
      *     --{myparam}='{myvalue}'
      *     --outfile='{filepath}'
-     *     --htmlentities='yes' or htmlentities
+     *     --htmlentities
      *
      * ## EXAMPLES
      *
@@ -78,7 +78,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
      *     --strip-declaration='{yes|no}'
      *
      *     --format='{xml|json}'
-     *     --htmlentities='yes' or htmlentities
+     *     --htmlentities
      *
      * ## EXAMPLES
      *
@@ -123,7 +123,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
      *     --row='{return row number(s)}'
      *     --class='{css classname(s) for result <table>}'
      *
-     *     --htmlentities='yes' or htmlentities
+     *     --htmlentities
      *
      * ## EXAMPLES
      *
@@ -154,15 +154,25 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
     /**
      * ## OPTIONS
      *
-     * [--xsl=<xsl>]
-     * : xsl stylesheet
-     * ---
-     * default: default.xsl
-     * ---
-     *
-     * [--xml=<xml>]
-     * : xml document
-     * ---
-     * default: default.xml
-     * ---
+     * [--xsl=<value>]
+     * : XSL stylesheet ={file|url|id|slug}
+	 *
+     * [--xml=<string>]
+     * : XML document ={file|url|id|slug}
+	 *
+     * [--cache=<integer>]
+     * : if xsl|xml={url} ={minutes}
+	 *
+     * [--tidy=<type>]
+     * : pre-filter input XML ={html|xml}
+	 *
+     * [--outfile=<value>]
+     * : save results as ={filepath}
+	 *
+     * [--htmlentities]
+     * : post-filter result
+	 *
+     * [--{myparam}=<myvalue>]
+     * : stylesheet parameter =<myvalue>
+	 *
      */
