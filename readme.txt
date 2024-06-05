@@ -5,7 +5,7 @@ Tags: xml, xsl, xslt, csv, shortcode
 Requires at least: 5.2
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ Transform and display XML from local and remote sources using PHP's XSL extensio
 
 The Ten&Two XSLT Processor plugin brings the power of PHP's XSL extension to Wordpress.  Once enabled, the plugin creates three (3) shortcodes - `[xslt_transform_xml/]`, `[xslt_select_xml/]`, and `[xslt_select_csv/]` - which can be used separately or in tandem to enrich your site with content from XML and CSV sources.  The plugin also enables two (2) custom post types - `XSL Stylesheets` and `XML Documents` - for managing and validating sources within WP Admin.
 
-Detailed documentation and sample code can be found at https://xsltproc.tenandtwo.com/
+Detailed documentation and sample code can be found at https://plugins.tenandtwo.com/
 
 
 ### Custom Post Types
@@ -207,12 +207,12 @@ In WordPress, go to Settings > XSLT Processor.  There are four (4) sections :
 
 For a quick reference to the shortcodes and their main parameters, go to Settings > XSLT Processor.  The samples for each shortcode show common usage.
 
-Full documentation and working examples are available at https://xsltproc.tenandtwo.com/.  There are four (4) main sections :
+Full documentation and working examples are available at https://plugins.tenandtwo.com/.  There are four (4) main sections :
 
- - Getting Started : https://xsltproc.tenandtwo.com/xslt-processor/getting-started
- - Shortcodes      : https://xsltproc.tenandtwo.com/xslt-processor/shortcodes
- - Stylesheets     : https://xsltproc.tenandtwo.com/xslt-processor/stylsheets
- - How To          : https://xsltproc.tenandtwo.com/xslt-processor/how-to
+ - Getting Started : https://plugins.tenandtwo.com/xslt-processor/getting-started
+ - Shortcodes      : https://plugins.tenandtwo.com/xslt-processor/shortcodes
+ - Stylesheets     : https://plugins.tenandtwo.com/xslt-processor/stylsheets
+ - How To          : https://plugins.tenandtwo.com/xslt-processor/how-to
 
 
 == Screenshots ==

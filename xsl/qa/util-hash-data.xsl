@@ -67,7 +67,7 @@
 <TESTS>
   <TEST>
     <method>md5</method>
-    <data>http://xsltproc.tenandtwo.com/</data>
+    <data>http://plugins.tenandtwo.com/</data>
     <raw_output>0</raw_output>
     <expected>7b547cdaba126f1e182d1375c6ac4e70</expected>
   </TEST>

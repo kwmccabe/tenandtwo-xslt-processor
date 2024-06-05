@@ -12,11 +12,11 @@
  * Plugin Name:       Ten&Two XSLT Processor
  * Plugin URI:        https://wordpress.org/plugins/tenandtwo-xslt-processor/
  * Description:       Transform and display XML from local and remote sources using PHP's XSL extension.
- * Version:           1.0.5
+ * Version:           1.0.6
  * Requires PHP:      7.4
  * Requires at least: 5.2
  * Author:            Ten & Two Systems
- * Author URI:        https://xsltproc.tenandtwo.com/
+ * Author URI:        https://plugins.tenandtwo.com/
  * Text Domain:       tenandtwo-xslt-processor
  * Domain Path:       /languages
  * License:           GPL v2 or later
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or die( 'Not for browsing' );
 define( 'XSLT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'XSLT_PLUGIN_NAME', basename(XSLT_PLUGIN_DIR) );
 define( 'XSLT_PLUGIN_VERSION', '0.9.8' );
-define( 'XSLT_PLUGIN_DOCS', 'https://xsltproc.tenandtwo.com/' );
+define( 'XSLT_PLUGIN_DOCS', 'https://plugins.tenandtwo.com/' );
 
 define( 'XSLT_OPTS', 'xslt_processor_options' );  // option name
 define( 'XSLT_CACHE_DEFAULT', '60' );     // minutes

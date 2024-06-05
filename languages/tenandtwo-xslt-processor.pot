@@ -31,7 +31,7 @@ msgid "Ten & Two Systems"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://xsltproc.tenandtwo.com/"
+msgid "https://plugins.tenandtwo.com/"
 msgstr ""
 
 #: includes/admin.php:99

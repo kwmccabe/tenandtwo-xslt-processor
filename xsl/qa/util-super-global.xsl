@@ -74,7 +74,7 @@
   <TEST>
     <global>_SERVER</global>
     <index>DOCUMENT_ROOT</index>
-    <expected><RESULT template="util-super-global" global="_SERVER" index="DOCUMENT_ROOT">/srv/xsltproc.tenandtwo.com/htdocs</RESULT></expected>
+    <expected><RESULT template="util-super-global" global="_SERVER" index="DOCUMENT_ROOT">/srv/plugins.tenandtwo.com/htdocs</RESULT></expected>
   </TEST>
   <TEST>
     <global>_REQUEST</global>

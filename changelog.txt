@@ -3,6 +3,15 @@
 Notable changes are documented here in reverse chronological order.
 
 
+## [1.0.6] - 2024-06-05
+
+Rev
+
+### Changed
+
+- update documentation links
+
+
 ## [1.0.5] - 2024-04-29
 
 Rev
@@ -10,6 +19,7 @@ Rev
 ### Changed
 
 - assets/blueprints.json - currently unable to add xsltlib to WASM env
+- includes/admin.php : update links in Settings
 - update local file error checking
 
 

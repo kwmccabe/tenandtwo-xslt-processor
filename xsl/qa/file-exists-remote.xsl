@@ -62,8 +62,8 @@
   <expected>https://tenandtwo.com/</expected>
 </TEST>
 <TEST>
-  <url>https://xsltproc.tenandtwo.com/wp-content/uploads/upload_sample.xml</url>
-  <expected>https://xsltproc.tenandtwo.com/wp-content/uploads/upload_sample.xml</expected>
+  <url>https://plugins.tenandtwo.com/wp-content/uploads/upload_sample.xml</url>
+  <expected>https://plugins.tenandtwo.com/wp-content/uploads/upload_sample.xml</expected>
 </TEST>
 <TEST>
   <url>https://nope.tenandtwo.com/</url>

@@ -59,15 +59,15 @@
 <TESTS>
   <TEST>
     <path>__WP_HOME_DIR__/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</path>
-    <expected>/srv/xsltproc.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</expected>
+    <expected>/srv/plugins.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</expected>
   </TEST>
   <TEST>
     <path>__WP_CONTENT_DIR__/plugins/tenandtwo-xslt-processor/xsl/sample.xml</path>
-    <expected>/srv/xsltproc.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</expected>
+    <expected>/srv/plugins.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/sample.xml</expected>
   </TEST>
   <TEST>
     <path>__XSLT_PLUGIN_DIR__/xsl/default.xml</path>
-    <expected>/srv/xsltproc.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/default.xml</expected>
+    <expected>/srv/plugins.tenandtwo.com/htdocs/wp-content/plugins/tenandtwo-xslt-processor/xsl/default.xml</expected>
   </TEST>
   <TEST>
     <path>/not-a-file.txt</path>
