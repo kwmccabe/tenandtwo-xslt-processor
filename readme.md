@@ -1,14 +1,14 @@
 # Ten&Two XSLT Processor
 
-**Contributors:** tenandtwo
-**Donate link:**
-**Tags:** xml, xsl, xslt, csv, shortcode
-**Requires at least:** 5.2
-**Tested up to:** 6.5
-**Requires PHP:** 7.4
-**Stable tag:** 1.0.7
-**License:** GPLv2 or later
-**License URI:** https://www.gnu.org/licenses/gpl-2.0.html
+**Contributors:** tenandtwo  
+**Donate link:**  
+**Tags:** xml, xsl, xslt, csv, shortcode  
+**Requires at least:** 5.2  
+**Tested up to:** 6.5  
+**Requires PHP:** 7.4  
+**Stable tag:** 1.0.7  
+**License:** GPLv2 or later  
+**License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
 
 Transform and display XML from local and remote sources using PHP's XSL extension.
