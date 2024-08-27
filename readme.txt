@@ -5,7 +5,7 @@ Tags: xml, xsl, xslt, csv, shortcode
 Requires at least: 5.2
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,12 +22,12 @@ Detailed documentation and sample code can be found at https://plugins.tenandtwo
 
 ### Custom Post Types
 
-The XSLT Processor plugin provides two (2) custom post types for managing sources within Wordpress - `XSL Stylesheets` and `XML Documents`.  Both types include basic syntax validation.  XML Documents can be validated further using DTD, XSD, or RNG.  Both types are enabled in Settings > XSLT Processor > Activate Content Types.
+The XSLT Processor plugin provides two (2) custom post types for managing sources within Wordpress - `XSL Stylesheets` and `XML Documents`.  Both types include basic syntax validation.  XML Documents can be validated further using DTD, XSD, or RNG.  Both types are enabled in Settings > XSLT Processor Settings > Activate Content Types.
 
 
 ### Shortcode : [xslt_transform_xml/]
 
-[xslt_transform_xml/] is the plugin's primary function.  This shortcode processes XML data using an XSL stylesheet, and then outputs the result as HTML, more XML, or as simple TEXT.
+`[xslt_transform_xml/]` is the plugin's primary function.  This shortcode processes XML data using an XSL stylesheet, and then outputs the result as HTML, more XML, or as simple TEXT.
 
  - `[xslt_transform_xml xsl="{file|url|id|slug}" xml="{file|url|id|slug}" /]`
  - `[xslt_transform_xml xsl="{file|url|id|slug}"]<DATA>...</DATA>[/xslt_transform_xml]`
@@ -37,7 +37,7 @@ If either the `xsl` or `xml` parameter is left unspecified, defaults are used.  
 
 ### Shortcode : [xslt_select_xml/]
 
-[xslt_select_xml/] is a helper function.  It reads XML and returns a selection of the data, based on a supplied XPath expression.  There are two (2) options for specifying the XPath.  First, using the `select` attribute or, second, using the body of the shortcode.  Complex select statements with quotes, square brackets or other special syntax, should use the second pattern :
+`[xslt_select_xml/]` is a helper function.  It reads XML and returns a selection of the data, based on a supplied XPath expression.  There are two (2) options for specifying the XPath.  First, using the `select` attribute or, second, using the body of the shortcode.  Complex select statements with quotes, square brackets or other special syntax, should use the second pattern :
 
  - `[xslt_select_xml xml="{file|url|id|slug}" select="{XPath}" /]`
  - `[xslt_select_xml xml="{file|url|id|slug}"]{XPath}[/xslt_select_xml]`
@@ -47,7 +47,7 @@ If the XPath select parameter is left unspecified, the default `/` is used, whic
 
 ### Shortcode : [xslt_select_csv/]
 
-[xslt_select_csv/] is a helper function for converting CSV file data to XML.  The result can be output directly as an HTML `<table>`, or the result can be passed to `[xslt_transform_xml/]` for further processing.
+`[xslt_select_csv/]` is a helper function for converting CSV file data to XML.  The result can be output directly as an HTML `<table>`, or the result can be passed to `[xslt_transform_xml/]` for further processing.
 
  - `[xslt_select_csv csv="{file|url}" /]`
  - `[xslt_select_csv]{csv,data}[/xslt_select_csv]`
@@ -195,7 +195,7 @@ The XSL extension's requirements are detailed at php.net - https://www.php.net/m
 
 ### Where are the plugin options?
 
-In WordPress, go to Settings > XSLT Processor.  There are four (4) sections :
+In WordPress, go to Settings > XSLT Processor Settings.  There are four (4) sections :
 
  - Activate Content Types
  - Activate Shortcodes
@@ -205,7 +205,7 @@ In WordPress, go to Settings > XSLT Processor.  There are four (4) sections :
 
 ### Where is the documentation?
 
-For a quick reference to the shortcodes and their main parameters, go to Settings > XSLT Processor.  The samples for each shortcode show common usage.
+For a quick reference to the shortcodes and their main parameters, go to Settings > XSLT Processor Settings.  The samples for each shortcode show common usage.
 
 Full documentation and working examples are available at https://plugins.tenandtwo.com/.  There are four (4) main sections :
 

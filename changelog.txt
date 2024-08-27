@@ -3,6 +3,15 @@
 Notable changes are documented here in reverse chronological order.
 
 
+## [1.0.7] - 2024-08-27
+
+Rev
+
+### Changed
+
+- update translations and docs
+
+
 ## [1.0.6] - 2024-06-05
 
 Rev
