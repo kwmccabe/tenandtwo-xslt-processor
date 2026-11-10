@@ -181,8 +181,8 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
             if (empty($path))
                 { return sprintf( esc_html__( "Unknown file '%s'", 'tenandtwo-xslt-processor' ), $attrs['xml_url'] ); }
 
-            $params['xml_type']  = 'string';
-            $params['xml_value'] = XSLT_Processor_Util::getRemoteFile( $attrs['xml_url'], $cache_minutes );
+            $params['xml_type'] = 'string';
+            $params['xml_value'] = XSLT_Processor_Util::getRemoteFile( $attrs['xml_url'], 'xml', $cache_minutes );
         }
         if (!empty($attrs['xml_id']) || !empty($attrs['xml_name'])) {
             $id = $attrs['xml_id'] ?? $attrs['xml_name'];
@@ -218,7 +218,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
                 { return sprintf( esc_html__( "Unknown file '%s'", 'tenandtwo-xslt-processor' ), $attrs['xsl_url'] ); }
 
             $params['xsl_type'] = 'string';
-            $params['xsl_value'] = XSLT_Processor_Util::getRemoteFile( $attrs['xsl_url'], $cache_minutes );
+            $params['xsl_value'] = XSLT_Processor_Util::getRemoteFile( $attrs['xsl_url'], 'xsl', $cache_minutes );
         }
         if (!empty($attrs['xsl_id']) || !empty($attrs['xsl_name'])) {
             $id = $attrs['xsl_id'] ?? $attrs['xsl_name'];
@@ -364,7 +364,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
                 { return sprintf( esc_html__( "Unknown file '%s'", 'tenandtwo-xslt-processor' ), $attrs['xml_url'] ); }
 
             $params['xml_type'] = 'string';
-            $params['xml_value'] = XSLT_Processor_Util::getRemoteFile( $path, $cache_minutes );
+            $params['xml_value'] = XSLT_Processor_Util::getRemoteFile( $path, 'xml', $cache_minutes );
             $params['attributes'] = array( 'xml' => $path );
         }
         if (!empty($attrs['xml_id']) || !empty($attrs['xml_name'])) {
@@ -513,7 +513,7 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('attrs','content'
                 { return sprintf( esc_html__( "Unknown file '%s'", 'tenandtwo-xslt-processor' ), $params['csv_url'] ); }
 
             $params['csv_type'] = 'string';
-            $params['csv_value'] = XSLT_Processor_Util::getRemoteFile( $path, $cache_minutes );
+            $params['csv_value'] = XSLT_Processor_Util::getRemoteFile( $path, 'csv', $cache_minutes );
         }
 
         // csv_value : set in shortcode body (overrides attributes)

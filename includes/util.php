@@ -293,14 +293,15 @@ class XSLT_Processor_Util
      * retrieve remote file body
      *
      * @param string $url               : remote path passed to wp_remote_get()
+     * @param string $type              : csv|xml|xsl sets request Accept header
      * @param integer $cache_minutes    : >0 for set_transient(), else delete_transient()
      * @return string                   : response body
      */
-    public static function getRemoteFile( $url, $cache_minutes = 1 )
+    public static function getRemoteFile( $url, $type = 'any', $cache_minutes = 1 )
     {
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('url','cache_minutes'),true), E_USER_NOTICE); }
 
-        $cache_params = array( 'method' => 'md5', 'data' => $url );
+        $cache_params = array( 'method' => 'md5', 'data' => $url.$type.$cache_minutes );
         $cache_key = self::getHash( $cache_params );
         $body = get_transient( $cache_key );
 //if (WP_DEBUG) { trigger_error(__METHOD__." : ".print_r(compact('url','cache_key','body'),true), E_USER_NOTICE); }
@@ -319,8 +320,20 @@ if (WP_DEBUG) { trigger_error(__METHOD__." : CACHE DELETE : $cache_key", E_USER_
             }
         }
 
+        $accept_types = '*/*';
+        if ($type == 'csv') {
+            $accept_types = 'text/csv, application/csv;q=0.9, text/plain;q=0.8, */*;q=0.1';
+        }
+        if ($type == 'xml') {
+            $accept_types = 'application/atom+xml, application/rss+xml, application/xhtml+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.7, */*;q=0.1';
+        }
+        if ($type == 'xsl') {
+            $accept_types = 'application/xslt+xml, text/xsl, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.1';
+        }
+
         $request_args = array(
-            'timeout' => 30     // pref ???
+            'timeout' => 30,
+            'headers' => array('Accept' => $accept_types)
             );
         $response = wp_remote_get( $url, $request_args );
         if (is_wp_error( $response ))

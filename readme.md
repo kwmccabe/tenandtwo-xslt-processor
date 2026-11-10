@@ -4,9 +4,9 @@
 **Donate link:**  
 **Tags:** xml, xsl, xslt, csv, shortcode  
 **Requires at least:** 5.2  
-**Tested up to:** 6.5  
+**Tested up to:** 7.1  
 **Requires PHP:** 7.4  
-**Stable tag:** 1.0.7  
+**Stable tag:** 1.0.9  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -30,7 +30,7 @@ The XSLT Processor plugin provides two (2) custom post types for managing source
 
 ### Shortcode : [xslt_transform_xml/]
 
-`[xslt_transform_xml/]` is the plugin's primary function.  This shortcode processes XML data using an XSL stylesheet, and then outputs the result as HTML, more XML, or as simple TEXT.
+  `[xslt_transform_xml/]` is the plugin's primary function.  This shortcode processes XML data using an XSL stylesheet, and then outputs the result as HTML, more XML, or as simple TEXT.
 
  - **`[xslt_transform_xml xsl="{file|url|id|slug}" xml="{file|url|id|slug}" /]`**
  - **`[xslt_transform_xml xsl="{file|url|id|slug}"]<DATA>...</DATA>[/xslt_transform_xml]`**
@@ -40,7 +40,7 @@ If either the `xsl` or `xml` parameter is left unspecified, defaults are used.  
 
 ### Shortcode : [xslt_select_xml/]
 
-`[xslt_select_xml/]` is a helper function.  It reads XML and returns a selection of the data, based on a supplied XPath expression.  There are two (2) options for specifying the XPath.  First, using the `select` attribute or, second, using the body of the shortcode.  Complex select statements with quotes, square brackets or other special syntax, should use the second pattern :
+  `[xslt_select_xml/]` is a helper function.  It reads XML and returns a selection of the data, based on a supplied XPath expression.  There are two (2) options for specifying the XPath.  First, using the `select` attribute or, second, using the body of the shortcode.  Complex select statements with quotes, square brackets or other special syntax, should use the second pattern :
 
  - **`[xslt_select_xml xml="{file|url|id|slug}" select="{XPath}" /]`**
  - **`[xslt_select_xml xml="{file|url|id|slug}"]{XPath}[/xslt_select_xml]`**
@@ -50,7 +50,7 @@ If the XPath select parameter is left unspecified, the default `/` is used, whic
 
 ### Shortcode : [xslt_select_csv/]
 
-`[xslt_select_csv/]` is a helper function for converting CSV file data to XML.  The result can be output directly as an HTML `<table>`, or the result can be passed to `[xslt_transform_xml/]` for further processing.
+  `[xslt_select_csv/]` is a helper function for converting CSV file data to XML.  The result can be output directly as an HTML `<table>`, or the result can be passed to `[xslt_transform_xml/]` for further processing.
 
  - **`[xslt_select_csv csv="{file|url}" /]`**
  - **`[xslt_select_csv]{csv,data}[/xslt_select_csv]`**
